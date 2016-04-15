@@ -2,7 +2,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE    := com.bitwise.nativetools # should match the name in the AndroidManifest.xml
+LOCAL_MODULE    := com.bitvise.nativetools # should match the name in the AndroidManifest.xml
 LOCAL_SRC_FILES_RAW := $(shell find $(LOCAL_PATH) -name '*.cpp') $(shell find $(LOCAL_PATH) -name '*.c')
 LOCAL_SRC_FILES := $(LOCAL_SRC_FILES_RAW:$(LOCAL_PATH)/%=%)
 # search for libraries in the jni/ folder of our project,
