@@ -34,7 +34,7 @@ static void InventoryScreen$render(InventoryScreen* self, int i1, int i2, float 
 }
 
 static void (*_InventoryScreen$_buttonClicked)(InventoryScreen*, Button&);
-static void InventoryScreen$_buttonClicked(InventoryScreen* self, Button& button);
+static void InventoryScreen$_buttonClicked(InventoryScreen* self, Button& button)
 {
 	_InventoryScreen$_buttonClicked(self, button);
 	

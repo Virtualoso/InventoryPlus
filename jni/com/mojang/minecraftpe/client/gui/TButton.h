@@ -4,7 +4,8 @@
 
 namespace Touch {
 
-struct TButton : public Button {
+class TButton : public Button {
+public:
 	char filler[8];
 
 	TButton(int, std::string const&, MinecraftClient*, bool, int);

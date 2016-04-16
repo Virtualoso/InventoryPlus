@@ -1,7 +1,10 @@
 #pragma once
 
+#include <memory>
+
+#include "com/mojang/minecraftpe/client/gui/TButton.h"
+
 class InventoryScreen;
-class Button;
 
 class InventoryScreenExtras {
 public:
@@ -12,4 +15,4 @@ public:
 	static void setupPositions(InventoryScreen*);
 	static void render(InventoryScreen*, int, int, float);
 	static void _buttonClicked(InventoryScreen*, Button&);
-}
+};

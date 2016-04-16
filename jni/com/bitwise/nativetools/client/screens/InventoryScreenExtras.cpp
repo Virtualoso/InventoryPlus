@@ -1,11 +1,9 @@
 #include "InventoryScreenExtras.h"
 
 #include "com/mojang/minecraftpe/client/gui/screen/InventoryScreen.h"
-#include "com/mojang/minecraftpe/client/gui/TButton.h"
 
-
-static std::shared_ptr<Touch::TButton> InventoryScreenExtras::forwardButton = NULL;
-static std::shared_ptr<Touch::TButton> InventoryScreenExtras::backButton = NULL;
+std::shared_ptr<Touch::TButton> InventoryScreenExtras::forwardButton = NULL;
+std::shared_ptr<Touch::TButton> InventoryScreenExtras::backButton = NULL;
 
 void InventoryScreenExtras::init(InventoryScreen* self)
 {
