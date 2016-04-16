@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 #include "GuiElement.h"
 
 class Tessellator;
@@ -39,5 +40,5 @@ class NinePatchFactory {
 	int height;
 	
 	NinePatchFactory(TextureGroup *, const std::string&);
-	NinePatchLayer* createSymmetrical(IntRectangle const&, int, int, float, float);
+	std::shared_ptr<NinePatchLayer> createSymmetrical(IntRectangle const&, int, int, float, float);
 };

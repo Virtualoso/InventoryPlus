@@ -38,41 +38,27 @@ public:
 	char is_vars[60]; // 136
 	void* somethingOfImportance; // 196 
 	char is_vars0[60]; // 200
-	ImageWithBackground* image; // 260;
-	char imageData[4]; // 264	
-	NinePatchLayer* layer_0; // 268
-	char layer0[4]; // 272
-	NinePatchLayer* layer_1; // 276
-	char layer1[4]; // 280
-	NinePatchLayer* layer_2; // 284
-	char layer2[4]; // 288
-	NinePatchLayer* layer_3; // 292
-	char layer3[4]; // 296
-	NinePatchLayer* layer_4; // 300
-	char layer4[4]; // 304
-	NinePatchLayer* layer_5; // 308
-	char layer5[4]; // 312
-	NinePatchLayer* layer_6; // 316
-	char layer6[4]; // 320
-	NinePatchLayer* layer_7; // 324
-	char layer7[4]; // 328
-	Touch::InventoryPane& inventory; // 332
-	Touch::InventoryPane& armor; // 340
-	Touch::InventoryPane& crafting; // 348
-	Touch::InventoryPane& creative1; // 356
-	Touch::InventoryPane& creative2; // 364
-	Touch::InventoryPane& creative3; // 372
-	Touch::InventoryPane& creative4; // 380
-	BlankButton* blankButton; // 388
-	char blankButtonData[4]; // 392
-	BlankButton* blankButton2; // 396
-	char blankButtonData2[4]; // 400
-	BlankButton* blankButton3; // 404
-	char blankButtonData3[4]; // 408
-	BlankButton* blankButton4; // 412
-	char blankButtonData4[4]; // 416
+	std::shared_ptr<ImageWithBackground> image; // 260;
+	std::shared_ptr<NinePatchLayer> layer_0; // 268
+	std::shared_ptr<NinePatchLayer> layer_1; // 276
+	std::shared_ptr<NinePatchLayer> layer_2; // 284
+	std::shared_ptr<NinePatchLayer> layer_3; // 292
+	std::shared_ptr<NinePatchLayer> layer_4; // 300
+	std::shared_ptr<NinePatchLayer> layer_5; // 308
+	std::shared_ptr<NinePatchLayer> layer_6; // 316
+	std::shared_ptr<NinePatchLayer> layer_7; // 324
+	std::shared_ptr<Touch::InventoryPane> inventory; // 332
+	std::shared_ptr<Touch::InventoryPane> armor; // 340
+	std::shared_ptr<Touch::InventoryPane> crafting; // 348
+	std::shared_ptr<Touch::InventoryPane> creative1; // 356
+	std::shared_ptr<Touch::InventoryPane> creative2; // 364
+	std::shared_ptr<Touch::InventoryPane> creative3; // 372
+	std::shared_ptr<Touch::InventoryPane> creative4; // 380
+	std::shared_ptr<BlankButton> blankButton; // 388
+	std::shared_ptr<BlankButton> blankButton2; // 396
+	std::shared_ptr<BlankButton> blankButton3; // 404
+	std::shared_ptr<BlankButton> blankButton4; // 412
 	std::shared_ptr<Touch::TButton> someButton; // 420
-	char someButtonData[4]; // 424
 	char is_vars1[512 - 428]; // 428
 	std::vector<InventoryScreen::TabButtonWithMeta*> buttonTabs; // 512
 	char is_vars2[100]; // 516
@@ -82,9 +68,7 @@ public:
 	bool hasDumpedArmor; // 676
 	char is_vars4[728 - 680]; // 680
 	std::shared_ptr<Label> recipesName; // 728
-	char recipesNameData[4]; // 732
-	Label* noRecipesName; // 736
-	char noRecipesNameData[4]; // 740
+	std::shared_ptr<Label> noRecipesName; // 736
 	CraftingType craftingType; // 744
 	char is_vars5[864 - 748]; // 748
 	std::string cannotCreateString; // 864
@@ -149,7 +133,7 @@ public:
 	void _updateCraftingButtonVisiblity();
 	void _updateIngredientCountFromRecipe(Recipe*, bool, ItemPack&);
 	void clearPopulatedItems();
-	CategoryButton* createInventoryTabButton(int, bool);
+	std::shared_ptr<CategoryButton> createInventoryTabButton(int, bool);
 	void drawIcon(InventoryScreen::InventoryPaneType, std::shared_ptr<ImageButton>, bool, bool);
 	ItemInstance getItemFromType(InventoryScreen::InventoryPaneType);
 };
