@@ -26,9 +26,9 @@ public:
 	MinecraftClient* mcClient; // 20
 	std::vector<std::shared_ptr<Button>> buttonList; // 24
 	std::vector<std::shared_ptr<TextBox>> textboxList; // 36
-	std::vector<std::shared_ptr<Button>> buttonList2; // 48
-	std::vector<std::shared_ptr<GuiElement>> elementList; // 60
-	std::vector<std::shared_ptr<GuiElement>> elementList2; // 72
+	std::vector<std::shared_ptr<Button>> tabButtonList; // 48
+	std::vector<std::shared_ptr<GuiElement>> tabElementList; // 60
+	std::vector<std::shared_ptr<GuiElement>> guiElementList; // 72
 	int tabButtonIndex; // 84
 	int tabElementIndex; // 88
 	std::unique_ptr<ControllerButtonRenderer> buttonRenderer; // 92
