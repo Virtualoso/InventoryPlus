@@ -15,7 +15,7 @@ void InventoryScreenExtras::init(InventoryScreen* self)
 	
 	if(!backButton)
 	{
-		backButton = std::make_shared<Touch::TButton>(0, "<", self->mcClient, false, 0x7FFFFFFF);
+		backButton = std::make_shared<Touch::TButton>(1, "<", self->mcClient, false, 0x7FFFFFFF);
 		backButton->init(self->mcClient);
 	}
 	
