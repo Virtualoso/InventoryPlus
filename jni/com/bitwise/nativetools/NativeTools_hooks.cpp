@@ -6,13 +6,13 @@
 
 #include "com/mojang/minecraftpe/client/gui/screen/InventoryScreen.h"
 
-#include "client/screens/InventoryScreenExtras.h"
+#include "client/screens/InventoryTransitions.h"
 
 
 static void (*_InventoryScreen$init)(InventoryScreen*);
 static void InventoryScreen$init(InventoryScreen* self)
 {
-	InventoryScreenExtras::init(self);
+	InventoryTransitions::init(self);
 
 	_InventoryScreen$init(self);
 }
@@ -22,7 +22,7 @@ static void InventoryScreen$setupPositions(InventoryScreen* self)
 {
 	_InventoryScreen$setupPositions(self);
 	
-	InventoryScreenExtras::setupPositions(self);
+	InventoryTransitions::setupPositions(self);
 }
 
 static void (*_InventoryScreen$render)(InventoryScreen*, int, int, float);
@@ -30,7 +30,7 @@ static void InventoryScreen$render(InventoryScreen* self, int i1, int i2, float 
 {
 	_InventoryScreen$render(self, i1, i2, f1);
 	
-	InventoryScreenExtras::render(self, i1, i2, f1);
+	InventoryTransitions::render(self, i1, i2, f1);
 }
 
 static void (*_InventoryScreen$_buttonClicked)(InventoryScreen*, Button&);
@@ -38,7 +38,7 @@ static void InventoryScreen$_buttonClicked(InventoryScreen* self, Button& button
 {
 	_InventoryScreen$_buttonClicked(self, button);
 	
-	InventoryScreenExtras::_buttonClicked(self, button);
+	InventoryTransitions::_buttonClicked(self, button);
 }
 
 JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved) {

@@ -1,11 +1,11 @@
-#include "InventoryScreenExtras.h"
+#include "InventoryTransitions.h"
 
 #include "com/mojang/minecraftpe/client/gui/screen/InventoryScreen.h"
 
-std::shared_ptr<Touch::TButton> InventoryScreenExtras::forwardButton = NULL;
-std::shared_ptr<Touch::TButton> InventoryScreenExtras::backButton = NULL;
+std::shared_ptr<Touch::TButton> InventoryTransitions::forwardButton = NULL;
+std::shared_ptr<Touch::TButton> InventoryTransitions::backButton = NULL;
 
-void InventoryScreenExtras::init(InventoryScreen* self)
+void InventoryTransitions::init(InventoryScreen* self)
 {
 	if(!forwardButton)
 	{
@@ -23,7 +23,7 @@ void InventoryScreenExtras::init(InventoryScreen* self)
 	self->buttonList.emplace_back(backButton);
 }
 
-void InventoryScreenExtras::setupPositions(InventoryScreen* self)
+void InventoryTransitions::setupPositions(InventoryScreen* self)
 {
 	forwardButton->xPosition = self->width - 25;
 	forwardButton->yPosition = self->height - 20;
@@ -36,12 +36,12 @@ void InventoryScreenExtras::setupPositions(InventoryScreen* self)
 	backButton->height = 20;
 }
 
-void InventoryScreenExtras::render(InventoryScreen* self, int i1, int i2, float f1)
+void InventoryTransitions::render(InventoryScreen* self, int i1, int i2, float f1)
 {
 	self->drawString(self->font, "1 / 2", 5, self->height - 15, Color::WHITE);
 }
 
-void InventoryScreenExtras::_buttonClicked(InventoryScreen* self, Button& button)
+void InventoryTransitions::_buttonClicked(InventoryScreen* self, Button& button)
 {
 	if(button.id == forwardButton->id)
 		self->_closeWindow();

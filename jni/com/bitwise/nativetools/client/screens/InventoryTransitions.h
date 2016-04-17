@@ -6,7 +6,7 @@
 
 class InventoryScreen;
 
-class InventoryScreenExtras {
+class InventoryTransitions {
 public:
 	static std::shared_ptr<Touch::TButton> forwardButton;
 	static std::shared_ptr<Touch::TButton> backButton;
