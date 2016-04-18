@@ -7,6 +7,8 @@ std::shared_ptr<Touch::TButton> InventoryTransitions::backButton = NULL;
 
 void InventoryTransitions::init(Screen* self)
 {
+	//if gamemode == creative
+
 	if(!forwardButton)
 	{
 		forwardButton = std::make_shared<Touch::TButton>(0, ">", self->mcClient, false, 0x7FFFFFFF);
@@ -43,5 +45,13 @@ void InventoryTransitions::render(Screen* self, int i1, int i2, float f1)
 
 void InventoryTransitions::_buttonClicked(Screen* self, Button& button)
 {
+	if(forwardButton->pressed)
+	{
+		//do code here
+	}
 	
+	if(backButton->pressed)
+	{
+		//do code here
+	}
 }
