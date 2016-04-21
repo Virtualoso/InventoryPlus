@@ -5,6 +5,8 @@
 std::shared_ptr<Touch::TButton> InventoryTransitions::forwardButton = NULL;
 std::shared_ptr<Touch::TButton> InventoryTransitions::backButton = NULL;
 
+std::string selected = "0";
+
 void InventoryTransitions::init(Screen* self)
 {
 	//if gamemode == creative
@@ -40,18 +42,18 @@ void InventoryTransitions::setupPositions(Screen* self)
 
 void InventoryTransitions::render(Screen* self, int i1, int i2, float f1)
 {
-	self->drawString(self->font, "1 / 2", 5, self->height - 15, Color::WHITE);
+	self->drawString(self->font, selected + " / 2", 5, self->height - 15, Color::WHITE);
 }
 
 void InventoryTransitions::_buttonClicked(Screen* self, Button& button)
 {
 	if(forwardButton->pressed)
 	{
-		//do code here
+		selected = "1";
 	}
 	
 	if(backButton->pressed)
 	{
-		//do code here
+		selected = "0";
 	}
 }
