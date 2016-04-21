@@ -188,7 +188,7 @@ public:
 	void getInput() const;
 	void getKeyboardHeight() const;
 	void getLevelRenderer() const;
-	void getLocalPlayer();
+	std::unique_ptr<LocalPlayer> getLocalPlayer();
 	bool getMouseGrabbed() const;
 	void getMultiplayer() const;
 	Options *getOptions();

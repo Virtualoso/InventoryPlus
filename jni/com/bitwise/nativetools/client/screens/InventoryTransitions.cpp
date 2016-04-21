@@ -1,14 +1,16 @@
 #include "InventoryTransitions.h"
 
+#include <sstream>
+
 #include "com/mojang/minecraftpe/client/gui/screen/Screen.h"
 
 std::shared_ptr<Touch::TButton> InventoryTransitions::forwardButton = NULL;
 std::shared_ptr<Touch::TButton> InventoryTransitions::backButton = NULL;
 
+int InventoryTransitions::currentPage = 1;
+
 void InventoryTransitions::init(Screen* self)
 {
-	//if gamemode == creative
-
 	if(!forwardButton)
 	{
 		forwardButton = std::make_shared<Touch::TButton>(0, ">", self->mcClient, false, 0x7FFFFFFF);
@@ -40,18 +42,25 @@ void InventoryTransitions::setupPositions(Screen* self)
 
 void InventoryTransitions::render(Screen* self, int i1, int i2, float f1)
 {
-	self->drawString(self->font, "1 / 2", 5, self->height - 15, Color::WHITE);
+	std::ostringstream pageNum;
+	pageNum << currentPage << " / " << 2 /*pages.size()*/;
+	self->drawString(self->font, pageNum.str(), 5, self->height - 15, Color::WHITE);
 }
 
 void InventoryTransitions::_buttonClicked(Screen* self, Button& button)
 {
-	if(forwardButton->pressed)
+	if(button.id == forwardButton->id)
 	{
-		//do code here
+		pushNextScreen();
 	}
 	
-	if(backButton->pressed)
+	if(button.id == backButton->id)
 	{
 		//do code here
 	}
+}
+
+void InventoryTransitions::pushNextScreen()
+{
+	
 }
