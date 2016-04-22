@@ -1,7 +1,6 @@
 #include "InventoryTransitions.h"
 
 #include <sstream>
-#include <memory>
 
 #include "ExtendedInventoryScreen.h"
 
@@ -12,7 +11,9 @@
 std::shared_ptr<Touch::TButton> InventoryTransitions::forwardButton = NULL;
 std::shared_ptr<Touch::TButton> InventoryTransitions::backButton = NULL;
 
-int InventoryTransitions::currentPage = 1;
+int InventoryTransitions::currentPage = -1;
+
+std::vector<std::shared_ptr<ExtendedInventoryScreen>> InventoryTransitions::pages;
 
 void InventoryTransitions::init(Screen* self)
 {
@@ -26,6 +27,12 @@ void InventoryTransitions::init(Screen* self)
 	{
 		backButton = std::make_shared<Touch::TButton>(1, "<", self->mcClient, false, 0x7FFFFFFF);
 		backButton->init(self->mcClient);
+	}
+	
+	if(pages.empty())
+	{
+		pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)));
+		pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)));
 	}
 	
 	self->buttonList.emplace_back(forwardButton);
@@ -48,24 +55,34 @@ void InventoryTransitions::setupPositions(Screen* self)
 void InventoryTransitions::render(Screen* self, int i1, int i2, float f1)
 {
 	std::ostringstream pageNum;
-	pageNum << currentPage << " / " << 2 /*pages.size()*/;
+	pageNum << currentPage + 2 << " / " << pages.size() + 1;
 	self->drawString(self->font, pageNum.str(), 5, self->height - 15, Color::WHITE);
 }
 
 void InventoryTransitions::_buttonClicked(Screen* self, Button& button)
 {
 	if(button.id == forwardButton->id)
-	{
 		pushNextScreen(self);
-	}
 	
 	if(button.id == backButton->id)
-	{
-		//do code here
-	}
+		pushPreviousScreen(self);
 }
 
 void InventoryTransitions::pushNextScreen(Screen* self)
 {
-	self->mcClient->getScreenChooser()->_pushScreen(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)), false);
+	if(pages[currentPage + 1])
+	{
+		self->mcClient->getScreenChooser()->_pushScreen(pages[currentPage + 1], false);
+		currentPage++;
+	}
+}
+
+void InventoryTransitions::pushPreviousScreen(Screen* self)
+{
+	if(currentPage >= 0)
+	{
+		self->mcClient->getScreenChooser()->popScreen(*self, 1);
+		currentPage--;
+	}
+	
 }

@@ -38,7 +38,7 @@ public:
 	char is_vars[60]; // 136
 	void* somethingOfImportance; // 196 
 	char is_vars0[60]; // 200
-	std::shared_ptr<ImageWithBackground> image; // 260;
+	std::shared_ptr<ImageWithBackground> closeButton; // 260;
 	std::shared_ptr<NinePatchLayer> layer_0; // 268
 	std::shared_ptr<NinePatchLayer> layer_1; // 276
 	std::shared_ptr<NinePatchLayer> layer_2; // 284

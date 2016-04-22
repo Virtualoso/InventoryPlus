@@ -13,4 +13,5 @@ public:
 	virtual void init();
 	virtual void setupPositions();
 	virtual void _buttonClicked(Button&);
+	virtual void handleBackEvent(bool);
 };

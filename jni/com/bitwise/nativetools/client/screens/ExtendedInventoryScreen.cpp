@@ -45,3 +45,9 @@ void ExtendedInventoryScreen::_buttonClicked(Button& button)
 {
 	InventoryTransitions::_buttonClicked(this, button);
 }
+
+void ExtendedInventoryScreen::handleBackEvent(bool b1)
+{
+	if(!b1)
+		InventoryTransitions::pushPreviousScreen(this);
+}

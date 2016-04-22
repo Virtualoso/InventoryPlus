@@ -6,6 +6,7 @@
 #include "com/mojang/minecraftpe/client/gui/TButton.h"
 
 class Screen;
+class ExtendedInventoryScreen;
 
 class InventoryTransitions
 {
@@ -14,11 +15,12 @@ public:
 	static std::shared_ptr<Touch::TButton> backButton;
 	
 	static int currentPage;
-	static std::vector<Screen*> pages;
+	static std::vector<std::shared_ptr<ExtendedInventoryScreen>> pages;
 
 	static void init(Screen*);
 	static void setupPositions(Screen*);
 	static void render(Screen*, int, int, float);
 	static void _buttonClicked(Screen*, Button&);
 	static void pushNextScreen(Screen*);
+	static void pushPreviousScreen(Screen*);
 };
