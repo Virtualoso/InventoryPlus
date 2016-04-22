@@ -179,7 +179,7 @@ public:
 	Font *getFont() const;
 	GameRenderer *getGameRenderer() const;
 	GameStore* getGameStore() const;
-	Gui *getGui() const;
+	Gui* getGui() const;
 	int getHeight() const;
 	void getHoloInput() const;
 	void getHolosceneRenderer() const;
@@ -196,7 +196,7 @@ public:
 	void getRuneFont() const;
 	Screen *getScreen();
 	Screen *getScreen() const;
-	ScreenChooser *getScreenChooser() const;
+	ScreenChooser* getScreenChooser() const;
 	Minecraft *getServer();
 	Music *getSituationalMusic();
 	void getSkinRepository();

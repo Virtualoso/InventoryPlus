@@ -19,6 +19,9 @@ class UIScreenType;
 typedef int StorageVersion;
 
 class ScreenChooser {
+public:
+	MinecraftClient& client;
+	
 	ScreenChooser(MinecraftClient&, UIScreenType, bool);
 	~ScreenChooser();
 	void _pushScreen(std::shared_ptr<BaseScreen>, bool);

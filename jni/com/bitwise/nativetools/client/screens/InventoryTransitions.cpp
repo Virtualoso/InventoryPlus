@@ -1,8 +1,13 @@
 #include "InventoryTransitions.h"
 
 #include <sstream>
+#include <memory>
+
+#include "ExtendedInventoryScreen.h"
 
 #include "com/mojang/minecraftpe/client/gui/screen/Screen.h"
+#include "com/mojang/minecraftpe/client/gui/screen/ScreenChooser.h"
+#include "com/mojang/minecraftpe/client/MinecraftClient.h"
 
 std::shared_ptr<Touch::TButton> InventoryTransitions::forwardButton = NULL;
 std::shared_ptr<Touch::TButton> InventoryTransitions::backButton = NULL;
@@ -51,7 +56,7 @@ void InventoryTransitions::_buttonClicked(Screen* self, Button& button)
 {
 	if(button.id == forwardButton->id)
 	{
-		pushNextScreen();
+		pushNextScreen(self);
 	}
 	
 	if(button.id == backButton->id)
@@ -60,7 +65,7 @@ void InventoryTransitions::_buttonClicked(Screen* self, Button& button)
 	}
 }
 
-void InventoryTransitions::pushNextScreen()
+void InventoryTransitions::pushNextScreen(Screen* self)
 {
-	
+	self->mcClient->getScreenChooser()->_pushScreen(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)), false);
 }

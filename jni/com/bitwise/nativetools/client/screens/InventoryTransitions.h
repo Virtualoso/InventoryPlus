@@ -7,7 +7,8 @@
 
 class Screen;
 
-class InventoryTransitions {
+class InventoryTransitions
+{
 public:
 	static std::shared_ptr<Touch::TButton> forwardButton;
 	static std::shared_ptr<Touch::TButton> backButton;
@@ -19,5 +20,5 @@ public:
 	static void setupPositions(Screen*);
 	static void render(Screen*, int, int, float);
 	static void _buttonClicked(Screen*, Button&);
-	static void pushNextScreen();
+	static void pushNextScreen(Screen*);
 };
