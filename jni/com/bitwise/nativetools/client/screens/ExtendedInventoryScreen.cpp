@@ -4,6 +4,7 @@
 
 #include "com/mojang/minecraftpe/client/MinecraftClient.h"
 #include "com/mojang/minecraftpe/client/gui/Gui.h"
+#include "com/mojang/minecraftpe/client/settings/Options.h"
 
 ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftClient& client)
 	: Screen(client)
@@ -13,7 +14,7 @@ ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftClient& client)
 
 bool ExtendedInventoryScreen::renderGameBehind() const
 {
-	return true;
+	return mcClient->getOptions()->getFancyGraphics();
 }
 
 bool ExtendedInventoryScreen::closeOnPlayerHurt() const

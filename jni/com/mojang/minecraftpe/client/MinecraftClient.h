@@ -191,7 +191,7 @@ public:
 	LocalPlayer* getLocalPlayer();
 	bool getMouseGrabbed() const;
 	void getMultiplayer() const;
-	Options *getOptions();
+	Options* getOptions();
 	void getParticleEngine() const;
 	void getRuneFont() const;
 	Screen *getScreen();
