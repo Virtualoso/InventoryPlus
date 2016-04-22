@@ -23,7 +23,9 @@ bool ExtendedInventoryScreen::closeOnPlayerHurt() const
 
 void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 {
-	mcClient->getGui()->renderToolBar(f1, 1.0F, true);
+	Screen::render(i1, i2, f1);
+	
+	mcClient->getGui()->renderToolBar(f1, 1.0F, false);
 	
 	InventoryTransitions::render(this, i1, i2, f1);
 }
