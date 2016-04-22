@@ -51,3 +51,8 @@ void ExtendedInventoryScreen::handleBackEvent(bool b1)
 	if(!b1)
 		InventoryTransitions::pushPreviousScreen(this);
 }
+
+bool ExtendedInventoryScreen::isModal() const
+{
+	return true;
+}

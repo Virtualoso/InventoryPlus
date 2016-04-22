@@ -14,4 +14,5 @@ public:
 	virtual void setupPositions();
 	virtual void _buttonClicked(Button&);
 	virtual void handleBackEvent(bool);
+	virtual bool isModal() const;
 };
