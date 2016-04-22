@@ -11,7 +11,7 @@
 std::shared_ptr<Touch::TButton> InventoryTransitions::forwardButton = NULL;
 std::shared_ptr<Touch::TButton> InventoryTransitions::backButton = NULL;
 
-int InventoryTransitions::currentPage = -1;
+int InventoryTransitions::currentPage = 1;
 
 std::vector<std::shared_ptr<ExtendedInventoryScreen>> InventoryTransitions::pages;
 
@@ -55,7 +55,7 @@ void InventoryTransitions::setupPositions(Screen* self)
 void InventoryTransitions::render(Screen* self, int i1, int i2, float f1)
 {
 	std::ostringstream pageNum;
-	pageNum << currentPage + 2 << " / " << pages.size() + 1;
+	pageNum << currentPage << " / " << pages.size() + 1;
 	self->drawString(self->font, pageNum.str(), 5, self->height - 15, Color::WHITE);
 }
 
@@ -70,19 +70,19 @@ void InventoryTransitions::_buttonClicked(Screen* self, Button& button)
 
 void InventoryTransitions::pushNextScreen(Screen* self)
 {
-	if(pages[currentPage + 1])
+	if(currentPage <= pages.size()) // if the currentPage is not the last page, push the next page
 	{
-		self->mcClient->getScreenChooser()->_pushScreen(pages[currentPage + 1], false);
-		currentPage++;
+		self->mcClient->getScreenChooser()->_pushScreen(pages[currentPage - 1], false);
+		currentPage++; // increase the current page by 1
 	}
 }
 
 void InventoryTransitions::pushPreviousScreen(Screen* self)
 {
-	if(currentPage >= 0)
+	if(currentPage != 1) // if not the first page, pop the currentPage
 	{
-		self->mcClient->getScreenChooser()->popScreen(*self, 1);
-		currentPage--;
+		self->mcClient->getScreenChooser()->popScreen(*(pages[currentPage - 2].get()), 1);
+		currentPage--; // reduce the currentPage by 1
 	}
 	
 }
