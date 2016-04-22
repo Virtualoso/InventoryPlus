@@ -1,5 +1,7 @@
 #include "ExtendedInventoryScreen.h"
 
+#include <sstream>
+
 #include "InventoryTransitions.h"
 
 #include "com/mojang/minecraftpe/client/MinecraftClient.h"
@@ -55,4 +57,9 @@ void ExtendedInventoryScreen::handleBackEvent(bool b1)
 bool ExtendedInventoryScreen::isModal() const
 {
 	return true;
+}
+
+void ExtendedInventoryScreen::tick()
+{
+	
 }

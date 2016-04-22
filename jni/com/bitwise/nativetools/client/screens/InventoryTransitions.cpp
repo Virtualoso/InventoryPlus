@@ -5,7 +5,9 @@
 #include "ExtendedInventoryScreen.h"
 
 #include "com/mojang/minecraftpe/client/gui/screen/Screen.h"
+#include "com/mojang/minecraftpe/client/gui/screen/InventoryScreen.h"
 #include "com/mojang/minecraftpe/client/gui/screen/ScreenChooser.h"
+#include "com/mojang/minecraftpe/client/gui/Gui.h"
 #include "com/mojang/minecraftpe/client/MinecraftClient.h"
 
 std::shared_ptr<Touch::TButton> InventoryTransitions::forwardButton = NULL;
@@ -13,7 +15,9 @@ std::shared_ptr<Touch::TButton> InventoryTransitions::backButton = NULL;
 
 int InventoryTransitions::currentPage = 1;
 
-std::vector<std::shared_ptr<ExtendedInventoryScreen>> InventoryTransitions::pages;
+std::vector<std::shared_ptr<Screen>> InventoryTransitions::pages;
+
+bool InventoryTransitions::canPress = true;
 
 void InventoryTransitions::init(Screen* self)
 {
@@ -31,6 +35,9 @@ void InventoryTransitions::init(Screen* self)
 	
 	if(pages.empty())
 	{
+		pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)));
+		pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)));
+		pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)));
 		pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)));
 		pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)));
 	}
@@ -57,15 +64,21 @@ void InventoryTransitions::render(Screen* self, int i1, int i2, float f1)
 	std::ostringstream pageNum;
 	pageNum << currentPage << " / " << pages.size() + 1;
 	self->drawString(self->font, pageNum.str(), 5, self->height - 15, Color::WHITE);
+	
+	if(!canPress)
+		canPress = true;
 }
 
 void InventoryTransitions::_buttonClicked(Screen* self, Button& button)
 {
-	if(button.id == forwardButton->id)
-		pushNextScreen(self);
-	
-	if(button.id == backButton->id)
-		pushPreviousScreen(self);
+	if(canPress)
+	{
+		if(button.id == forwardButton->id)
+			pushNextScreen(self);
+		
+		if(button.id == backButton->id)
+			pushPreviousScreen(self);
+	}
 }
 
 void InventoryTransitions::pushNextScreen(Screen* self)
@@ -74,15 +87,16 @@ void InventoryTransitions::pushNextScreen(Screen* self)
 	{
 		self->mcClient->getScreenChooser()->_pushScreen(pages[currentPage - 1], false);
 		currentPage++; // increase the current page by 1
+		canPress = false;
 	}
 }
 
 void InventoryTransitions::pushPreviousScreen(Screen* self)
-{
-	if(currentPage != 1) // if not the first page, pop the currentPage
+{	
+	if(currentPage > 1) // if greater than the first page, pop the currentPage and push the previous page
 	{
-		self->mcClient->getScreenChooser()->popScreen(*(pages[currentPage - 2].get()), 1);
+		self->mcClient->getScreenChooser()->popScreen(*self, 1);
 		currentPage--; // reduce the currentPage by 1
+		canPress = false;
 	}
-	
 }

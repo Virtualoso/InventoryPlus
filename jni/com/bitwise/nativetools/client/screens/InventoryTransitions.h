@@ -15,7 +15,8 @@ public:
 	static std::shared_ptr<Touch::TButton> backButton;
 	
 	static int currentPage;
-	static std::vector<std::shared_ptr<ExtendedInventoryScreen>> pages;
+	static std::vector<std::shared_ptr<Screen>> pages;
+	static bool canPress;
 
 	static void init(Screen*);
 	static void setupPositions(Screen*);

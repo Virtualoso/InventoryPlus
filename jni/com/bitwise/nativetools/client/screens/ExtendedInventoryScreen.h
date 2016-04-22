@@ -15,4 +15,5 @@ public:
 	virtual void _buttonClicked(Button&);
 	virtual void handleBackEvent(bool);
 	virtual bool isModal() const;
+	virtual void tick();
 };
