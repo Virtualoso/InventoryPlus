@@ -1,7 +1,5 @@
 #include "ExtendedInventoryScreen.h"
 
-#include <sstream>
-
 #include "InventoryTransitions.h"
 
 #include "com/mojang/minecraftpe/client/MinecraftClient.h"

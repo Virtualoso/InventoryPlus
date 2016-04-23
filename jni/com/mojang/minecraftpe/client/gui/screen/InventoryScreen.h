@@ -66,7 +66,7 @@ public:
 	char is_vars3[656 - 620]; // 620
 	ItemInstance item; // 656
 	bool hasDumpedArmor; // 676
-	char is_vars4[728 - 680]; // 680
+	char is_vars4[716 - 680]; // 680
 	std::shared_ptr<Label> recipesName; // 728
 	std::shared_ptr<Label> noRecipesName; // 736
 	CraftingType craftingType; // 744
