@@ -8,6 +8,7 @@ class ExtendedInventoryScreen : public Screen
 {
 public:
 	std::shared_ptr<NinePatchLayer> layer1;
+	std::shared_ptr<NinePatchLayer> layer2;
 	
 	ExtendedInventoryScreen(MinecraftClient&);
 
