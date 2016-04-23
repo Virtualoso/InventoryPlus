@@ -69,7 +69,10 @@ void InventoryTransitions::render(Screen* self, int i1, int i2, float f1)
 		canPress = true;
 	
 	if(currentPage == 1)
+	{
 		backButton->enabled = false;
+		forwardButton->enabled = true;
+	}
 }
 
 void InventoryTransitions::_buttonClicked(Screen* self, Button& button)
