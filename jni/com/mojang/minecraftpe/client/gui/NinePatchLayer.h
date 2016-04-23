@@ -19,7 +19,9 @@ public:
 
 class NinePatchLayer : public GuiElement {
 public:
-	char filler [520 - 120];
+	float width1; // 48
+	float height1; // 52
+	char filler[124 - 56]; // 56
 
 	class CachedQuad;
 

@@ -47,9 +47,9 @@ void ExtendedInventoryScreen::init()
 
 void ExtendedInventoryScreen::setupPositions()
 {
-	layer1->xPosition = 24 + 2;
+	layer1->xPosition = 31;
 	layer1->yPosition = 2;
-	layer1->setSize(((float) (width - 24)) - 4.0F, ((float) height) - 25.0F);
+	layer1->setSize((float)(width - 26 - 26), ((float) height) - 25.0F);
 	
 	InventoryTransitions::setupPositions(this);
 }
