@@ -67,6 +67,9 @@ void InventoryTransitions::render(Screen* self, int i1, int i2, float f1)
 	
 	if(!canPress)
 		canPress = true;
+	
+	if(currentPage == 1)
+		backButton->enabled = false;
 }
 
 void InventoryTransitions::_buttonClicked(Screen* self, Button& button)
@@ -89,6 +92,12 @@ void InventoryTransitions::pushNextScreen(Screen* self)
 		currentPage++; // increase the current page by 1
 		canPress = false;
 	}
+	
+	if(currentPage == pages.size() + 1)
+		forwardButton->enabled = false;
+	
+	if(currentPage >= 2)
+		backButton->enabled = true;
 }
 
 void InventoryTransitions::pushPreviousScreen(Screen* self)
@@ -99,4 +108,10 @@ void InventoryTransitions::pushPreviousScreen(Screen* self)
 		currentPage--; // reduce the currentPage by 1
 		canPress = false;
 	}
+	
+	if(currentPage <= pages.size())
+		forwardButton->enabled = true;
+	
+	if(currentPage == 1)
+		backButton->enabled = false;
 }
