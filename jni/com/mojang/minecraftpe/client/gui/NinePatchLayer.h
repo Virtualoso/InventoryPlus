@@ -10,6 +10,7 @@ class IntRectangle;
 class TextureGroup;
 
 class NinePatchDescription {
+public:
 	NinePatchDescription(float, float, float, float, float, float, float, float, float, float, float, float);
 	void* transformUVForImageSize(int, int);
 	void* transformUVForImage(TextureData const&);
@@ -17,6 +18,7 @@ class NinePatchDescription {
 };
 
 class NinePatchLayer : public GuiElement {
+public:
 	char filler [520 - 120];
 
 	class CachedQuad;
@@ -33,12 +35,13 @@ class NinePatchLayer : public GuiElement {
 	void d(Tessellator&, NinePatchLayer::CachedQuad const&);
 };
 
-class NinePatchFactory {	
+class NinePatchFactory {
+public:
 	TextureGroup* textures;
 	std::string imageName;
 	int width;
 	int height;
 	
-	NinePatchFactory(TextureGroup *, const std::string&);
-	std::shared_ptr<NinePatchLayer> createSymmetrical(IntRectangle const&, int, int, float, float);
+	NinePatchFactory(TextureGroup*, const std::string&);
+	NinePatchLayer* createSymmetrical(IntRectangle const&, int, int, float, float);
 };

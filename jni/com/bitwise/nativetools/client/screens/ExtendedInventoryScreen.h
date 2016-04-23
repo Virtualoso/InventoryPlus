@@ -2,11 +2,15 @@
 
 #include "com/mojang/minecraftpe/client/gui/screen/Screen.h"
 
+class NinePatchLayer;
+
 class ExtendedInventoryScreen : public Screen
 {
 public:
-	ExtendedInventoryScreen(MinecraftClient&);
+	std::shared_ptr<NinePatchLayer> layer1;
 	
+	ExtendedInventoryScreen(MinecraftClient&);
+
 	virtual bool renderGameBehind() const;
 	virtual bool closeOnPlayerHurt() const;
 	virtual void render(int, int, float);
