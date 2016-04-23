@@ -9,8 +9,8 @@ namespace mce {
 	public:
 		char filler1[12];	// 0
 
-		MaterialPtr(TexturePtr&&);
-		MaterialPtr(TextureGroup&, const std::string&);
-		MaterialPtr();
+		TexturePtr(TexturePtr&&);
+		TexturePtr(TextureGroup&, const std::string&);
+		TexturePtr();
 	};
 };

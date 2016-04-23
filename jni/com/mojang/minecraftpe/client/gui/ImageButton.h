@@ -5,23 +5,24 @@
 #include "../renderer/TexturePtr.h"
 
 struct ImageDef {
-	mce::TexturePtr texturePtr; // 12
-	int x; // 16
-	int y; // 20
-	float width; // 24
-	float height; // 28
-	IntRectangle src; // 44
-	bool hasSrc; // 45
+	mce::TexturePtr texturePtr; // 0
+	int x; // 12
+	int y; // 16
+	float width; // 20
+	float height; // 24
+	IntRectangle src; // 28
+	bool hasSrc; // 44
 };
 
 class ImageButton : public Button {
-	ImageDef imageDef; // 156
-	Color overlay; // 174
-	bool scaleWhenPressed; // 175~178
-	int yOffset; // 180
+public:
+	ImageDef imageDef; // 108
+	Color overlay; // 156
+	bool scaleWhenPressed; // 172
+	int yOffset; // 176
 
 	ImageButton(int, const std::string&);
-	ImageButton(int, const std::string&, ImageDef const&);
+	ImageButton(int, const std::string&, ImageDef);
 	virtual ~ImageButton();
 	virtual void render(MinecraftClient*, int, int);
 	virtual void renderBg(MinecraftClient*, int, int);
