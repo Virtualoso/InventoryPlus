@@ -66,11 +66,13 @@ void InventoryTransitions::render(Screen* self, int i1, int i2, float f1)
 	if(!canPress)
 		canPress = true;
 	
+	backButton->enabled = true;
+	forwardButton->enabled = true;
+	
 	if(currentPage == 1)
-	{
 		backButton->enabled = false;
-		forwardButton->enabled = true;
-	}
+	else if(currentPage == pages.size() + 1)
+		forwardButton->enabled = false;
 }
 
 void InventoryTransitions::_buttonClicked(Screen* self, Button& button)
@@ -87,32 +89,14 @@ void InventoryTransitions::_buttonClicked(Screen* self, Button& button)
 
 void InventoryTransitions::pushNextScreen(Screen* self)
 {
-	if(currentPage <= pages.size()) // if the currentPage is not the last page, push the next page
-	{
-		self->mcClient->getScreenChooser()->_pushScreen(pages[currentPage - 1], false);
-		currentPage++; // increase the current page by 1
-		canPress = false;
-	}
-	
-	if(currentPage == pages.size() + 1)
-		forwardButton->enabled = false;
-	
-	if(currentPage >= 2)
-		backButton->enabled = true;
+	self->mcClient->getScreenChooser()->_pushScreen(pages[currentPage - 1], false);
+	currentPage++; // increase the current page by 1
+	canPress = false;
 }
 
 void InventoryTransitions::pushPreviousScreen(Screen* self)
 {	
-	if(currentPage > 1) // if greater than the first page, pop the currentPage and push the previous page
-	{
-		self->mcClient->getScreenChooser()->popScreen(*self, 1);
-		currentPage--; // reduce the currentPage by 1
-		canPress = false;
-	}
-	
-	if(currentPage <= pages.size())
-		forwardButton->enabled = true;
-	
-	if(currentPage == 1)
-		backButton->enabled = false;
+	self->mcClient->getScreenChooser()->popScreen(*self, 1);
+	currentPage--; // reduce the currentPage by 1
+	canPress = false;
 }
