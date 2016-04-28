@@ -38,8 +38,6 @@ void InventoryTransitions::init(Screen* self)
 		pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)));
 		pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)));
 		pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)));
-		pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)));
-		pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)));
 	}
 	
 	self->buttonList.emplace_back(forwardButton);

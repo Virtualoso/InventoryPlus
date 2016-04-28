@@ -4,12 +4,16 @@
 
 class NinePatchLayer;
 class ImageWithBackground;
+class InventoryTab;
 
 class ExtendedInventoryScreen : public Screen
 {
 public:
 	std::shared_ptr<ImageWithBackground> closeButton;
-	std::shared_ptr<NinePatchLayer> layer1;
+	std::shared_ptr<NinePatchLayer> backgroundLayer;
+	std::shared_ptr<NinePatchLayer> leftButtonLayer;
+	std::shared_ptr<NinePatchLayer> rightButtonLayer;
+	std::shared_ptr<InventoryTab> testCatButton;
 	
 	ExtendedInventoryScreen(MinecraftClient&);
 
@@ -22,4 +26,6 @@ public:
 	virtual void handleBackEvent(bool);
 	virtual bool isModal() const;
 	virtual void tick();
+	
+	std::shared_ptr<InventoryTab> createInventoryTab(int, bool);
 };
