@@ -17,8 +17,6 @@ int InventoryTransitions::currentPage = 1;
 
 std::vector<std::shared_ptr<Screen>> InventoryTransitions::pages;
 
-bool InventoryTransitions::canPress = true;
-
 void InventoryTransitions::init(Screen* self)
 {
 	if(!forwardButton)
@@ -63,9 +61,6 @@ void InventoryTransitions::render(Screen* self, int i1, int i2, float f1)
 	pageNum << currentPage << " / " << pages.size() + 1;
 	self->drawString(self->font, pageNum.str(), 5, self->height - 15, Color::WHITE);
 	
-	if(!canPress)
-		canPress = true;
-	
 	backButton->enabled = true;
 	forwardButton->enabled = true;
 	
@@ -77,26 +72,21 @@ void InventoryTransitions::render(Screen* self, int i1, int i2, float f1)
 
 void InventoryTransitions::_buttonClicked(Screen* self, Button& button)
 {
-	if(canPress)
-	{
-		if(button.id == forwardButton->id)
-			pushNextScreen(self);
+	if(button.id == forwardButton->id)
+		pushNextScreen(self);
 		
-		if(button.id == backButton->id)
-			pushPreviousScreen(self);
-	}
+	if(button.id == backButton->id)
+		pushPreviousScreen(self);
 }
 
 void InventoryTransitions::pushNextScreen(Screen* self)
 {
 	self->mcClient->getScreenChooser()->_pushScreen(pages[currentPage - 1], false);
 	currentPage++; // increase the current page by 1
-	canPress = false;
 }
 
 void InventoryTransitions::pushPreviousScreen(Screen* self)
 {	
 	self->mcClient->getScreenChooser()->popScreen(*self, 1);
 	currentPage--; // reduce the currentPage by 1
-	canPress = false;
 }

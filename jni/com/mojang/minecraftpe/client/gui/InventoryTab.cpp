@@ -4,9 +4,10 @@
 #include "NinePatchLayer.h"
 #include "../renderer/Tessellator.h"
 
-InventoryTab::InventoryTab(int id, const std::string& msg, NinePatchLayer* layer)
+InventoryTab::InventoryTab(int id, const std::string& msg, NinePatchLayer* layer, bool right)
 	: ImageButton(id, msg) {
 	
+	isRight = right;
 	layer1 = layer;
 }
 

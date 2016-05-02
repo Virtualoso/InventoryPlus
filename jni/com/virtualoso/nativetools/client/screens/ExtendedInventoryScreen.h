@@ -13,7 +13,7 @@ public:
 	std::shared_ptr<NinePatchLayer> backgroundLayer;
 	std::shared_ptr<NinePatchLayer> leftButtonLayer;
 	std::shared_ptr<NinePatchLayer> rightButtonLayer;
-	std::shared_ptr<InventoryTab> testCatButton;
+	std::vector<std::shared_ptr<InventoryTab>> tabs;
 	
 	ExtendedInventoryScreen(MinecraftClient&);
 

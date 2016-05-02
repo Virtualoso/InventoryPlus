@@ -18,7 +18,7 @@ ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftClient& client)
 	backgroundLayer = NULL;
 	leftButtonLayer = NULL;
 	rightButtonLayer = NULL;
-	testCatButton = NULL;
+	tabs;
 }
 
 bool ExtendedInventoryScreen::renderGameBehind() const
@@ -33,21 +33,31 @@ bool ExtendedInventoryScreen::closeOnPlayerHurt() const
 
 void ExtendedInventoryScreen::init()
 {
-	InventoryTransitions::init(this);
-	
-	NinePatchFactory factory (mcClient->getTextures(), "gui/spritesheet.png");
-	
-	backgroundLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({34, 43, 14, 14}, 3, 3, 14.0F, 14.0F));
-	leftButtonLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({49, 43, 14, 14}, 3, 3, 14.0F, 14.0F));
-	rightButtonLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({65, 55, 14, 14}, 3, 3, 14.0F, 14.0F));
-	
-	closeButton = std::make_shared<ImageWithBackground>(2);
-	closeButton->init(mcClient->getTextures(), 28, 28, {49, 43, 14, 14}, {49, 43, 14, 14}, 2, 2, "gui/spritesheet.png");
-	closeButton->setImageDef({mce::TexturePtr(*(mcClient->getTextures()), "gui/spritesheet.png"), 0, 1, 18.0F, 18.0F, {60, 0, 18, 18}, true}, true);
-	
-	testCatButton = createInventoryTab(3, false);
-	
-	buttonList.emplace_back(closeButton);
+	if(!closeButton)
+	{
+		InventoryTransitions::init(this);
+		
+		NinePatchFactory factory (mcClient->getTextures(), "gui/spritesheet.png");
+		
+		backgroundLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({34, 43, 14, 14}, 3, 3, 14.0F, 14.0F));
+		leftButtonLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({49, 43, 14, 14}, 3, 3, 14.0F, 14.0F));
+		rightButtonLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({65, 55, 14, 14}, 3, 3, 14.0F, 14.0F));
+		
+		closeButton = std::make_shared<ImageWithBackground>(2);
+		closeButton->init(mcClient->getTextures(), 28, 28, {49, 43, 14, 14}, {49, 43, 14, 14}, 2, 2, "gui/spritesheet.png");
+		closeButton->setImageDef({mce::TexturePtr(*(mcClient->getTextures()), "gui/spritesheet.png"), 0, 1, 18.0F, 18.0F, {60, 0, 18, 18}, true}, true);
+		
+		tabs.emplace_back(createInventoryTab(3, false));
+		tabs.emplace_back(createInventoryTab(4, false));
+		tabs.emplace_back(createInventoryTab(5, false));
+		tabs.emplace_back(createInventoryTab(6, false));
+		tabs.emplace_back(createInventoryTab(7, true));
+		tabs.emplace_back(createInventoryTab(8, true));
+		tabs.emplace_back(createInventoryTab(9, true));
+		tabs.emplace_back(createInventoryTab(10, true));
+		
+		buttonList.emplace_back(closeButton);
+	}
 }
 
 void ExtendedInventoryScreen::render(int i1, int i2, float f1)
@@ -59,13 +69,18 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	mcClient->getGui()->renderToolBar(f1, 1.0F, false);
 	
-	testCatButton->renderBg(mcClient, i1, i2);
+	for(std::shared_ptr<InventoryTab> tab : tabs)
+	{
+		tab->renderBg(mcClient, i1, i2);
+	}
 	
 	backgroundLayer->draw(Tessellator::instance, backgroundLayer->xPosition, backgroundLayer->yPosition);
 	
 	InventoryTransitions::render(this, i1, i2, f1);
 	
 	Screen::render(i1, i2, f1);
+	
+	mcClient->getGui()->renderOnSelectItemNameText(width, mcClient->getFont(), height - 41);
 }
 
 void ExtendedInventoryScreen::setupPositions()
@@ -79,10 +94,21 @@ void ExtendedInventoryScreen::setupPositions()
 	
 	closeButton->setSize(29, 28);
 	
-	testCatButton->xPosition = backgroundLayer->xPosition - 26;
-	testCatButton->yPosition = height - 25 - 29;
-	testCatButton->width = 29;
-	testCatButton->height = 29;
+	for(int tab = 0; tab < tabs.size(); tab++)
+	{
+		if(!tabs[tab]->isRight)
+		{
+			tabs[tab]->xPosition = backgroundLayer->xPosition - 26;
+			tabs[tab]->yPosition = height - 25 - 29 - (tab * 31);
+		}
+		else
+		{
+			tabs[tab]->xPosition = width - 6 - 29;
+			tabs[tab]->yPosition = height - 25 - 29 - ((tab - 4) * 31);
+		}
+		tabs[tab]->width = 29;
+		tabs[tab]->height = 29;
+	}
 	
 	InventoryTransitions::setupPositions(this);
 }
@@ -114,7 +140,7 @@ void ExtendedInventoryScreen::tick()
 std::shared_ptr<InventoryTab> ExtendedInventoryScreen::createInventoryTab(int id, bool isRight)
 {
 	NinePatchLayer* buttonLayer = isRight ? rightButtonLayer.get() : leftButtonLayer.get();
-	std::shared_ptr<InventoryTab> button = std::make_shared<InventoryTab>(id, "", buttonLayer);
+	std::shared_ptr<InventoryTab> button = std::make_shared<InventoryTab>(id, "", buttonLayer, isRight);
 	button->setOverrideScreenRendering(true);
 	return button;
 }
