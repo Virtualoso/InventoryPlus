@@ -10,7 +10,6 @@
 
 class Tessellator;
 class ItemPack;
-class ItemInstance;
 class Recipe;
 class ArmorSlot;
 class ImageButton;
@@ -83,6 +82,7 @@ public:
 	virtual bool renderGameBehind() const;
 	virtual bool closeOnPlayerHurt() const;
 	virtual bool isModal() const;
+	virtual std::string getScreenName();
 	virtual void render(int, int, float);
 	virtual void init();
 	virtual void setupPositions();

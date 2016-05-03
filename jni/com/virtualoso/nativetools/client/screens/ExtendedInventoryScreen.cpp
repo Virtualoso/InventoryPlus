@@ -3,13 +3,13 @@
 #include "InventoryTransitions.h"
 
 #include "com/mojang/minecraftpe/client/MinecraftClient.h"
-#include "com/mojang/minecraftpe/client/gui/Gui.h"
 #include "com/mojang/minecraftpe/client/gui/NinePatchLayer.h"
 #include "com/mojang/minecraftpe/client/gui/IntRectangle.h"
 #include "com/mojang/minecraftpe/client/gui/ImageWithBackground.h"
 #include "com/mojang/minecraftpe/client/gui/InventoryTab.h"
 #include "com/mojang/minecraftpe/client/settings/Options.h"
 #include "com/mojang/minecraftpe/client/renderer/Tessellator.h"
+#include "com/mojang/minecraftpe/client/renderer/texture/TextureGroup.h"
 
 ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftClient& client)
 	: Screen(client)
@@ -45,7 +45,7 @@ void ExtendedInventoryScreen::init()
 		
 		closeButton = std::make_shared<ImageWithBackground>(2);
 		closeButton->init(mcClient->getTextures(), 28, 28, {49, 43, 14, 14}, {49, 43, 14, 14}, 2, 2, "gui/spritesheet.png");
-		closeButton->setImageDef({mce::TexturePtr(*(mcClient->getTextures()), "gui/spritesheet.png"), 0, 1, 18.0F, 18.0F, {60, 0, 18, 18}, true}, true);
+		closeButton->setImageDef({mcClient->getTextures()->getTexture("gui/spritesheet.png", TextureLocation::Default), 0, 1, 18.0F, 18.0F, {60, 0, 18, 18}, true}, true);
 		
 		tabs.emplace_back(createInventoryTab(3, false));
 		tabs.emplace_back(createInventoryTab(4, false));
@@ -67,7 +67,7 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	else
 		renderDirtBackground();
 	
-	mcClient->getGui()->renderToolBar(f1, 1.0F, false);
+	renderToolBar(f1, 1.0F, false);
 	
 	for(std::shared_ptr<InventoryTab> tab : tabs)
 	{
@@ -80,7 +80,7 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	Screen::render(i1, i2, f1);
 	
-	mcClient->getGui()->renderOnSelectItemNameText(width, mcClient->getFont(), height - 41);
+	renderOnSelectItemNameText(width, mcClient->getFont(), height - 41);
 }
 
 void ExtendedInventoryScreen::setupPositions()
@@ -135,6 +135,11 @@ bool ExtendedInventoryScreen::isModal() const
 void ExtendedInventoryScreen::tick()
 {
 	
+}
+
+std::string ExtendedInventoryScreen::getScreenName()
+{
+	return "extended_creative_screen";
 }
 
 std::shared_ptr<InventoryTab> ExtendedInventoryScreen::createInventoryTab(int id, bool isRight)

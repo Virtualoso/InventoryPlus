@@ -26,6 +26,7 @@ public:
 	virtual void handleBackEvent(bool);
 	virtual bool isModal() const;
 	virtual void tick();
+	virtual std::string getScreenName();
 	
 	std::shared_ptr<InventoryTab> createInventoryTab(int, bool);
 };
