@@ -1,6 +1,7 @@
 #include "ExtendedInventoryScreen.h"
 
 #include "InventoryTransitions.h"
+#include "../../creative/CreativeTab.h"
 
 #include "com/mojang/minecraftpe/client/MinecraftClient.h"
 #include "com/mojang/minecraftpe/client/gui/NinePatchLayer.h"
@@ -11,14 +12,14 @@
 #include "com/mojang/minecraftpe/client/renderer/Tessellator.h"
 #include "com/mojang/minecraftpe/client/renderer/texture/TextureGroup.h"
 
-ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftClient& client)
+ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftClient& client, std::vector<CreativeTab*> creativeTabs)
 	: Screen(client)
 {
 	closeButton = NULL;
 	backgroundLayer = NULL;
 	leftButtonLayer = NULL;
 	rightButtonLayer = NULL;
-	tabs;
+	ownedTabs = creativeTabs;
 }
 
 bool ExtendedInventoryScreen::renderGameBehind() const
@@ -47,14 +48,14 @@ void ExtendedInventoryScreen::init()
 		closeButton->init(mcClient->getTextures(), 28, 28, {49, 43, 14, 14}, {49, 43, 14, 14}, 2, 2, "gui/spritesheet.png");
 		closeButton->setImageDef({mcClient->getTextures()->getTexture("gui/spritesheet.png", TextureLocation::Default), 0, 1, 18.0F, 18.0F, {60, 0, 18, 18}, true}, true);
 		
-		tabs.emplace_back(createInventoryTab(3, false));
-		tabs.emplace_back(createInventoryTab(4, false));
-		tabs.emplace_back(createInventoryTab(5, false));
-		tabs.emplace_back(createInventoryTab(6, false));
-		tabs.emplace_back(createInventoryTab(7, true));
-		tabs.emplace_back(createInventoryTab(8, true));
-		tabs.emplace_back(createInventoryTab(9, true));
-		tabs.emplace_back(createInventoryTab(10, true));
+		renderedTabs.emplace_back(createInventoryTab(3, false));
+		renderedTabs.emplace_back(createInventoryTab(4, false));
+		renderedTabs.emplace_back(createInventoryTab(5, false));
+		renderedTabs.emplace_back(createInventoryTab(6, false));
+		renderedTabs.emplace_back(createInventoryTab(7, true));
+		renderedTabs.emplace_back(createInventoryTab(8, true));
+		renderedTabs.emplace_back(createInventoryTab(9, true));
+		renderedTabs.emplace_back(createInventoryTab(10, true));
 		
 		buttonList.emplace_back(closeButton);
 	}
@@ -69,7 +70,7 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	renderToolBar(f1, 1.0F, false);
 	
-	for(std::shared_ptr<InventoryTab> tab : tabs)
+	for(std::shared_ptr<InventoryTab> tab : renderedTabs)
 	{
 		tab->renderBg(mcClient, i1, i2);
 	}
@@ -94,20 +95,20 @@ void ExtendedInventoryScreen::setupPositions()
 	
 	closeButton->setSize(29, 28);
 	
-	for(int tab = 0; tab < tabs.size(); tab++)
+	for(int tab = 0; tab < renderedTabs.size(); tab++)
 	{
-		if(!tabs[tab]->isRight)
+		if(!renderedTabs[tab]->isRight)
 		{
-			tabs[tab]->xPosition = backgroundLayer->xPosition - 26;
-			tabs[tab]->yPosition = height - 25 - 29 - (tab * 31);
+			renderedTabs[tab]->xPosition = backgroundLayer->xPosition - 26;
+			renderedTabs[tab]->yPosition = height - 25 - 29 - (tab * 31);
 		}
 		else
 		{
-			tabs[tab]->xPosition = width - 6 - 29;
-			tabs[tab]->yPosition = height - 25 - 29 - ((tab - 4) * 31);
+			renderedTabs[tab]->xPosition = width - 6 - 29;
+			renderedTabs[tab]->yPosition = height - 25 - 29 - ((tab - 4) * 31);
 		}
-		tabs[tab]->width = 29;
-		tabs[tab]->height = 29;
+		renderedTabs[tab]->width = 29;
+		renderedTabs[tab]->height = 29;
 	}
 	
 	InventoryTransitions::setupPositions(this);

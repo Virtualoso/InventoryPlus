@@ -7,6 +7,7 @@
 
 class Screen;
 class ExtendedInventoryScreen;
+class CreativeTab;
 
 class InventoryTransitions
 {
@@ -16,6 +17,7 @@ public:
 	
 	static int currentPage;
 	static std::vector<std::shared_ptr<Screen>> pages;
+	static std::vector<CreativeTab*> creativeTabs;
 
 	static void init(Screen*);
 	static void setupPositions(Screen*);
@@ -23,4 +25,5 @@ public:
 	static void _buttonClicked(Screen*, Button&);
 	static void pushNextScreen(Screen*);
 	static void pushPreviousScreen(Screen*);
+	static void initCreativeTabs(Screen*);
 };

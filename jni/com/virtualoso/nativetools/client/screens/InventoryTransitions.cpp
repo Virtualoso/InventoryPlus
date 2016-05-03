@@ -3,6 +3,7 @@
 #include <sstream>
 
 #include "ExtendedInventoryScreen.h"
+#include "../../creative/CreativeTab.h"
 
 #include "com/mojang/minecraftpe/client/gui/screen/Screen.h"
 #include "com/mojang/minecraftpe/client/gui/screen/InventoryScreen.h"
@@ -15,6 +16,7 @@ std::shared_ptr<Touch::TButton> InventoryTransitions::backButton = NULL;
 int InventoryTransitions::currentPage = 1;
 
 std::vector<std::shared_ptr<Screen>> InventoryTransitions::pages;
+std::vector<CreativeTab*> InventoryTransitions::creativeTabs;
 
 void InventoryTransitions::init(Screen* self)
 {
@@ -22,19 +24,11 @@ void InventoryTransitions::init(Screen* self)
 	{
 		forwardButton = std::make_shared<Touch::TButton>(0, ">", self->mcClient, false, 0x7FFFFFFF);
 		forwardButton->init(self->mcClient);
-	}
-	
-	if(!backButton)
-	{
+
 		backButton = std::make_shared<Touch::TButton>(1, "<", self->mcClient, false, 0x7FFFFFFF);
 		backButton->init(self->mcClient);
-	}
-	
-	if(pages.empty())
-	{
-		pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)));
-		pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)));
-		pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient)));
+
+		initCreativeTabs(self);
 	}
 	
 	self->buttonList.emplace_back(forwardButton);
@@ -67,6 +61,8 @@ void InventoryTransitions::render(Screen* self, int i1, int i2, float f1)
 		backButton->enabled = false;
 	else if(currentPage == pages.size() + 1)
 		forwardButton->enabled = false;
+	if(creativeTabs.empty())
+		forwardButton->enabled = false;
 }
 
 void InventoryTransitions::_buttonClicked(Screen* self, Button& button)
@@ -88,4 +84,27 @@ void InventoryTransitions::pushPreviousScreen(Screen* self)
 {	
 	self->mcClient->getScreenChooser()->popScreen(*self, 1);
 	currentPage--; // reduce the currentPage by 1
+}
+
+void InventoryTransitions::initCreativeTabs(Screen* self)
+{
+	if(!pages.empty())
+	{
+		std::vector<CreativeTab*> tabSets;
+		for(int tab = 0; tab < creativeTabs.size(); tab++)
+		{
+			tabSets.emplace_back(creativeTabs[tab]);
+			if(tab % 8 == 0) // if divisble by 8
+			{
+				pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient), tabSets));
+				tabSets.clear();
+			}
+			else if(tab == creativeTabs.size() - 1)
+			{
+				pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient), tabSets));
+				tabSets.clear();
+				break;
+			}
+		}
+	}
 }

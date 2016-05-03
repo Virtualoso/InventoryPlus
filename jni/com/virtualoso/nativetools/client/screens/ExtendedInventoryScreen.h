@@ -5,6 +5,7 @@
 class NinePatchLayer;
 class ImageWithBackground;
 class InventoryTab;
+class CreativeTab;
 
 class ExtendedInventoryScreen : public Screen
 {
@@ -13,9 +14,10 @@ public:
 	std::shared_ptr<NinePatchLayer> backgroundLayer;
 	std::shared_ptr<NinePatchLayer> leftButtonLayer;
 	std::shared_ptr<NinePatchLayer> rightButtonLayer;
-	std::vector<std::shared_ptr<InventoryTab>> tabs;
+	std::vector<std::shared_ptr<InventoryTab>> renderedTabs;
+	std::vector<CreativeTab*> ownedTabs;
 	
-	ExtendedInventoryScreen(MinecraftClient&);
+	ExtendedInventoryScreen(MinecraftClient&, std::vector<CreativeTab*>);
 
 	virtual bool renderGameBehind() const;
 	virtual bool closeOnPlayerHurt() const;
