@@ -48,14 +48,10 @@ void ExtendedInventoryScreen::init()
 		closeButton->init(mcClient->getTextures(), 28, 28, {49, 43, 14, 14}, {49, 43, 14, 14}, 2, 2, "gui/spritesheet.png");
 		closeButton->setImageDef({mcClient->getTextures()->getTexture("gui/spritesheet.png", TextureLocation::Default), 0, 1, 18.0F, 18.0F, {60, 0, 18, 18}, true}, true);
 		
-		renderedTabs.emplace_back(createInventoryTab(3, false));
-		renderedTabs.emplace_back(createInventoryTab(4, false));
-		renderedTabs.emplace_back(createInventoryTab(5, false));
-		renderedTabs.emplace_back(createInventoryTab(6, false));
-		renderedTabs.emplace_back(createInventoryTab(7, true));
-		renderedTabs.emplace_back(createInventoryTab(8, true));
-		renderedTabs.emplace_back(createInventoryTab(9, true));
-		renderedTabs.emplace_back(createInventoryTab(10, true));
+		for(int tab = 0; tab < ownedTabs.size(); tab++)
+		{
+			renderedTabs.emplace_back(createInventoryTab(tab + 3, ((tab < 4) ? false : true)));
+		}
 		
 		buttonList.emplace_back(closeButton);
 	}

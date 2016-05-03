@@ -88,13 +88,13 @@ void InventoryTransitions::pushPreviousScreen(Screen* self)
 
 void InventoryTransitions::initCreativeTabs(Screen* self)
 {
-	if(!pages.empty())
+	if(!creativeTabs.empty())
 	{
 		std::vector<CreativeTab*> tabSets;
 		for(int tab = 0; tab < creativeTabs.size(); tab++)
 		{
 			tabSets.emplace_back(creativeTabs[tab]);
-			if(tab % 8 == 0) // if divisble by 8
+			if((tab + 1) % 8 == 0) // if divisble by 8
 			{
 				pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient), tabSets));
 				tabSets.clear();

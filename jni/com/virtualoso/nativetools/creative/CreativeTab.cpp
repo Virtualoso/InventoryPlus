@@ -53,3 +53,13 @@ void CreativeTab::setTabIcon(const std::string& texturePath)
 {
 	imageIcon = texturePath;
 }
+
+CreativeTab* myTab1 = new CreativeTab();
+CreativeTab* myTab2 = new CreativeTab();
+CreativeTab* myTab3 = new CreativeTab();
+CreativeTab* myTab4 = new CreativeTab();
+CreativeTab* myTab5 = new CreativeTab();
+CreativeTab* myTab6 = new CreativeTab();
+CreativeTab* myTab7 = new CreativeTab();
+CreativeTab* myTab8 = new CreativeTab();
+CreativeTab* myTab9 = new CreativeTab();
