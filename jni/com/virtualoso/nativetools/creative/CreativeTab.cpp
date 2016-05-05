@@ -12,6 +12,7 @@ CreativeTab::CreativeTab()
 
 ItemInstance* CreativeTab::getTabIcon()
 {
+	return new ItemInstance(Item::mItems[378], 0);
 }
 
 void CreativeTab::addItemInstance(const ItemInstance& item)
