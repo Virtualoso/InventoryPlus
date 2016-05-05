@@ -10,7 +10,7 @@
 #include "com/mojang/minecraftpe/world/item/Item.h"
 
 #include "client/screens/InventoryTransitions.h"
-#include "item/HolderItems.h"
+#include "item/NativeToolsItems.h"
 
 static void (*_InventoryScreen$init)(InventoryScreen*);
 static void InventoryScreen$init(InventoryScreen* self)
@@ -56,7 +56,7 @@ static void Item$initItems()
 {
 	_Item$initItems();
 
-	HolderItems::initItems();
+	NativeToolsItems::initItems();
 }
 
 JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved) {

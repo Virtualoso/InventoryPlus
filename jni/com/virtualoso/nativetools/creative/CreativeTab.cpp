@@ -3,6 +3,7 @@
 #include "com/mojang/minecraftpe/world/item/Item.h"
 #include "com/mojang/minecraftpe/world/level/block/Block.h"
 #include "../client/screens/InventoryTransitions.h"
+#include "../item/NativeToolsItems.h"
 
 CreativeTab::CreativeTab()
 {
@@ -11,7 +12,6 @@ CreativeTab::CreativeTab()
 
 ItemInstance* CreativeTab::getTabIcon()
 {
-	return new ItemInstance(Item::mItems[267], 0);
 }
 
 void CreativeTab::addItemInstance(const ItemInstance& item)
@@ -40,7 +40,3 @@ CreativeTab* myTab3 = new CreativeTab();
 CreativeTab* myTab4 = new CreativeTab();
 CreativeTab* myTab5 = new CreativeTab();
 CreativeTab* myTab6 = new CreativeTab();
-CreativeTab* myTab7 = new CreativeTab();
-CreativeTab* myTab8 = new CreativeTab();
-CreativeTab* myTab9 = new CreativeTab();
-
