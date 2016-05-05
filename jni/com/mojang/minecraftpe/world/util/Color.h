@@ -1,7 +1,6 @@
 #pragma once
 
-class Color {
-public:
+struct Color {
 	static const Color WHITE, GREY, BLACK, RED, GREEN, BLUE, YELLOW, PURPLE, CYAN, NIL, SHADE_DOWN, SHADE_UP, SHADE_NORTH_SOUTH, SHADE_WEST_EAST;
 	
 	float r, g, b, a;

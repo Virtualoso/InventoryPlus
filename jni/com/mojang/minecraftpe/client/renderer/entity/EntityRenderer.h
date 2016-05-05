@@ -15,22 +15,23 @@ class EntityRenderer : public EntityShaderManager {
 public:
 	static EntityRenderDispatcher* entityRenderDispatcher;
 
-	bool hasWaterHole							// 40
-	mce::MaterialPtr entity_alphatest2;			// 44
-	mce::MaterialPtr entity_alphatest_glint;	// 56
-	mce::TexturePtr terrain_atlas; 				// 68
-	mce::TexturePtr glint_texture;				// 80
-	mce::MaterialPtr name_tag;					// 92
-	mce::MaterialPtr name_tag_depth_tested;		// 104
-	mce::MaterialPtr name_tag_depth_tested2;	// 116
+	bool waterHole;								// 40
+	char er_filler1[4];							// 44
+	mce::MaterialPtr entity_alphatest2;			// 48
+	mce::MaterialPtr entity_alphatest_glint;	// 60
+	mce::TexturePtr terrain_atlas; 				// 72
+	mce::TexturePtr glint_texture;				// 88
+	mce::MaterialPtr name_tag;					// 104
+	mce::MaterialPtr name_tag_depth_tested;		// 116
+	mce::MaterialPtr name_tag_depth_tested2;	// 128
 
-	EntityRenderer(TextureGroup&, bool);
+	EntityRenderer(mce::TextureGroup&, bool);
 	virtual ~EntityRenderer();
 	virtual void render(Entity&, const Vec3&, float, float) = 0;
 	virtual void postRender(Entity&, const Vec3&, float, float);
 	virtual void renderDebug(Entity&, Options&);
 	virtual void renderWaterHole(Entity&, const Vec3&, const Vec2&, float);
-	void renderText(Entity&, const std::sting*, float, float);
+	void renderText(Entity&, const std::string*, float, float);
 	void renderText(const std::string&, const Vec3&, const Color&, mce::MaterialPtr*, mce::MaterialPtr*);
 	static void _emitFlame(Entity &, float);
 	static void _emitSmoke(Entity &, float);

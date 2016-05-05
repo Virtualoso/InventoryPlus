@@ -11,6 +11,7 @@
 #include "com/mojang/minecraftpe/client/settings/Options.h"
 #include "com/mojang/minecraftpe/client/renderer/Tessellator.h"
 #include "com/mojang/minecraftpe/client/renderer/texture/TextureGroup.h"
+#include "com/mojang/minecraftpe/client/renderer/entity/ItemRenderer.h"
 
 ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftClient& client, std::vector<CreativeTab*> creativeTabs)
 	: Screen(client)
@@ -53,6 +54,8 @@ void ExtendedInventoryScreen::init()
 			renderedTabs.emplace_back(createInventoryTab(tab + 3, ((tab < 4) ? false : true)));
 		}
 		
+		selectedTabIndex = 0;
+		
 		buttonList.emplace_back(closeButton);
 	}
 }
@@ -66,12 +69,21 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	renderToolBar(f1, 1.0F, false);
 	
-	for(std::shared_ptr<InventoryTab> tab : renderedTabs)
+	for(int tab = 0; tab < renderedTabs.size(); tab++)
 	{
-		tab->renderBg(mcClient, i1, i2);
+		if(tab != selectedTabIndex)
+		{
+			renderedTabs[tab]->overlay = {0.75F, 0.75F, 0.75F, 1.0F};
+			renderedTabs[tab]->renderBg(mcClient, i1, i2);
+			drawTabIcon(ownedTabs[tab], renderedTabs[tab], renderedTabs[tab]->pressed);
+		}
 	}
 	
 	backgroundLayer->draw(Tessellator::instance, backgroundLayer->xPosition, backgroundLayer->yPosition);
+	
+	renderedTabs[selectedTabIndex]->overlay = Color::WHITE;
+	renderedTabs[selectedTabIndex]->renderBg(mcClient, i1, i2);
+	drawTabIcon(ownedTabs[selectedTabIndex], renderedTabs[selectedTabIndex], renderedTabs[selectedTabIndex]->pressed);	
 	
 	InventoryTransitions::render(this, i1, i2, f1);
 	
@@ -118,6 +130,19 @@ void ExtendedInventoryScreen::_buttonClicked(Button& button)
 		InventoryTransitions::pushPreviousScreen(this);
 }
 
+void ExtendedInventoryScreen::_pointerReleased(int x, int y)
+{
+	Screen::_pointerReleased(x, y);
+	
+	for(int tab = 0; tab < renderedTabs.size(); tab++)
+	{
+		if(tab != selectedTabIndex && renderedTabs[tab]->isInside(x, y))
+		{
+			selectedTabIndex = tab;
+		}
+	}
+}
+
 void ExtendedInventoryScreen::handleBackEvent(bool b1)
 {
 	if(!b1)
@@ -145,4 +170,9 @@ std::shared_ptr<InventoryTab> ExtendedInventoryScreen::createInventoryTab(int id
 	std::shared_ptr<InventoryTab> button = std::make_shared<InventoryTab>(id, "", buttonLayer, isRight);
 	button->setOverrideScreenRendering(true);
 	return button;
+}
+
+void ExtendedInventoryScreen::drawTabIcon(CreativeTab* ownedTab, std::shared_ptr<InventoryTab> imageButton, bool isPressed)
+{
+	ItemRenderer::getInstance()->renderGuiItemNew(ownedTab->getTabIcon(), 0, ((float)imageButton->xPosition + (float)((imageButton->width / 2) - 8) + (isPressed ? 1.0F : 0.7F)), ((float)imageButton->yPosition + (float)((imageButton->height / 2) - 8)), 1.0F, (isPressed ? 1.0F : 0.7F), (((float)imageButton->width) - (isPressed ? 2.0F : 0.0F)) * 0.04F, false);
 }
