@@ -7,9 +7,10 @@
 #include "com/mojang/minecraftpe/client/gui/screen/InventoryScreen.h"
 #include "com/mojang/minecraftpe/client/MinecraftClient.h"
 #include "com/mojang/minecraftpe/world/entity/player/LocalPlayer.h"
+#include "com/mojang/minecraftpe/world/item/Item.h"
 
 #include "client/screens/InventoryTransitions.h"
-
+#include "item/HolderItems.h"
 
 static void (*_InventoryScreen$init)(InventoryScreen*);
 static void InventoryScreen$init(InventoryScreen* self)
@@ -50,12 +51,21 @@ static void InventoryScreen$_buttonClicked(InventoryScreen* self, Button& button
 		InventoryTransitions::_buttonClicked(self, button);
 }
 
+static void (*_Item$initItems)();
+static void Item$initItems()
+{
+	_Item$initItems();
+
+	HolderItems::initItems();
+}
+
 JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved) {
 	
 	MSHookFunction((void*) &InventoryScreen::init, (void*) &InventoryScreen$init, (void**) &_InventoryScreen$init);
 	MSHookFunction((void*) &InventoryScreen::setupPositions, (void*) &InventoryScreen$setupPositions, (void**) &_InventoryScreen$setupPositions);
 	MSHookFunction((void*) &InventoryScreen::render, (void*) &InventoryScreen$render, (void**) &_InventoryScreen$render);
 	MSHookFunction((void*) &InventoryScreen::_buttonClicked, (void*) &InventoryScreen$_buttonClicked, (void**) &_InventoryScreen$_buttonClicked);
+	MSHookFunction((void*) &Item::initItems, (void*) &Item$initItems, (void**) &_Item$initItems);
 	
 	return JNI_VERSION_1_2;
 }
