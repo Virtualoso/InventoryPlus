@@ -33,5 +33,5 @@ public:
 	virtual std::string getScreenName();
 	
 	std::shared_ptr<InventoryTab> createInventoryTab(int, bool);
-	void drawTabIcon(CreativeTab*, std::shared_ptr<InventoryTab>, bool);
+	void drawTabIcon(CreativeTab*, std::shared_ptr<InventoryTab>, bool, bool);
 };

@@ -73,17 +73,15 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	{
 		if(tab != selectedTabIndex)
 		{
-			renderedTabs[tab]->overlay = {0.75F, 0.75F, 0.75F, 1.0F};
 			renderedTabs[tab]->renderBg(mcClient, i1, i2);
-			drawTabIcon(ownedTabs[tab], renderedTabs[tab], renderedTabs[tab]->pressed);
+			drawTabIcon(ownedTabs[tab], renderedTabs[tab], renderedTabs[tab]->pressed, false);
 		}
 	}
 	
 	backgroundLayer->draw(Tessellator::instance, backgroundLayer->xPosition, backgroundLayer->yPosition);
 	
-	renderedTabs[selectedTabIndex]->overlay = Color::WHITE;
 	renderedTabs[selectedTabIndex]->renderBg(mcClient, i1, i2);
-	drawTabIcon(ownedTabs[selectedTabIndex], renderedTabs[selectedTabIndex], renderedTabs[selectedTabIndex]->pressed);	
+	drawTabIcon(ownedTabs[selectedTabIndex], renderedTabs[selectedTabIndex], renderedTabs[selectedTabIndex]->pressed, true);	
 	
 	InventoryTransitions::render(this, i1, i2, f1);
 	
@@ -172,7 +170,7 @@ std::shared_ptr<InventoryTab> ExtendedInventoryScreen::createInventoryTab(int id
 	return button;
 }
 
-void ExtendedInventoryScreen::drawTabIcon(CreativeTab* ownedTab, std::shared_ptr<InventoryTab> imageButton, bool isPressed)
+void ExtendedInventoryScreen::drawTabIcon(CreativeTab* ownedTab, std::shared_ptr<InventoryTab> imageButton, bool isPressed, bool isSelected)
 {
-	ItemRenderer::getInstance()->renderGuiItemNew(ownedTab->getTabIcon(), 0, ((float)imageButton->xPosition + (float)((imageButton->width / 2) - 8) + (isPressed ? 1.0F : 0.7F)), ((float)imageButton->yPosition + (float)((imageButton->height / 2) - 8)), 1.0F, (isPressed ? 1.0F : 0.7F), (((float)imageButton->width) - (isPressed ? 2.0F : 0.0F)) * 0.04F, false);
+	ItemRenderer::getInstance()->renderGuiItemNew(ownedTab->getTabIcon(), 0, ((float)imageButton->xPosition + (float)((imageButton->width / 2) - 8) + (isPressed ? 1.0F : 0.7F)), ((float)imageButton->yPosition + (float)((imageButton->height / 2) - 8)), 1.0F, (isSelected ? 1.0F : 0.7F), (((float)imageButton->width) - (isPressed ? 2.0F : 0.0F)) * 0.04F, false);
 }
