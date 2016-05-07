@@ -80,6 +80,8 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	backgroundLayer->draw(Tessellator::instance, backgroundLayer->xPosition, backgroundLayer->yPosition);
 	
+	ScreenRenderer::fill(31, 2, 29, 28, Color::GREY)
+	
 	renderedTabs[selectedTabIndex]->renderBg(mcClient, i1, i2);
 	drawTabIcon(ownedTabs[selectedTabIndex], renderedTabs[selectedTabIndex], renderedTabs[selectedTabIndex]->pressed, true);	
 	
