@@ -15,7 +15,7 @@
 static void (*_InventoryScreen$init)(InventoryScreen*);
 static void InventoryScreen$init(InventoryScreen* self)
 {
-	if(self->mcClient->getLocalPlayer()->IsCreative() && self->craftingType != CraftingType::FULLCRAFTING)
+	//if(self->mcClient->getLocalPlayer()->IsCreative() && self->craftingType != CraftingType::FULLCRAFTING)
 		InventoryTransitions::init(self);
 
 	_InventoryScreen$init(self);
@@ -26,7 +26,7 @@ static void InventoryScreen$setupPositions(InventoryScreen* self)
 {
 	_InventoryScreen$setupPositions(self);
 	
-	if(self->mcClient->getLocalPlayer()->IsCreative() && self->craftingType != CraftingType::FULLCRAFTING)
+	//if(self->mcClient->getLocalPlayer()->IsCreative() && self->craftingType != CraftingType::FULLCRAFTING)
 		InventoryTransitions::setupPositions(self);
 }
 
@@ -35,11 +35,11 @@ static void InventoryScreen$render(InventoryScreen* self, int i1, int i2, float 
 {
 	_InventoryScreen$render(self, i1, i2, f1);
 	
-	if(self->mcClient->getLocalPlayer()->IsCreative() && self->craftingType != CraftingType::FULLCRAFTING)
-	{
+	//if(self->mcClient->getLocalPlayer()->IsCreative() && self->craftingType != CraftingType::FULLCRAFTING)
+	//{
 		InventoryTransitions::render(self, i1, i2, f1);
 		InventoryTransitions::currentPage = 1;
-	}
+	//}
 }
 
 static void (*_InventoryScreen$_buttonClicked)(InventoryScreen*, Button&);
@@ -47,7 +47,7 @@ static void InventoryScreen$_buttonClicked(InventoryScreen* self, Button& button
 {
 	_InventoryScreen$_buttonClicked(self, button);
 	
-	if(self->mcClient->getLocalPlayer()->IsCreative() && self->craftingType != CraftingType::FULLCRAFTING)
+	//if(self->mcClient->getLocalPlayer()->IsCreative() && self->craftingType != CraftingType::FULLCRAFTING)
 		InventoryTransitions::_buttonClicked(self, button);
 }
 
