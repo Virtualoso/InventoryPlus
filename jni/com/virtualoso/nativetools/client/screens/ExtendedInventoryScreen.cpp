@@ -12,6 +12,7 @@
 #include "com/mojang/minecraftpe/client/renderer/Tessellator.h"
 #include "com/mojang/minecraftpe/client/renderer/texture/TextureGroup.h"
 #include "com/mojang/minecraftpe/client/renderer/entity/ItemRenderer.h"
+#include "com/mojang/minecraftpe/client/renderer/ShaderColor.h"
 
 ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftClient& client, std::vector<CreativeTab*> creativeTabs)
 	: Screen(client)
@@ -86,6 +87,10 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	InventoryTransitions::render(this, i1, i2, f1);
 	
 	Screen::render(i1, i2, f1);
+	
+	currentShaderColor.setColor(Color::WHITE);
+	
+	screenComponent->fill((width / 2) - 20, (height / 2) - 20, 40, 40, {0.2F, 0.2F, 0.2F, 1.0F});
 	
 	screenComponent->drawCenteredString(font, "This is the Inventory! (for sure)...", width / 2, height / 2, Color::GREEN);
 	
