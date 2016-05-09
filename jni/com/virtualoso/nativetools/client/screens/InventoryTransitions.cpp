@@ -52,7 +52,7 @@ void InventoryTransitions::render(Screen* self, int i1, int i2, float f1)
 {
 	std::ostringstream pageNum;
 	pageNum << currentPage << " / " << pages.size() + 1;
-	self->drawString(self->font, pageNum.str(), 5, self->height - 15, Color::WHITE);
+	self->screenComponent->drawString(self->font, pageNum.str(), 5, self->height - 15, Color::WHITE);
 	
 	backButton->enabled = true;
 	forwardButton->enabled = true;
