@@ -87,8 +87,6 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	Screen::render(i1, i2, f1);
 	
-	screenComponent->drawCenteredString(font, "This is the Inventory! (for sure)...", width / 2, height / 2, Color::GREEN);
-	
 	renderOnSelectItemNameText(width, mcClient->getFont(), height - 41);
 }
 
