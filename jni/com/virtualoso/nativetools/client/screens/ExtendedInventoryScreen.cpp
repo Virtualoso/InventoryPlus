@@ -82,9 +82,6 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	renderedTabs[selectedTabIndex]->renderBg(mcClient, i1, i2);
 	drawTabIcon(ownedTabs[selectedTabIndex], renderedTabs[selectedTabIndex], renderedTabs[selectedTabIndex]->pressed, true);	
-
-
-	backgroundLayer->fill(31, 2, 329, 328, Color::GREY);
 	
 	InventoryTransitions::render(this, i1, i2, f1);
 	
