@@ -19,9 +19,10 @@ class ControllerButtonRenderer;
 class ItemInstance;
 
 // Size : 160
-class Screen : public BaseScreen, public GuiComponent {
+class Screen : public BaseScreen {
 public:
-	//void* vtable; // 8
+	//void* vtable; // 4
+	GuiComponent* screenComponent; // 8
 	int width; // 12
 	int height; // 16
 	MinecraftClient* mcClient; // 20
