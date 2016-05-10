@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../AppPlatformListener.h"
+#include "../renderer/entity/EntityShaderManager.h"
 #include "ScrollingPane.h"
 class ItemRenderChunkType;
 class ItemInstance;
@@ -10,7 +11,8 @@ namespace Touch {
 	
 class IInventoryPaneCallback;
 
-class InventoryPane : public ScrollingPane, public AppPlatformListener {
+class InventoryPane : public ScrollingPane, public EntityShaderManager, public AppPlatformListener {
+public:
 	char filler [152520 - 788];
 	// virtual methods
 	InventoryPane(Touch::IInventoryPaneCallback*, MinecraftClient&, IntRectangle const&, int, float, int, int, int, bool, bool, bool);
@@ -33,6 +35,7 @@ class InventoryPane : public ScrollingPane, public AppPlatformListener {
 };
 
 class IInventoryPaneCallback {
+public:
 	virtual ~IInventoryPaneCallback();
 	virtual bool addItem(const Touch::InventoryPane*, int) = 0;
 	virtual bool isAllowed(int) = 0;

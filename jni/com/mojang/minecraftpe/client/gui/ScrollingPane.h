@@ -6,18 +6,31 @@
 #include "../../world/phys/RectangleArea.h"
 
 class ScrollBar {
-	float x;
-	float y;
-	float w;
-	float h;
-	float scale;
-	float alpha;
-
+public:
+	enum class RenderColorType : int {
+		
+	};
+	
+	float x; // 0
+	float y; // 4
+	float w; // 8
+	float h; // 12
+	float scale; // 16
+	float alpha; // 20
+	char filler[16]; // 24
+	bool idk_b; // 40
+	RenderColorType colorType; // 44
+	int idk_i; // 48
+	RectangleArea rect; // 52
+	char filler1[16]; // 68
+	
 	ScrollBar();
 	void render(MinecraftClient*, bool);
 	void update(const IntRectangle&, float, int);
 	void updateScale(float);
 	void createMouseScrollBars();
+	void setMarginsPixelOffsets(float, float, float);
+	void setRenderColorType(RenderColorType);
 };
 
 class ScrollingPane : public GuiElement {
@@ -31,22 +44,25 @@ public:
 		bool selected;
 	};
 	
-	int flags;
-	int columns;
-	int rows;
-	int numItems;
-	int px;
-	int py;
-	float fpx;
-	float fpy;
-	float screenScale;
-	float invScreenScale; // 88
-	IntRectangle bbox;
-	IntRectangle itemRect;
-	IntRectangle itemBBox;
-	RectangleArea area;
-	RectangleArea bboxArea;
-	
+	int flags; // 48
+	int columns; // 52
+	int rows; // 56
+	int numItems; // 60
+	int px; // 64
+	int py; // 68
+	float fpx; // 72
+	float fpy; // 76
+	float screenScale; // 80
+	float invScreenScale; // 84
+	IntRectangle bbox; // 88
+	IntRectangle itemRect; // 104
+	IntRectangle itemBBox; // 120
+	RectangleArea area; // 136
+	RectangleArea bboxArea; // 152
+	char filler[476 - 168]; // 168
+	ScrollBar bar1; // 476
+	ScrollBar bar2; // 560
+	char filler1[720 - 644]; //644
 
 	ScrollingPane(int, const IntRectangle&, const IntRectangle&, int, int, float, const IntRectangle&);
 	virtual ~ScrollingPane();

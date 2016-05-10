@@ -1,6 +1,5 @@
 #pragma once
 
-#include <memory>
 #include <vector>
 #include "../GuiComponent.h"
 #include "BaseScreen.h"
@@ -19,10 +18,9 @@ class ControllerButtonRenderer;
 class ItemInstance;
 
 // Size : 160
-class Screen : public BaseScreen {
+class Screen : public BaseScreen, public GuiComponent {
 public:
 	//void* vtable; // 4
-	GuiComponent* screenComponent; // 8
 	int width; // 12
 	int height; // 16
 	MinecraftClient* mcClient; // 20

@@ -34,7 +34,7 @@ public:
 		ITEMS
 	};
 	
-	char is_vars[60]; // 136
+	char is_vars[56]; // 140
 	void* somethingOfImportance; // 196 
 	char is_vars0[60]; // 200
 	std::shared_ptr<ImageWithBackground> closeButton; // 260;
@@ -62,7 +62,7 @@ public:
 	char is_vars3[656 - 620]; // 620
 	ItemInstance item; // 656
 	bool hasDumpedArmor; // 676
-	char is_vars4[716 - 680]; // 680
+	char is_vars4[720 - 680]; // 680
 	std::shared_ptr<Label> recipesName; // 728
 	std::shared_ptr<Label> noRecipesName; // 736
 	CraftingType craftingType; // 744

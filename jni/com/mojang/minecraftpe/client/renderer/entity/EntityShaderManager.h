@@ -8,7 +8,7 @@ class Color;
 class EntityShaderManager {
 public:
 	mce::MaterialPtr entity; // 4
-	mce::MaterialPtr entity_alphatest; // 16
+	mce::MaterialPtr entity_transparent; // 16
 	mce::MaterialPtr entity_static; // 28
 
 	EntityShaderManager();

@@ -90,7 +90,7 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	currentShaderColor.setColor(Color::WHITE);
 	
-	screenComponent->fill(backgroundLayer->xPosition + 5, backgroundLayer->yPosition + 4, width - 38, height - 27, {0.2F, 0.2F, 0.2F, 1.0F});
+	fill(backgroundLayer->xPosition + 5, backgroundLayer->yPosition + 4, width - 38, height - 27, {0.2F, 0.2F, 0.2F, 1.0F});
 	
 	renderOnSelectItemNameText(width, mcClient->getFont(), height - 41);
 }
