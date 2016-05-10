@@ -139,9 +139,23 @@ void ExtendedInventoryScreen::_pointerReleased(int x, int y)
 	
 	for(int tab = 0; tab < renderedTabs.size(); tab++)
 	{
-		if(tab != selectedTabIndex && renderedTabs[tab]->isInside(x, y))
-		{
+		if(tab != selectedTabIndex && renderedTabs[tab]->isInside(x, y) && renderedTabs[tab]->pressed)
 			selectedTabIndex = tab;
+		
+		renderedTabs[tab]->pressed = false;
+	}
+}
+
+void ExtendedInventoryScreen::_pointerPressed(int x, int y)
+{
+	Screen::_pointerPressed(x, y);
+	
+	for(int tab = 0; tab < renderedTabs.size(); tab++)
+	{
+		if(renderedTabs[tab]->isInside(x, y))
+		{
+			renderedTabs[tab]->pressed = true;
+			return;
 		}
 	}
 }

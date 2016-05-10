@@ -27,6 +27,7 @@ public:
 	virtual void setupPositions();
 	virtual void _buttonClicked(Button&);
 	virtual void _pointerReleased(int, int);
+	virtual void _pointerPressed(int, int);
 	virtual void handleBackEvent(bool);
 	virtual bool isModal() const;
 	virtual void tick();
