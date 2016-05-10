@@ -90,9 +90,7 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	currentShaderColor.setColor(Color::WHITE);
 	
-	screenComponent->fill((width / 2) - 20, (height / 2) - 20, 40, 40, {0.2F, 0.2F, 0.2F, 1.0F});
-	
-	screenComponent->drawCenteredString(font, "This is the Inventory! (for sure)...", width / 2, height / 2, Color::GREEN);
+	screenComponent->fill(backgroundLayer->xPosition + 5, backgroundLayer->yPosition + 4, width - 38, height - 27, {0.2F, 0.2F, 0.2F, 1.0F});
 	
 	renderOnSelectItemNameText(width, mcClient->getFont(), height - 41);
 }
@@ -101,7 +99,7 @@ void ExtendedInventoryScreen::setupPositions()
 {
 	backgroundLayer->xPosition = 31;
 	backgroundLayer->yPosition = 2;
-	backgroundLayer->setSize((float)(width - 26 - 28) - 4.0F - 6.0F, ((float) height) - 25.0F);
+	backgroundLayer->setSize((float)(width - 26 - 28) - 4.0F - 6.0F, (float)height - 25.0F);
 	
 	closeButton->xPosition = backgroundLayer->xPosition - 26;
 	closeButton->yPosition = backgroundLayer->yPosition;
