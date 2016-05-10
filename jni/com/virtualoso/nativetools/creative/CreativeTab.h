@@ -12,11 +12,13 @@ class CreativeTab
 {
 public:
 	CreativeTab(); // constructor
-	virtual ItemInstance* getTabIcon();
+	ItemInstance* getTabIcon();
 	void addItem(Item*, int); // Item Ptr and Data
-	void addItemInstance(const ItemInstance&); // ItemInstance
+	void addItemInstance(ItemInstance*); // ItemInstance
 	void addBlock(Block*, int); // Block Ptr and Data
 	void addItem(int, int); // Item ID and Data
+	void addToTabsList();
 	
-	std::vector<ItemInstance> itemsInTab;
+	ItemInstance* tabIcon;
+	std::vector<ItemInstance*> itemsInTab;
 };

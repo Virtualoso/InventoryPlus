@@ -7,22 +7,22 @@
 
 CreativeTab::CreativeTab()
 {
-	InventoryTransitions::creativeTabs.emplace_back(this);	
+	tabIcon = new ItemInstance(NativeToolsItems::barrier, 0);
 }
 
 ItemInstance* CreativeTab::getTabIcon()
 {
-	return new ItemInstance(NativeToolsItems::barrier, 0);
+	return tabIcon;
 }
 
-void CreativeTab::addItemInstance(const ItemInstance& item)
+void CreativeTab::addItemInstance(ItemInstance* item)
 {
 	itemsInTab.emplace_back(item);
 }
 
 void CreativeTab::addItem(Item* item, int data)
 {
-	addItemInstance(ItemInstance(item, data));
+	addItemInstance(new ItemInstance(item, data));
 }
 
 void CreativeTab::addItem(int itemId, int data)
@@ -32,12 +32,10 @@ void CreativeTab::addItem(int itemId, int data)
 
 void CreativeTab::addBlock(Block* block, int data)
 {
-	addItemInstance(ItemInstance(block, data));
+	addItemInstance(new ItemInstance(block, data));
 }
 
-CreativeTab* myTab1 = new CreativeTab();
-CreativeTab* myTab2 = new CreativeTab();
-CreativeTab* myTab3 = new CreativeTab();
-CreativeTab* myTab4 = new CreativeTab();
-CreativeTab* myTab5 = new CreativeTab();
-CreativeTab* myTab6 = new CreativeTab();
+void CreativeTab::addToTabsList()
+{
+	InventoryTransitions::creativeTabs.emplace_back(this);	
+}
