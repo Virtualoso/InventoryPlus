@@ -1,13 +1,14 @@
 #pragma once
 
 #include "com/mojang/minecraftpe/client/gui/screen/Screen.h"
+#include "com/mojang/minecraftpe/client/gui/InventoryPane.h"
 
 class NinePatchLayer;
 class ImageWithBackground;
 class InventoryTab;
 class CreativeTab;
 
-class ExtendedInventoryScreen : public Screen
+class ExtendedInventoryScreen : public Screen, public Touch::IInventoryPaneCallback
 {
 public:
 	std::shared_ptr<ImageWithBackground> closeButton;
@@ -17,6 +18,7 @@ public:
 	std::vector<std::shared_ptr<InventoryTab>> renderedTabs;
 	std::vector<CreativeTab*> ownedTabs;
 	int selectedTabIndex;
+	std::shared_ptr<Touch::InventoryPane> testPane;
 	
 	ExtendedInventoryScreen(MinecraftClient&, std::vector<CreativeTab*>);
 
@@ -32,6 +34,9 @@ public:
 	virtual bool isModal() const;
 	virtual void tick();
 	virtual std::string getScreenName();
+	virtual bool addItem(const Touch::InventoryPane*, int);
+	virtual bool isAllowed(int);
+	virtual std::vector<const ItemInstance*> getItems(const Touch::InventoryPane*);
 	
 	std::shared_ptr<InventoryTab> createInventoryTab(int, bool);
 	void drawTabIcon(CreativeTab*, std::shared_ptr<InventoryTab>, bool, bool);

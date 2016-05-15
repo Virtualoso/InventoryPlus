@@ -13,6 +13,7 @@
 #include "com/mojang/minecraftpe/client/renderer/texture/TextureGroup.h"
 #include "com/mojang/minecraftpe/client/renderer/entity/ItemRenderer.h"
 #include "com/mojang/minecraftpe/client/renderer/ShaderColor.h"
+#include "com/mojang/minecraftpe/world/item/ItemInstance.h"
 
 ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftClient& client, std::vector<CreativeTab*> creativeTabs)
 	: Screen(client)
@@ -22,6 +23,7 @@ ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftClient& client, std::v
 	leftButtonLayer = NULL;
 	rightButtonLayer = NULL;
 	ownedTabs = creativeTabs;
+	testPane = NULL;
 }
 
 bool ExtendedInventoryScreen::renderGameBehind() const
@@ -92,6 +94,8 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	fill(backgroundLayer->xPosition + 5, backgroundLayer->yPosition + 4, width - 38, height - 27, {0.2F, 0.2F, 0.2F, 1.0F});
 	
+	testPane->render(i1, i2, f1, mcClient);
+	
 	renderOnSelectItemNameText(width, mcClient->getFont(), height - 41);
 }
 
@@ -121,6 +125,13 @@ void ExtendedInventoryScreen::setupPositions()
 		renderedTabs[tab]->width = 29;
 		renderedTabs[tab]->height = 29;
 	}
+	
+	testPane = std::shared_ptr<Touch::InventoryPane>(new Touch::InventoryPane(this, *mcClient, {backgroundLayer->xPosition + 7, backgroundLayer->yPosition + 8, 20, 20}, 1, 1.0F, 20, 0, 0, false, true, false));
+	
+	testPane->xPosition = backgroundLayer->xPosition + 7;
+	testPane->yPosition = backgroundLayer->yPosition + 8;
+	testPane->width = 60;
+	testPane->height = 60;
 	
 	InventoryTransitions::setupPositions(this);
 }
@@ -192,4 +203,20 @@ std::shared_ptr<InventoryTab> ExtendedInventoryScreen::createInventoryTab(int id
 void ExtendedInventoryScreen::drawTabIcon(CreativeTab* ownedTab, std::shared_ptr<InventoryTab> imageButton, bool isPressed, bool isSelected)
 {
 	ItemRenderer::getInstance()->renderGuiItemNew(ownedTab->getTabIcon(), 0, ((float)imageButton->xPosition + (float)((imageButton->width / 2) - 8) + (isPressed ? 1.0F : 0.7F)), ((float)imageButton->yPosition + (float)((imageButton->height / 2) - 8)), 1.0F, (isSelected ? 1.0F : 0.7F), (((float)imageButton->width) - (isPressed ? 2.0F : 0.0F)) * 0.04F, false);
+}
+
+bool ExtendedInventoryScreen::addItem(const Touch::InventoryPane* pane, int slot)
+{
+	return true;
+}
+
+bool ExtendedInventoryScreen::isAllowed(int slot)
+{
+	return true;
+}
+
+std::vector<const ItemInstance*> ExtendedInventoryScreen::getItems(const Touch::InventoryPane* pane)
+{
+	std::vector<const ItemInstance*> itemVector;
+	return itemVector;
 }
