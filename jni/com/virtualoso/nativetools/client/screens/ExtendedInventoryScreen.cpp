@@ -126,12 +126,12 @@ void ExtendedInventoryScreen::setupPositions()
 		renderedTabs[tab]->height = 29;
 	}
 	
-	testPane = std::shared_ptr<Touch::InventoryPane>(new Touch::InventoryPane(this, *mcClient, {backgroundLayer->xPosition + 7, backgroundLayer->yPosition + 8, 20, 20}, 1, 1.0F, 20, 0, 0, false, true, false));
+	testPane = std::shared_ptr<Touch::InventoryPane>(new Touch::InventoryPane(this, *mcClient, {backgroundLayer->xPosition + 11, backgroundLayer->yPosition + 8, 120, 120}, 1, 1.0F, 5, 26, 1, false, true, false));
 	
-	testPane->xPosition = backgroundLayer->xPosition + 7;
+	testPane->xPosition = backgroundLayer->xPosition + 11;
 	testPane->yPosition = backgroundLayer->yPosition + 8;
-	testPane->width = 60;
-	testPane->height = 60;
+	testPane->width = 120;
+	testPane->height = 120;
 	
 	InventoryTransitions::setupPositions(this);
 }
@@ -217,6 +217,6 @@ bool ExtendedInventoryScreen::isAllowed(int slot)
 
 std::vector<const ItemInstance*> ExtendedInventoryScreen::getItems(const Touch::InventoryPane& pane)
 {
-	std::vector<const ItemInstance*> itemVector;
+	std::vector<const ItemInstance*> itemVector = {new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1)};
 	return itemVector;
 }
