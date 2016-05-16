@@ -34,9 +34,9 @@ public:
 	virtual bool isModal() const;
 	virtual void tick();
 	virtual std::string getScreenName();
-	virtual bool addItem(const Touch::InventoryPane*, int);
+	virtual bool addItem(Touch::InventoryPane&, int);
 	virtual bool isAllowed(int);
-	virtual std::vector<const ItemInstance*> getItems(const Touch::InventoryPane*);
+	virtual std::vector<const ItemInstance*> getItems(const Touch::InventoryPane&);
 	
 	std::shared_ptr<InventoryTab> createInventoryTab(int, bool);
 	void drawTabIcon(CreativeTab*, std::shared_ptr<InventoryTab>, bool, bool);

@@ -205,7 +205,7 @@ void ExtendedInventoryScreen::drawTabIcon(CreativeTab* ownedTab, std::shared_ptr
 	ItemRenderer::getInstance()->renderGuiItemNew(ownedTab->getTabIcon(), 0, ((float)imageButton->xPosition + (float)((imageButton->width / 2) - 8) + (isPressed ? 1.0F : 0.7F)), ((float)imageButton->yPosition + (float)((imageButton->height / 2) - 8)), 1.0F, (isSelected ? 1.0F : 0.7F), (((float)imageButton->width) - (isPressed ? 2.0F : 0.0F)) * 0.04F, false);
 }
 
-bool ExtendedInventoryScreen::addItem(const Touch::InventoryPane* pane, int slot)
+bool ExtendedInventoryScreen::addItem(Touch::InventoryPane& pane, int slot)
 {
 	return true;
 }
@@ -215,7 +215,7 @@ bool ExtendedInventoryScreen::isAllowed(int slot)
 	return true;
 }
 
-std::vector<const ItemInstance*> ExtendedInventoryScreen::getItems(const Touch::InventoryPane* pane)
+std::vector<const ItemInstance*> ExtendedInventoryScreen::getItems(const Touch::InventoryPane& pane)
 {
 	std::vector<const ItemInstance*> itemVector;
 	return itemVector;
