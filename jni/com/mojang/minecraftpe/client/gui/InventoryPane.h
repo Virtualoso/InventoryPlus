@@ -28,18 +28,18 @@ public:
 	void onSelectItem();
 	void setRenderDecorations(bool);
 	void tick();
-	void renderSelectedItem(std::vector<ScrollingPane::GridItem>, Tessellator&, ScrollingPane::GridItem*&, float&, float&);
+	void renderSelectedItem(std::vector<ScrollingPane::GridItem>&, std::vector<const ItemInstance*>, Tessellator&, ScrollingPane::GridItem*&, float&, float&);
 	void setControllerDirection(StickDirection);
 	void SetAdditionalMargin(int, int);
-	void buildInventoryItemsChunk(std::vector<ItemInstance const*>&, ItemRenderChunkType);
+	void buildInventoryItemsChunk(std::vector<const ItemInstance*>&, ItemRenderChunkType);
 };
 
 class IInventoryPaneCallback {
 public:
 	virtual ~IInventoryPaneCallback();
-	virtual bool addItem(const Touch::InventoryPane*, int) = 0;
+	virtual bool addItem(Touch::InventoryPane&, int) = 0;
 	virtual bool isAllowed(int) = 0;
-	virtual std::vector<const ItemInstance*> getItems(const Touch::InventoryPane*) = 0;
+	virtual std::vector<const ItemInstance*> getItems(const Touch::InventoryPane&) = 0;
 };
 
 };
