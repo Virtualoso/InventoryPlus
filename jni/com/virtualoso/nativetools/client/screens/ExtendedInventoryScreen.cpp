@@ -23,7 +23,6 @@ ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftClient& client, std::v
 	leftButtonLayer = NULL;
 	rightButtonLayer = NULL;
 	ownedTabs = creativeTabs;
-	testPane = NULL;
 }
 
 bool ExtendedInventoryScreen::renderGameBehind() const
@@ -94,7 +93,7 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	fill(backgroundLayer->xPosition + 5, backgroundLayer->yPosition + 4, width - 38, height - 27, {0.2F, 0.2F, 0.2F, 1.0F});
 	
-	testPane->render(i1, i2, f1, mcClient);
+	inventoryPanes[selectedTabIndex]->render(i1, i2, f1, mcClient);
 	
 	renderOnSelectItemNameText(width, mcClient->getFont(), height - 41);
 }
@@ -123,17 +122,23 @@ void ExtendedInventoryScreen::setupPositions()
 			renderedTabs[tab]->yPosition = height - 25 - 29 - ((tab - 4) * 31);
 		}
 		renderedTabs[tab]->width = 29;
-		renderedTabs[tab]->height = 29;
+		renderedTabs[tab]->height = 29;	
 	}
 	
-	testPane = std::shared_ptr<Touch::InventoryPane>(new Touch::InventoryPane(this, *mcClient, {backgroundLayer->xPosition + 11, backgroundLayer->yPosition + 8, width - backgroundLayer->xPosition - 54, height - 41}, 1, 1.0F, 5, 26, 1, false, true, false));
-	
-	testPane->xPosition = backgroundLayer->xPosition + 11;
-	testPane->yPosition = backgroundLayer->yPosition + 8;
-	testPane->width = width - backgroundLayer->xPosition - 54;
-	testPane->height = height - 41;
-	
 	InventoryTransitions::setupPositions(this);
+	
+	inventoryPanes.reserve(renderedTabs.size());
+	
+	for(int tab = 0; tab < renderedTabs.size(); tab++)
+	{
+		inventoryPanes[tab] = new Touch::InventoryPane(this, *mcClient, {backgroundLayer->xPosition + 11, backgroundLayer->yPosition + 8, width - backgroundLayer->xPosition - 54, height - 41}, 1, 1.0F, 5, 26, 1, false, true, false);
+		
+		inventoryPanes[tab]->id = tab;
+		inventoryPanes[tab]->xPosition = backgroundLayer->xPosition + 11;
+		inventoryPanes[tab]->yPosition = backgroundLayer->yPosition + 8;
+		inventoryPanes[tab]->width = width - backgroundLayer->xPosition - 54;
+		inventoryPanes[tab]->height = height - 41;
+	}
 }
 
 void ExtendedInventoryScreen::_buttonClicked(Button& button)
@@ -217,6 +222,11 @@ bool ExtendedInventoryScreen::isAllowed(int slot)
 
 std::vector<const ItemInstance*> ExtendedInventoryScreen::getItems(const Touch::InventoryPane& pane)
 {
-	std::vector<const ItemInstance*> itemVector = {new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1), new ItemInstance(4, 1, 0), new ItemInstance(98, 1, 0), new ItemInstance(98, 1, 1)};
-	return itemVector;
+	for(int tab = 0; tab < inventoryPanes.size(); tab++)
+	{
+		if(((Touch::InventoryPane&)pane == *inventoryPanes[tab]) && !(ownedTab[tab]->itemsInTab.empty()))
+			return ownedTabs[tab]->itemsInTab;
+	}
+	std::vector<const ItemInstance*> itemVecNull;
+	return itemVecNull;
 }

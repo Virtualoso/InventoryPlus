@@ -1,24 +1,31 @@
 #pragma once
 
-#include <string>
 #include <vector>
 
-#include "com/mojang/minecraftpe/world/item/ItemInstance.h"
-
-class Item;
 class Block;
+class Item;
+
+#include "com/mojang/minecraftpe/world/item/ItemInstance.h"
 
 class CreativeTab
 {
 public:
-	CreativeTab(); // constructor
+	CreativeTab(ItemInstance*);
+	CreativeTab(Item*, int);
+	CreativeTab(Block*, int);
+	CreativeTab(int, int);
+	CreativeTab();
+	void setTabIcon(ItemInstance*);
+	void setTabIcon(Item*, int);
+	void setTabIcon(Block*, int);
+	void setTabIcon(int, int);
 	ItemInstance* getTabIcon();
-	void addItem(Item*, int); // Item Ptr and Data
-	void addItemInstance(ItemInstance*); // ItemInstance
-	void addBlock(Block*, int); // Block Ptr and Data
-	void addItem(int, int); // Item ID and Data
+	void addItem(ItemInstance*);
+	void addItem(Item*, int);
+	void addItem(int, int);
+	void addItem(Block*, int);
 	void addToTabsList();
 	
+	std::vector<const ItemInstance*> itemsInTab;
 	ItemInstance* tabIcon;
-	std::vector<ItemInstance*> itemsInTab;
 };

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "GuiElement.h"
 #include "IntRectangle.h"
 #include "../../world/phys/Vec3.h"

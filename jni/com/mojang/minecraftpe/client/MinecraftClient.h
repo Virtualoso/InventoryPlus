@@ -179,7 +179,7 @@ public:
 	Font* getFont() const;
 	GameRenderer* getGameRenderer() const;
 	GameStore* getGameStore() const;
-	GuiData* getGuiData() const;
+	GuiData* getGuiData();
 	int getHeight() const;
 	void getHoloInput() const;
 	void getHolosceneRenderer() const;

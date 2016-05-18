@@ -13,7 +13,7 @@ class IInventoryPaneCallback;
 
 class InventoryPane : public ScrollingPane, public EntityShaderManager, public AppPlatformListener {
 public:
-	char filler [152520 - 788];
+	char ip_vars[1268 - 768]; // 768
 	// virtual methods
 	InventoryPane(Touch::IInventoryPaneCallback*, MinecraftClient&, IntRectangle const&, int, float, int, int, int, bool, bool, bool);
 	virtual ~InventoryPane();
