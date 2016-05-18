@@ -146,7 +146,7 @@ void ExtendedInventoryScreen::_buttonClicked(Button& button)
 	InventoryTransitions::_buttonClicked(this, button);
 	
 	if(button.id == closeButton->id)
-		InventoryTransitions::pushPreviousScreen(this);
+		InventoryTransitions::closeScreens(this);
 }
 
 void ExtendedInventoryScreen::_pointerReleased(int x, int y)

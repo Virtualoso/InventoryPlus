@@ -108,3 +108,9 @@ void InventoryTransitions::initCreativeTabs(Screen* self)
 		}
 	}
 }
+
+void InventoryTransitions::closeScreens(Screen* self)
+{
+	self->mcClient->getScreenChooser()->popScreen(*self, currentPage);
+	currentPage = 1;
+}
