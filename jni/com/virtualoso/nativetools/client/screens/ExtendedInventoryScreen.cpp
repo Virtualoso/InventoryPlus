@@ -133,7 +133,6 @@ void ExtendedInventoryScreen::setupPositions()
 	{
 		inventoryPanes[tab] = new Touch::InventoryPane(this, *mcClient, {backgroundLayer->xPosition + 11, backgroundLayer->yPosition + 8, width - backgroundLayer->xPosition - 54, height - 41}, 1, 1.0F, 5, 26, 1, false, true, false);
 		
-		inventoryPanes[tab]->id = tab;
 		inventoryPanes[tab]->xPosition = backgroundLayer->xPosition + 11;
 		inventoryPanes[tab]->yPosition = backgroundLayer->yPosition + 8;
 		inventoryPanes[tab]->width = width - backgroundLayer->xPosition - 54;
@@ -224,7 +223,7 @@ std::vector<const ItemInstance*> ExtendedInventoryScreen::getItems(const Touch::
 {
 	for(int tab = 0; tab < inventoryPanes.size(); tab++)
 	{
-		if(((Touch::InventoryPane&)pane == *inventoryPanes[tab]) && !(ownedTab[tab]->itemsInTab.empty()))
+		if((&((Touch::InventoryPane&)pane) == &*inventoryPanes[tab]) && !(ownedTabs[tab]->itemsInTab.empty()))
 			return ownedTabs[tab]->itemsInTab;
 	}
 	std::vector<const ItemInstance*> itemVecNull;
