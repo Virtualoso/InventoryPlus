@@ -79,6 +79,7 @@ public:
 
 	void addDeltaPos(float, float, float, int);
 	void render(int, int, float, MinecraftClient*);
+	void resetHoldTime();
 	void recalculateRows(int);
 	void setNumItems(int);
 	void UpdateHighlightItem(float, float);

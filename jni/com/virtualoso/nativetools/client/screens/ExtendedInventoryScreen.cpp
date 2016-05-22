@@ -123,14 +123,7 @@ void ExtendedInventoryScreen::setupPositions()
 		}
 		renderedTabs[tab]->width = 29;
 		renderedTabs[tab]->height = 29;	
-	}
-	
-	InventoryTransitions::setupPositions(this);
-	
-	inventoryPanes.reserve(renderedTabs.size());
-	
-	for(int tab = 0; tab < renderedTabs.size(); tab++)
-	{
+		
 		inventoryPanes[tab] = new Touch::InventoryPane(this, *mcClient, {backgroundLayer->xPosition + 11, backgroundLayer->yPosition + 8, width - backgroundLayer->xPosition - 54, height - 41}, 1, 1.0F, 5, 26, 1, false, true, false);
 		
 		inventoryPanes[tab]->xPosition = backgroundLayer->xPosition + 11;
@@ -138,6 +131,8 @@ void ExtendedInventoryScreen::setupPositions()
 		inventoryPanes[tab]->width = width - backgroundLayer->xPosition - 54;
 		inventoryPanes[tab]->height = height - 41;
 	}
+	
+	InventoryTransitions::setupPositions(this);
 }
 
 void ExtendedInventoryScreen::_buttonClicked(Button& button)
@@ -211,6 +206,7 @@ void ExtendedInventoryScreen::drawTabIcon(CreativeTab* ownedTab, std::shared_ptr
 
 bool ExtendedInventoryScreen::addItem(Touch::InventoryPane& pane, int slot)
 {
+	pane.resetHoldTime();
 	return true;
 }
 
@@ -221,9 +217,9 @@ bool ExtendedInventoryScreen::isAllowed(int slot)
 
 std::vector<const ItemInstance*> ExtendedInventoryScreen::getItems(const Touch::InventoryPane& pane)
 {
-	for(int tab = 0; tab < inventoryPanes.size(); tab++)
+	for(int tab = 0; tab < renderedTabs.size(); tab++)
 	{
-		if((&((Touch::InventoryPane&)pane) == &*inventoryPanes[tab]) && !(ownedTabs[tab]->itemsInTab.empty()))
+		if(&pane == inventoryPanes[tab] && !(ownedTabs[tab]->itemsInTab.empty()))
 			return ownedTabs[tab]->itemsInTab;
 	}
 	std::vector<const ItemInstance*> itemVecNull;

@@ -18,7 +18,7 @@ public:
 	std::vector<std::shared_ptr<InventoryTab>> renderedTabs;
 	std::vector<CreativeTab*> ownedTabs;
 	int selectedTabIndex;
-	std::vector<Touch::InventoryPane*> inventoryPanes;
+	Touch::InventoryPane* inventoryPanes[8];
 	
 	ExtendedInventoryScreen(MinecraftClient&, std::vector<CreativeTab*>);
 
