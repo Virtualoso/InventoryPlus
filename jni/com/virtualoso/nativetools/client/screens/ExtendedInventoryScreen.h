@@ -19,6 +19,14 @@ public:
 	std::vector<CreativeTab*> ownedTabs;
 	int selectedTabIndex;
 	Touch::InventoryPane* inventoryPanes[8];
+	int paneX;
+	int paneY;
+	int paneWidth;
+	int paneHeight;
+	int paneBgX;
+	int paneBgY;
+	int paneBgWidth;
+	int paneBgHeight;
 	
 	ExtendedInventoryScreen(MinecraftClient&, std::vector<CreativeTab*>);
 

@@ -91,7 +91,7 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	currentShaderColor.setColor(Color::WHITE);
 	
-	fill(backgroundLayer->xPosition + 5, backgroundLayer->yPosition + 4, width - 38, height - 27, {0.2F, 0.2F, 0.2F, 1.0F});
+	fill(paneBgX, paneBgY, paneBgWidth + paneBgX, paneBgHeight + paneBgY, {0.2F, 0.2F, 0.2F, 1.0F});
 	
 	inventoryPanes[selectedTabIndex]->render(i1, i2, f1, mcClient);
 	
@@ -109,6 +109,18 @@ void ExtendedInventoryScreen::setupPositions()
 	
 	closeButton->setSize(29, 28);
 	
+	paneBgX = backgroundLayer->xPosition + 5;
+	paneBgY = backgroundLayer->yPosition + 4;
+	paneBgWidth = width - 38 - paneBgX;
+	paneBgHeight = height - 27 - paneBgY;
+	
+	int paneOffset = (paneBgWidth % 26) / 2;
+	paneWidth = paneBgWidth - (paneOffset * 2);
+	paneHeight = paneBgHeight - 8;
+	paneX = paneBgX + paneOffset;
+	paneY = paneBgY + 4;
+	
+	
 	for(int tab = 0; tab < renderedTabs.size(); tab++)
 	{
 		if(!renderedTabs[tab]->isRight)
@@ -124,12 +136,12 @@ void ExtendedInventoryScreen::setupPositions()
 		renderedTabs[tab]->width = 29;
 		renderedTabs[tab]->height = 29;	
 		
-		inventoryPanes[tab] = new Touch::InventoryPane(this, *mcClient, {backgroundLayer->xPosition + 11, backgroundLayer->yPosition + 8, width - backgroundLayer->xPosition - 54, height - 41}, 1, 1.0F, 5, 26, 1, false, true, false);
+		inventoryPanes[tab] = new Touch::InventoryPane(this, *mcClient, {paneX, paneY, paneWidth, paneHeight}, 1, 1.0F, 5, 26, 1, false, true, false);
 		
-		inventoryPanes[tab]->xPosition = backgroundLayer->xPosition + 11;
-		inventoryPanes[tab]->yPosition = backgroundLayer->yPosition + 8;
-		inventoryPanes[tab]->width = width - backgroundLayer->xPosition - 54;
-		inventoryPanes[tab]->height = height - 41;
+		inventoryPanes[tab]->xPosition = paneX;
+		inventoryPanes[tab]->yPosition = paneY;
+		inventoryPanes[tab]->width = paneWidth;
+		inventoryPanes[tab]->height = paneHeight;
 	}
 	
 	InventoryTransitions::setupPositions(this);
