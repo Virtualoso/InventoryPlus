@@ -225,7 +225,7 @@ int ExtendedInventoryScreen::putItemInInventory(ItemInstance& item, bool fullSta
 	int slot = inv->getLinkedSlotForExactItem(item);
 	int selectedSlot = inv->getSelectedSlot();
 	int linkedSlot;
-	if(!(slot >= mcClient->getGuiData()->getNumSlots() | slot >> 31))
+	if(slot < mcClient->getGuiData()->getNumSlots() && slot != -1)
 	{
 		linkedSlot = inv->getLinkedSlot(selectedSlot);
 		ItemInstance* selectedItem = inv->getItem(linkedSlot);
@@ -240,16 +240,21 @@ int ExtendedInventoryScreen::putItemInInventory(ItemInstance& item, bool fullSta
 			inv->linkSlot(slot, linkedSlot);
 		}
 	}
-	else if(inv->getLinkedSlot(selectedSlot) <= 44 || (inv->add(item, false), linkedSlot = inv->getSlotWithItem(item, true, true), linkedSlot >= 0))
-	{
-		item.count = fullStack ? item.getMaxStackSize() : 1;
-		inv->setItem(linkedSlot, &item);
-		inv->linkSlot(selectedSlot, linkedSlot);
-		inv->setItem(selectedSlot, &item);
-	}
 	else
-	{
-		linkedSlot = -1;
+	{ 
+		inv->add(item, false);
+		linkedSlot = inv->getSlotWithItem(item, true, true);
+		if(inv->getLinkedSlot(selectedSlot) <= 44 || linkedSlot >= 0)
+		{
+			item.count = fullStack ? item.getMaxStackSize() : 1;
+			inv->setItem(linkedSlot, &item);
+			inv->linkSlot(selectedSlot, linkedSlot);
+			inv->setItem(selectedSlot, &item);
+		}
+		else
+		{
+			linkedSlot = -1;
+		}
 	}
 	
 	ItemInstance* currentItem = mcClient->getLocalPlayer()->getSelectedItem();
