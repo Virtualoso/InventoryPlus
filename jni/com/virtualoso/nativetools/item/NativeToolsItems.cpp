@@ -9,7 +9,7 @@ void NativeToolsItems::initItems()
 {
 	barrier = new Barrier("barrier", 420);
 	
-	CreativeTab* myTab1 = new CreativeTab();
+	CreativeTab* myTab1 = new CreativeTab(257, 0);
 	myTab1->addItem(4, 0);
 	myTab1->addItem(11, 0);
 	myTab1->addItem(4, 0);
@@ -27,7 +27,7 @@ void NativeToolsItems::initItems()
 	myTab1->addItem(46, 0);
 	myTab1->addItem(49, 0);
 	myTab1->addToTabsList();
-	CreativeTab* myTab2 = new CreativeTab();
+	CreativeTab* myTab2 = new CreativeTab(261, 0);
 	myTab2->addItem(4, 0);
 	myTab2->addItem(110, 0);
 	myTab2->addItem(5, 0);
@@ -45,7 +45,7 @@ void NativeToolsItems::initItems()
 	myTab2->addItem(49, 0);
 	myTab2->addItem(4, 0);
 	myTab2->addToTabsList();
-	CreativeTab* myTab3 = new CreativeTab();
+	CreativeTab* myTab3 = new CreativeTab(260, 0);
 	myTab3->addItem(5, 0);
 	myTab3->addItem(11, 0);
 	myTab3->addItem(5, 0);
@@ -63,7 +63,7 @@ void NativeToolsItems::initItems()
 	myTab3->addItem(49, 0);
 	myTab3->addItem(4, 0);
 	myTab3->addToTabsList();
-	CreativeTab* myTab4 = new CreativeTab();
+	CreativeTab* myTab4 = new CreativeTab(265, 0);
 	myTab4->addItem(5, 0);
 	myTab4->addItem(4, 0);
 	myTab4->addItem(110, 0);
@@ -81,7 +81,7 @@ void NativeToolsItems::initItems()
 	myTab4->addItem(11, 0);
 	myTab4->addItem(4, 0);
 	myTab4->addToTabsList();
-	CreativeTab* myTab5 = new CreativeTab();
+	CreativeTab* myTab5 = new CreativeTab(258, 0);
 	myTab5->addItem(11, 0);
 	myTab5->addItem(11, 0);
 	myTab5->addItem(4, 0);
