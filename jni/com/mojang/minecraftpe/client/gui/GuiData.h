@@ -12,4 +12,6 @@ public:
 	virtual void onConfigChanged(const Config&);
 	virtual void onAppSuspended();
 	void showPopupNotice(const std::string&, const std::string&);
+	void flashSlot(int);
+	int getNumSlots() const;
 };

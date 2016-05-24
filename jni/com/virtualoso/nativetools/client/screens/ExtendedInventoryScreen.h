@@ -48,4 +48,5 @@ public:
 	
 	std::shared_ptr<InventoryTab> createInventoryTab(int, bool);
 	void drawTabIcon(CreativeTab*, std::shared_ptr<InventoryTab>, bool, bool);
+	int putItemInInventory(ItemInstance&, bool);
 };

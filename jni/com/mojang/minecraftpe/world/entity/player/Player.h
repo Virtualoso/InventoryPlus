@@ -1,11 +1,12 @@
 #pragma once
-#include "../Entity.h"
-#include "../../item/ItemInstance.h"
+#include "../Mob.h"
 
-class Player : public Entity {
+class Inventory;
+
+class Player : public Mob {
 public:
-	char filler2[2971];
-	bool creativeMode;
+	char filler2[192]; // 3288
+	Inventory* inventory; // 3488
 
 	void drop(const ItemInstance*);
 	ItemInstance* getSelectedItem() const;

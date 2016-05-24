@@ -28,6 +28,7 @@ class Entity;
 #include "../phys/Vec3.h"
 #include "../phys/Vec2.h"
 #include "../util/Color.h"
+#include "../level/BlockPos.h"
 #include "../../CommonTypes.h"
 
 typedef std::vector<Entity*> EntityList;
@@ -43,61 +44,62 @@ public:
 	Vec2 idk; // 64
 	Vec2 idk1; // 72
 	SynchedEntityData entityData; // 80
-	char filler[12]; // 96
-	DimensionId dimensionId; // 108
-	char filler1[4]; // 112
-	Level& level; // 116
-	char idec[4]; // 120
-	Color lastLightColor; // 124
-	AABB boundingBox; // 140
-	float someFloat; // 168;
-	float headHeight; // 172
-	char filler2[12]; // 176
-	float ridingHeight; // 188
-	Vec2 idk2; // 192
-	char filler3[16]; // 200
-	int airSupply; // 216
-	int fireTicks; // 220
-	char filler4[8]; // 224
-	BlockID block; // 232
-	int noclue; // 236  **ALWAYS 255**
-	char filler5[4]; // 240
-	EntityRendererId rendererId; // 244
-	EntityList riders; // 248
-	Entity& rider; // 252
-	Entity& riding; // 256
-	bool isRiding; // 260
-	int idk5; // 264
-	char filler6[12]; // 268
-	bool what1; // 280
-	bool what2; // 281
-	bool what3; // 282
-	bool what4; // 283
-	bool what5; // 284
-	bool what6; // 285
-	bool hurtMarked; // 286
-	bool noPhysics; // 287
-	bool shouldRender; // 288
-	bool isInvincible; // 289
-	bool idk6; // 290
-	bool notaclue; // 291
-	bool huh; // 292
-	bool noidea; // 293
-	char uniqueId[8]; //  296
-	int autoSend; // 304
-	Vec3 someVec; // 308
-	char filler7[8]; // 320
-	bool what7; // 328
-	bool isStuckInWeb; // 329
-	bool inWater; // 330
-	bool immobile; // 331
-	bool changed; // 332
-	ExplodeComponent* exploder; // 336
-	int idk4; // 340
-	bool isRemoved; // 344
-	bool isGlobal; // 345
-	bool isRegistered; // 346
-	BlockSource& region; // 348
+	char filler[16]; // 96
+	DimensionId dimensionId; // 112
+	bool idk_b; // 116
+	Level& level; // 120
+	char idec[4]; // 124
+	Color lastLightColor; // 128
+	AABB boundingBox; // 144
+	float someFloat; // 172
+	float headHeight; // 176
+	char filler2[12]; // 180
+	float ridingHeight; // 192
+	Vec2 idk2; // 196
+	char filler3[16]; // 204
+	int airSupply; // 220
+	int fireTicks; // 224
+	char filler4[8]; // 228
+	BlockID block; // 236
+	BlockPos maxBlockPos; // 240
+	int noclue; // 252  **ALWAYS 255**
+	char filler5[4]; // 256
+	EntityRendererId rendererId; // 260
+	EntityList riders; // 264
+	Entity& rider; // 268
+	Entity& riding; // 272
+	bool isRiding; // 276
+	int idk5; // 280
+	char filler6[12]; // 284
+	bool what1; // 296
+	bool what2; // 297
+	bool what3; // 298
+	bool what4; // 299
+	bool what5; // 300
+	bool what6; // 301
+	bool hurtMarked; // 302
+	bool noPhysics; // 303
+	bool shouldRender; // 304
+	bool isInvincible; // 305
+	bool idk6; // 306
+	bool notaclue; // 307
+	bool huh; // 308
+	bool noidea; // 309
+	char uniqueId[8]; //  312
+	int autoSend; // 320
+	Vec3 someVec; // 324
+	char filler7[8]; // 336
+	bool what7; // 344
+	bool isStuckInWeb; // 345
+	bool inWater; // 346
+	bool immobile; // 347
+	bool changed; // 348
+	ExplodeComponent* exploder; // 352
+	int idk4; // 356
+	bool isRemoved; // 360
+	bool isGlobal; // 361
+	bool isRegistered; // 362
+	BlockSource& region; // 364
 	
 	static int mEntityCounter;
 	
@@ -136,7 +138,7 @@ public:
 	virtual bool intersects(const Vec3&, const Vec3&);
 	virtual bool isFree(const Vec3&, float);
 	virtual bool isFree(const Vec3&);
-	virtual bool isInWall();
+	virtual bool isInWall() const;
 	virtual bool isInvisible();
 	virtual bool canShowNameTag();
 	virtual void setNameTagVisible(bool);
@@ -166,15 +168,15 @@ public:
 	virtual bool isPushable() const;
 	virtual bool isShootable();
 	virtual bool isSneaking() const;
-	virtual bool isAlive();
+	virtual bool isAlive() const;
 	virtual bool isOnFire() const;
 	virtual bool isCreativeModeAllowed();
 	virtual bool isSurfaceMob() const;
-	virtual bool shouldRenderAtSqrDistance(float);
 	virtual void hurt(const EntityDamageSource&, int);
 	virtual void animateHurt();
 	virtual void doFireHurt(int);
 	virtual void onLightningHit();
+	virtual void onBounceStarted(const BlockPos&, const FullBlock&);
 	virtual void handleEntityEvent(EntityEvent);
 	virtual int getPickRadius();
 	virtual void spawnAtLocation(int, int);
@@ -225,7 +227,7 @@ public:
 	virtual void updateWaterState();
 	virtual void doWaterSplashEffect();
 	virtual void updateInsideBlock();
-	virtual void onBlockCollision(int);
+	virtual void onBlockCollision(int);	
 	
 	void _exitRide(const Entity&, float);
 	void _findRider(Entity&) const;

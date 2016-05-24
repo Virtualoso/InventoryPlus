@@ -19,35 +19,36 @@ class ItemEntity;
 // Size : 3178
 class Mob : public Entity {
 public:
-	float yBodyRot; // 352
-	float yBodyRotO; // 356
-	float yHeadRot; // 360
-	float yHeadRotO; // 364
-	char mfiller[2572]; // 368
-	ItemInstance armor[4]; // 2940
-	char mfiller1[96]; // 3020
-	bool wat; // 3116
-	bool isJumping; // 3117
-	int whocares; // 3120
-	float speed; // 3124
-	LookControl* lookControl; // 3128
-	MoveControl* moveControl; // 3132
-	JumpControl* jumpControl; // 3136
-	BodyControl* bodyControl; // 3140
-	PathNavigation* getNavigation; // 3144
-	Sensing* getSensing; // 3148
-	char mfiller2[32]; // 3152
-	float yYa; // 3184
-	char mfiller3[4]; // 3188
-	bool wat1; // 3192
-	bool isSurfaceMob; // 3193
-	int wat2; // 3196
-	char mfiller4[52]; // 3200
-	bool canPickupLoot; // 3252
-	bool removeWhenFarAway; // 3253
-	int wat3; // 3256
-	int wat4; // 3260
-	int arrowCount; // 3264
+	float yBodyRot; // 368
+	float yBodyRotO; // 372
+	float yHeadRot; // 376
+	float yHeadRotO; // 380
+	char mfiller[2572]; // 384
+	ItemInstance armor[4]; // 2956
+	char mfiller1[96]; // 3036
+	bool wat; // 3132
+	bool isJumping; // 3133
+	int whocares; // 3136
+	float speed; // 3140
+	LookControl* lookControl; // 3144
+	MoveControl* moveControl; // 3148
+	JumpControl* jumpControl; // 3152
+	BodyControl* bodyControl; // 3156
+	PathNavigation* getNavigation; // 3160
+	Sensing* getSensing; // 3164
+	char mfiller2[32]; // 3168
+	float yYa; // 3200
+	char mfiller3[4]; // 3204
+	bool wat1; // 3208
+	bool isSurfaceMob; // 3209
+	int wat2; // 3212
+	char mfiller4[52]; // 3216
+	bool canPickupLoot; // 3268
+	bool removeWhenFarAway; // 3269
+	float wat3; // 3272
+	float wat4; // 3276
+	int arrowCount; // 3280
+	int idk_i; // 3284
 	
 	Mob(Level &);
 	Mob(BlockSource &);
@@ -83,7 +84,7 @@ public:
 	virtual void die(const EntityDamageSource&);
 	virtual void resolveDeathLoot(int);
 	virtual bool canSee(const Entity&) const;
-	virtual void onLadder();
+	virtual void onLadder(bool);
 	virtual void spawnAnim();
 	virtual bool isSleeping() const;
 	virtual void setSneaking(bool);
@@ -103,6 +104,7 @@ public:
 	virtual void actuallyHurt(int, EntityDamageSource const *);
 	virtual bool isInvertedHealAndHarm() const;
 	virtual void travel(float, float);
+	virtual void applyFinalFriction(float);
 	virtual void updateWalkAnim();
 	virtual void aiStep();
 	virtual void pushEntities();
@@ -149,6 +151,7 @@ public:
 	virtual void drop(ItemInstance const *, bool);
 	virtual void sendInventory() const;
 	virtual bool canBeAffected(MobEffectInstance const &);
+	virtual void getDamageAfterMagicAbsorb(EntityDamageSource const &, int);
 	virtual void _removeWhenFarAway();
 	virtual void getDeathLoot();
 	virtual void dropDeathLoot(int);
@@ -163,7 +166,6 @@ public:
 	virtual std::string _getHurtSound();
 	virtual std::string _getDeathSound();
 	virtual void getDamageAfterArmorAbsorb(EntityDamageSource const &, int);
-	virtual void getDamageAfterMagicAbsorb(EntityDamageSource const &, int);
 	virtual void getExperienceReward() const;
 	virtual bool useNewAi();
 	virtual void onEffectAdded(MobEffectInstance&);
