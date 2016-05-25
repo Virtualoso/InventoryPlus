@@ -103,19 +103,28 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 
 void ExtendedInventoryScreen::setupPositions()
 {
-	backgroundLayer->xPosition = 31;
-	backgroundLayer->yPosition = 2;
-	backgroundLayer->setSize((float)(width - 26 - 28) - 4.0F - 6.0F, (float)height - 25.0F);
+	int inventoryHeight = height - 23 - 2; // total height - bottom span - top span = height of inv
 	
-	closeButton->xPosition = backgroundLayer->xPosition - 26;
+	if(inventoryHeight < (29 + 2) * 5) // if height of inv < 5 category buttons (including the space of 2 between each)
+		tabScale = (inventoryHeight / 5) - 2; // scale of tabs is 1/5 the height of inv - 2 (the space between)
+	else
+		tabScale = inventoryHeight > ((29 + 2) * 5) + 15 ? 30 : 29; // if inv height is greater than 5 and a half tabs, tab scale is 30, else 29
+	
+	int inventoryWidth = width - (tabScale - 2) * 2 - 10;
+	
+	backgroundLayer->yPosition = 2;
+	backgroundLayer->xPosition = 5 + tabScale - 3;
+	backgroundLayer->setSize((float)inventoryWidth, (float)inventoryHeight);
+	
+	closeButton->xPosition = 5;
 	closeButton->yPosition = backgroundLayer->yPosition;
 	
-	closeButton->setSize(29, 28);
+	closeButton->setSize(tabScale, tabScale - 1);
 	
 	paneBgX = backgroundLayer->xPosition + 5;
 	paneBgY = backgroundLayer->yPosition + 4;
-	paneBgWidth = width - 38 - paneBgX;
-	paneBgHeight = height - 27 - paneBgY;
+	paneBgWidth = inventoryWidth - 10;
+	paneBgHeight = inventoryHeight - paneBgY - 2;
 	
 	int paneOffset = (paneBgWidth % 26) / 2;
 	paneWidth = paneBgWidth - (paneOffset * 2);
@@ -128,16 +137,16 @@ void ExtendedInventoryScreen::setupPositions()
 	{
 		if(!renderedTabs[tab]->isRight)
 		{
-			renderedTabs[tab]->xPosition = backgroundLayer->xPosition - 26;
-			renderedTabs[tab]->yPosition = height - 25 - 29 - (tab * 31);
+			renderedTabs[tab]->xPosition = 5;
+			renderedTabs[tab]->yPosition = height - 25 - tabScale - (tab * (tabScale + 2));
 		}
 		else
 		{
-			renderedTabs[tab]->xPosition = width - 6 - 29;
-			renderedTabs[tab]->yPosition = height - 25 - 29 - ((tab - 4) * 31);
+			renderedTabs[tab]->xPosition = width - 6 - tabScale;
+			renderedTabs[tab]->yPosition = height - 25 - tabScale - ((tab - 4) * (tabScale + 2));
 		}
-		renderedTabs[tab]->width = 29;
-		renderedTabs[tab]->height = 29;	
+		renderedTabs[tab]->width = tabScale;
+		renderedTabs[tab]->height = tabScale;	
 		
 		inventoryPanes[tab] = new Touch::InventoryPane(this, *mcClient, {paneX, paneY, paneWidth, paneHeight}, 1, 1.0F, 5, 26, 1, false, true, false);
 		
