@@ -4,8 +4,7 @@
 
 class Block;
 class Item;
-
-#include "com/mojang/minecraftpe/world/item/ItemInstance.h"
+class ItemInstance;
 
 class CreativeTab
 {

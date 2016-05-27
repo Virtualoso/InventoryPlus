@@ -2,6 +2,7 @@
 
 #include "com/mojang/minecraftpe/world/item/Item.h"
 #include "com/mojang/minecraftpe/world/level/block/Block.h"
+#include "com/mojang/minecraftpe/world/item/ItemInstance.h"
 #include "../client/screens/InventoryTransitions.h"
 #include "../item/NativeToolsItems.h"
 
