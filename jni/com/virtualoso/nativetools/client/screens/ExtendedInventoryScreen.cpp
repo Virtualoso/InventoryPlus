@@ -108,7 +108,7 @@ void ExtendedInventoryScreen::setupPositions()
 	if(inventoryHeight < (29 + 2) * 5) // if height of inv < 5 category buttons (including the space of 2 between each)
 		tabScale = (inventoryHeight / 5) - 2; // scale of tabs is 1/5 the height of inv - 2 (the space between)
 	else
-		tabScale = inventoryHeight > ((29 + 2) * 5) + 15 ? 30 : 29; // if inv height is greater than 5 and a half tabs, tab scale is 30, else 29
+		tabScale = inventoryHeight > ((30 + 2) * 5) ? 30 : 29; // if inv height is greater than 5 tabs, tab scale is 30, else 29
 	
 	int inventoryWidth = width - (tabScale - 2) * 2 - 10;
 	
