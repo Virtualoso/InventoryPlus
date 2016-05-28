@@ -1,8 +1,6 @@
 #include "NativeToolsItems.h"
 #include "Barrier.h"
 
-#include "../creative/CreativeTab.h"
-
 Item* NativeToolsItems::barrier;
 
 void NativeToolsItems::initItems()
