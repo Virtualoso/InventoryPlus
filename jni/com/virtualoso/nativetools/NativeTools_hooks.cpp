@@ -54,9 +54,10 @@ static void InventoryScreen$_buttonClicked(InventoryScreen* self, Button& button
 static void (*_Item$initItems)();
 static void Item$initItems()
 {
+	NativeToolsItems::initItems();
+	
 	_Item$initItems();
 
-	NativeToolsItems::initItems();
 }
 
 JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved) {
