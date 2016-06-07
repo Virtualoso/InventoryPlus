@@ -8,9 +8,12 @@
 #include "com/mojang/minecraftpe/client/MinecraftClient.h"
 #include "com/mojang/minecraftpe/world/entity/player/LocalPlayer.h"
 #include "com/mojang/minecraftpe/world/item/Item.h"
+#include "com/mojang/minecraftpe/world/level/block/Block.h"
 
 #include "client/screens/InventoryTransitions.h"
 #include "item/NativeToolsItems.h"
+#include "NativeTools.h"
+#include "mods/ModHandler.h"
 
 static void (*_InventoryScreen$init)(InventoryScreen*);
 static void InventoryScreen$init(InventoryScreen* self)
@@ -51,13 +54,28 @@ static void InventoryScreen$_buttonClicked(InventoryScreen* self, Button& button
 		InventoryTransitions::_buttonClicked(self, button);
 }
 
-static void (*_Item$initItems)();
-static void Item$initItems()
-{
-	NativeToolsItems::initItems();
-	
-	_Item$initItems();
+static bool itemsInit = false;
 
+static void (*_Item$initCreativeItems)();
+static void Item$initCreativeItems()
+{
+	_Item$initCreativeItems();
+	
+	if(!initItems)
+	{
+		NativeToolsItems::initItems();
+		ModHandler::initModItems();
+		initItems = true;
+	}
+	ModHandler::initCreativeModItems();
+}
+
+static void (*_Block$initBlocks)();
+static void Block$initBlocks()
+{
+	_Block$initBlocks();
+	
+	ModHandler::initModBlocks();
 }
 
 JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved) {
@@ -66,7 +84,10 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved) {
 	MSHookFunction((void*) &InventoryScreen::setupPositions, (void*) &InventoryScreen$setupPositions, (void**) &_InventoryScreen$setupPositions);
 	MSHookFunction((void*) &InventoryScreen::render, (void*) &InventoryScreen$render, (void**) &_InventoryScreen$render);
 	MSHookFunction((void*) &InventoryScreen::_buttonClicked, (void*) &InventoryScreen$_buttonClicked, (void**) &_InventoryScreen$_buttonClicked);
-	MSHookFunction((void*) &Item::initItems, (void*) &Item$initItems, (void**) &_Item$initItems);
+	MSHookFunction((void*) &Item::initCreativeItems, (void*) &Item$initCreativeItems, (void**) &_Item$initCreativeItems);
+	MSHookFunction((void*) &Block::initBlocks, (void*) &Block$initBlocks, (void**) &_Block$initBlocks);
+	
+	NativeTools::init = true;
 	
 	return JNI_VERSION_1_2;
 }
