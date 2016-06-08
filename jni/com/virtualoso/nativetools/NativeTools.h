@@ -3,6 +3,6 @@
 class NativeTools
 {
 public:
-	static bool init = false;
+	static bool init;
 	static bool hasNativeTools() { return init; };
 };

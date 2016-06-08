@@ -54,7 +54,7 @@ static void InventoryScreen$_buttonClicked(InventoryScreen* self, Button& button
 		InventoryTransitions::_buttonClicked(self, button);
 }
 
-static bool itemsInit = false;
+static bool initItems = false;
 
 static void (*_Item$initCreativeItems)();
 static void Item$initCreativeItems()
@@ -67,7 +67,7 @@ static void Item$initCreativeItems()
 		ModHandler::initModItems();
 		initItems = true;
 	}
-	ModHandler::initCreativeModItems();
+	ModHandler::initModCreativeItems();
 }
 
 static void (*_Block$initBlocks)();
