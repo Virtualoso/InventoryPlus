@@ -6,9 +6,7 @@
 
 namespace Touch { class TButton; };
 
-
 class StickDirection;
-class MinecraftClient;
 class Button;
 class TextBox;
 class GuiElement;
@@ -17,10 +15,8 @@ class MojangConnectionStatus;
 class ControllerButtonRenderer;
 class ItemInstance;
 
-// Size : 160
 class Screen : public BaseScreen, public GuiComponent {
 public:
-	//void* vtable; // 4
 	int width; // 12
 	int height; // 16
 	MinecraftClient* mcClient; // 20

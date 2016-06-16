@@ -3,7 +3,6 @@
 #include "../material/Material.h"
 #include "BlockSourceListener.h"
 class AABB;
-class Entity;
 class Player;
 class Random;
 class EntityDamageSource;
@@ -36,5 +35,6 @@ public:
 	Random* getRandom();
 	int getSeaLevel();
 	void setTime(int);
+	bool isClientSide() const;
 };
 

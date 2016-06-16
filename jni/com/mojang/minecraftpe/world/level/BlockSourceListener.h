@@ -3,6 +3,7 @@
 class BlockSource;
 struct BlockPos;
 class BlockEntity;
+class Entity;
 #include "../../CommonTypes.h"
 
 class BlockSourceListener {

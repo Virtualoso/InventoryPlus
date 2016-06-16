@@ -1,7 +1,101 @@
 #pragma once
+
 #include <string>
 
+class ImageData;
+class ImagePickingCallback;
+class FilePickerSettings;
+class UriListener;
+class FullscreenMode;
+class Vec2;
+class TextureLocation;
+class ActivationUri;
+
 class AppPlatform {
-	public:
-	std::string getEdition() const;
+public:
+	static AppPlatform* mSingleton;
+
+	AppPlatform();
+	virtual ~AppPlatform();
+	virtual void getDataUrl() const = 0;
+	virtual void getAlternateDataUrl() const;
+	virtual void getImagePath(const std::string&, TextureLocation) = 0;
+	virtual void loadPNG(ImageData&, const std::string&, TextureLocation);
+	virtual void loadTGA(ImageData&, const std::string&, TextureLocation);
+	virtual void loadJPEG(ImageData&, const std::string&, TextureLocation);
+	virtual void getKeyFromKeyCode(int, int, int);
+	virtual void showKeyboard(const std::string&, int, bool, bool, const Vec2&);
+	virtual void hideKeyboard();
+	virtual void getKeyboardHeight() const;
+	virtual void hideMousePointer();
+	virtual void showMousePointer();
+	virtual void getPointerFocus();
+	virtual void setPointerFocus(bool);
+	virtual void toggleSimulateTouchWithMouse();
+	virtual void swapBuffers() = 0;
+	virtual void discardBackBuffer();
+	virtual void getSystemRegion() const = 0;
+	virtual void getGraphicsVendor() = 0;
+	virtual void getGraphicsRenderer() = 0;
+	virtual void getGraphicsVersion() = 0;
+	virtual void getGraphicsExtensions() = 0;
+	virtual void pickImage(ImagePickingCallback&) = 0;
+	virtual void pickFile(FilePickerSettings&);
+	virtual bool supportsFilePicking() const;
+	virtual void setSleepEnabled(bool);
+	virtual void getExternalStoragePath() = 0;
+	virtual void getInternalStoragePath() = 0;
+	virtual std::string& getUserdataPath() = 0;
+	virtual void getUserDataPathForLevels();
+	virtual void showDialog(int);
+	virtual void createUserInput();
+	virtual void getUserInputStatus();
+	virtual void getUserInput();
+	virtual void _tick();
+	virtual void getScreenWidth();
+	virtual void getScreenHeight();
+	virtual void setScreenSize(int, int);
+	virtual void getPixelsPerMillimeter();
+	virtual void updateTextBoxText(const std::string&);
+	virtual bool isKeyboardVisible();
+	virtual bool supportsVibration();
+	virtual void vibrate(int);
+	virtual void getAssetFileFullPath(const std::string&);
+	virtual std::string readAssetFile(const std::string&);
+	virtual void listAssetFilesIn(const std::string&, const std::string&) const;
+	virtual void getDateString(int);
+	virtual void checkLicense();
+	virtual void hasBuyButtonWhenInvalidLicense();
+	virtual void uploadPlatformDependentData(int, void *);
+	virtual bool isNetworkEnabled(bool);
+	virtual bool isPowerVR();
+	virtual void buyGame();
+	virtual void finish();
+	virtual void launchUri(const std::string&);
+	virtual bool useMetadataDrivenScreens() const;
+	virtual bool useXboxControlHelpers() const;
+	virtual bool useCenteredGUI() const;
+	virtual void getPlatformType() const;
+	virtual void getScreenType() const;
+	virtual bool hasIDEProfiler();
+	virtual void getPlatformStringVar(int);
+	virtual void getApplicationId() = 0;
+	virtual void getAvailableMemory();
+	virtual void getTotalMemory();
+	virtual void getBroadcastAddresses();
+	virtual void getModelName();
+	virtual void getDeviceId() = 0;
+	virtual std::string createUUID() = 0;
+	virtual bool isFirstSnoopLaunch() = 0;
+	virtual bool hasHardwareInformationChanged() = 0;
+	virtual bool isTablet() = 0;
+	virtual void registerUriListener(UriListener&);
+	virtual void registerUriListener(const std::string&, UriListener&);
+	virtual void unregisterUriListener(UriListener&);
+	virtual void setFullscreenMode(FullscreenMode);
+	virtual bool isNetworkThrottled() const;
+	virtual void collectGraphicsHardwareDetails();
+	virtual void getEdition() const;
+	virtual void _notifyUriListerners(const ActivationUri&, bool);
+	virtual void getPlatformTempPath() = 0;
 };

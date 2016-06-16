@@ -30,4 +30,7 @@ public:
 	int getMaxStackSize() const;
 	std::string getName() const;
 	std::string getEffectName() const;
+	bool hasUserData() const;
+	bool matches(const ItemInstance*) const;
+	bool isStackable() const;
 };

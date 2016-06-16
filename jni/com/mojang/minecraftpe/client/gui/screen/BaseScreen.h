@@ -4,7 +4,10 @@
 
 #include "AbstractScreen.h"
 
+#include "ScreenSetupStrategyId.h"
+
 class AbstractScreenSetupCleanupStrategy;
+class MinecraftClient;
 
 class BaseScreen : public AbstractScreen {
 public:
@@ -20,3 +23,5 @@ public:
 	void setScreenSetupCleanup(std::unique_ptr<AbstractScreenSetupCleanupStrategy>);
 	void setupForRendering(ScreenContext&);
 };
+
+std::unique_ptr<AbstractScreenSetupCleanupStrategy> createScreenSetupStrategy(MinecraftClient&, ScreenSetupStrategyId);

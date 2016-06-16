@@ -99,7 +99,7 @@ public:
 	virtual int getMaxStackSize(const ItemInstance*);
 	virtual void inventoryTick(ItemInstance&, Level&, Entity&, int, bool);
 	virtual void onCraftedBy(ItemInstance&, Level&, Player&);
-	virtual const std::string& getInteractText() const;
+	virtual const std::string getInteractText() const;
 	virtual int getAnimationFrameFor(Mob&) const;
 	virtual bool isEmissive(int) const;
 	virtual const TextureUVCoordinateSet& getIcon(int, int, bool) const;

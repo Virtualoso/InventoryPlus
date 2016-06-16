@@ -66,6 +66,7 @@ public:
 	static float GUI_SCALE_VALUES[8];
 
 public:
+	//These are off for 0.14.3
 	char mcclient_vars[36]; // 28
 	std::string worldPath; // 64
 	std::string mainPath; // 68
