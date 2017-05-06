@@ -1,11 +1,13 @@
+//need to update this whole header
+
 #pragma once
 
 #include <vector>
 
 #include "GuiElement.h"
 #include "IntRectangle.h"
-#include "../../world/phys/Vec3.h"
-#include "../../world/phys/RectangleArea.h"
+#include "../../math/Vec3.h"
+#include "../../math/RectangleArea.h"
 
 class ScrollBar {
 public:

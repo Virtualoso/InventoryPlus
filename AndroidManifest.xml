@@ -15,7 +15,7 @@
     <meta-data android:name="net.zhuoweizhang.mcpelauncher.api.nativelibname"
         android:value="com.virtualoso.addon.nativetools"/>
 
-    <meta-data android:name="net.zhuoweizhang.mcpelauncher.api.targetmcpeversion" android:value="0.14.2"/>
+    <meta-data android:name="net.zhuoweizhang.mcpelauncher.api.targetmcpeversion" android:value="1.1.0.8"/>
     </application>
 
 </manifest> 

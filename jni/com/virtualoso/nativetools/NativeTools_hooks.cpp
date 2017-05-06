@@ -4,11 +4,11 @@
 #include <stdlib.h>
 #include <Substrate.h>
 
-#include "com/mojang/minecraftpe/client/gui/screen/InventoryScreen.h"
+#include "com/mojang/minecraftpe/client/screen/InventoryScreen.h"
 #include "com/mojang/minecraftpe/client/MinecraftClient.h"
-#include "com/mojang/minecraftpe/world/entity/player/LocalPlayer.h"
-#include "com/mojang/minecraftpe/world/item/Item.h"
-#include "com/mojang/minecraftpe/world/level/block/Block.h"
+#include "com/mojang/minecraftpe/player/LocalPlayer.h"
+#include "com/mojang/minecraftpe/item/Item.h"
+#include "com/mojang/minecraftpe/Block.h"
 
 #include "client/screens/InventoryTransitions.h"
 #include "item/NativeToolsItems.h"

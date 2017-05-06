@@ -1,66 +1,84 @@
 #pragma once
 
-class MemoryTracker;
-class Color;
+#include "../MemoryTracker.h"
+
 class Vec2;
 class Vec3;
+class Color;
+namespace mce { class Mesh; class MaterialPtr; class TexturePtr; };
+namespace mce { enum class PrimitiveMode; enum class VertexFormat; }
 
-namespace mce {
-	class MaterialPtr;
-	class TexturePtr;
-}
+class Tessellator : public MemoryTracker {
 
-class Tessellator {
 public:
-	Tessellator(MemoryTracker *);
-	virtual ~Tessellator();
-	virtual void getStats() const;
-	void _allocateIndices(int);
-	void _tex(const Vec2 &, int);
-	void addOffset(const Vec3 &);
-	void addOffset(float, float, float);
-	void begin(int);
-	void beginIndices(int);
-	void color(const Color &);
-	void color(float, float, float, float);
-	void color(int);
-	void color(int, int);
-	void color(int, int, int, int);
-	void color(unsigned char, unsigned char, unsigned char, unsigned char);
-	void colorABGR(int);
-	void draw(const mce::MaterialPtr&);
-	void draw(const mce::MaterialPtr&, const mce::TexturePtr&);
-	void draw(const mce::MaterialPtr&, const mce::TexturePtr&, const mce::TexturePtr&);
-	void enableColor();
-	void end(const char *, bool);
-	void getColor();
-	void getPolygonCount() const;
-	void init();
-	void noColor();
-	void normal(const Vec3 &);
-	void normal(float, float, float);
-	void quad(unsigned int, bool);
-	void quad(unsigned int, unsigned int, unsigned int, unsigned int);
-	void resetScale();
-	void resetTilt();
-	void rotationOffset(float, const Vec3 &);
-	void scale2d(float, float);
-	void scale3d(float, float, float);
-	void setOffset(const Vec3 &);
-	void setOffset(float, float, float);
-	void tex(const Vec2 &);
-	void tex(float, float);
-	void tex1(const Vec2 &);
-	void tex1(float, float);
-	void tex2(const Vec2 &);
-	void tex2(float, float);
-	void tilt();
-	void triangle(unsigned int, unsigned int, unsigned int);
-	void trim();
-	void vertex(const Vec3 &);
-	void vertexUV(const Vec3 &, float, float);
-	void vertexUV(float, float, float, float, float);
-	void voidBeginAndEndCalls(bool);
-	
-	static Tessellator instance;
+
+    class CurrentVertexPointers {
+        CurrentVertexPointers(unsigned char*, mce::VertexFormat const&);
+        void nextVertex();
+    };
+
+    virtual ~Tessellator();
+    virtual void* getStats();
+
+    Tessellator(MemoryTracker*);
+    int _allocateIndices(int);
+    void _tex(Vec2 const&, int);
+    void addOffset(Vec3 const&);
+    void addOffset(float, float, float);
+    void addRotationOffset(float, Vec3 const&);
+    void begin(int);
+    void begin(mce::PrimitiveMode, int);
+    void beginIndices(int);
+    void cancel();
+    void clear();
+    void color(Color const&);
+    void color(float, float, float, float);
+    void color(int);
+    void color(int, int);
+    void color(int, int, int, int);
+    void color(unsigned char, unsigned char, unsigned char, unsigned char);
+    void colorABGR(int);
+    void draw(mce::MaterialPtr const&);
+    void draw(mce::MaterialPtr const&, mce::TexturePtr const&);
+    void draw(mce::MaterialPtr const&, mce::TexturePtr const&, mce::TexturePtr const&);
+    void enableColor();
+    mce::Mesh end(char const*, bool);
+    int getByteSize();
+    int getColor(); // ARGB
+    int getPolygonCount();
+    int getVertexCount();
+    mce::VertexFormat const getVertexFormat();
+    void init();
+    bool isTessellating();
+    void noColor();
+    void normal(Vec3 const&);
+    void normal(float, float, float);
+    void quad(bool);
+    void quad(unsigned int, bool);
+    void quad(unsigned int, unsigned int, unsigned int, unsigned int);
+    void quadFacing(signed char);
+    void resetScale();
+    void resetTilt();
+    void scale2d(float, float);
+    void scale3d(float, float, float);
+    void setOffset(Vec3 const&);
+    void setOffset(float, float, float);
+    void setRotationOffset(float, Vec3 const&);
+    void tex(Vec2 const&);
+    void tex(float, float);
+    void tex1(Vec2 const&);
+    void tex1(float, float);
+    void tex2(Vec2 const&);
+    void tex2(float, float);
+    void tilt();
+    void triangle(unsigned int, unsigned int, unsigned int);
+    void trim();
+    void vertex(Vec3 const&);
+    void vertex(float, float, float);
+    void vertexUV(Vec3 const&, float, float);
+    void vertexUV(float, float, float, float, float);
+    void voidBeginAndEndCalls(bool);
+
+    static Tessellator instance;
+
 };

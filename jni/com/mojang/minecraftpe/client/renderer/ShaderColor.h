@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../world/util/Color.h"
+#include "../../util/Color.h"
 
 struct ShaderColor {
 	Color color; // 0

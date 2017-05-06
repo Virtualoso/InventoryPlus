@@ -1,6 +1,6 @@
 #pragma once
 
-#include "com/mojang/minecraftpe/world/item/Item.h"
+#include "com/mojang/minecraftpe/item/Item.h"
 
 class Barrier : public Item
 {

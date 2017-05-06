@@ -2,13 +2,16 @@
 
 #include <string>
 
-class MemoryTracker
-{
-public:
-	//void** vtable;	// 0
+class MemoryTracker {
 
 public:
-	MemoryTracker(const std::string &, MemoryTracker *);
-	virtual ~MemoryTracker();
-	virtual void memoryStats() = 0;
+
+    virtual ~MemoryTracker();
+    virtual void* getStats(void) = 0;
+
+    MemoryTracker(std::string const&, MemoryTracker*);
+    void memoryStats();
+
+    static void* root;
+
 };

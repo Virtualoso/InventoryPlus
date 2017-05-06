@@ -1,6 +1,6 @@
 #pragma once
 
-#include "com/mojang/minecraftpe/client/gui/screen/Screen.h"
+#include "com/mojang/minecraftpe/client/screen/Screen.h"
 #include "com/mojang/minecraftpe/client/gui/InventoryPane.h"
 
 class NinePatchLayer;

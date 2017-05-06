@@ -11,12 +11,12 @@
 #include "com/mojang/minecraftpe/client/gui/GuiData.h"
 #include "com/mojang/minecraftpe/client/settings/Options.h"
 #include "com/mojang/minecraftpe/client/renderer/Tessellator.h"
-#include "com/mojang/minecraftpe/client/renderer/texture/TextureGroup.h"
+#include "com/mojang/minecraftpe/client/renderer/TextureGroup.h"
 #include "com/mojang/minecraftpe/client/renderer/entity/ItemRenderer.h"
 #include "com/mojang/minecraftpe/client/renderer/ShaderColor.h"
-#include "com/mojang/minecraftpe/world/item/ItemInstance.h"
-#include "com/mojang/minecraftpe/world/entity/player/LocalPlayer.h"
-#include "com/mojang/minecraftpe/world/inventory/Inventory.h"
+#include "com/mojang/minecraftpe/item/ItemInstance.h"
+#include "com/mojang/minecraftpe/player/LocalPlayer.h"
+#include "com/mojang/minecraftpe/inventory/Inventory.h"
 
 ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftClient& client, std::vector<CreativeTab*> creativeTabs)
 	: Screen(client)

@@ -1,8 +1,10 @@
+//need to update this whole header
+
 #pragma once
 
 #include <string>
 #include "GuiComponent.h"
-#include "../../world/util/Color.h"
+#include "../../util/Color.h"
 
 class StickDirection;
 class MinecraftClient;

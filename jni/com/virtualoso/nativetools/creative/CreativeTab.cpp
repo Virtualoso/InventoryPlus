@@ -1,8 +1,8 @@
 #include "CreativeTab.h"
 
-#include "com/mojang/minecraftpe/world/item/Item.h"
-#include "com/mojang/minecraftpe/world/level/block/Block.h"
-#include "com/mojang/minecraftpe/world/item/ItemInstance.h"
+#include "com/mojang/minecraftpe/item/Item.h"
+#include "com/mojang/minecraftpe/block/Block.h"
+#include "com/mojang/minecraftpe/item/ItemInstance.h"
 #include "../client/screens/InventoryTransitions.h"
 #include "../item/NativeToolsItems.h"
 

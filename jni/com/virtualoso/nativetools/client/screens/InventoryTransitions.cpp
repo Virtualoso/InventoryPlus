@@ -5,9 +5,9 @@
 #include "ExtendedInventoryScreen.h"
 #include "../../creative/CreativeTab.h"
 
-#include "com/mojang/minecraftpe/client/gui/screen/Screen.h"
-#include "com/mojang/minecraftpe/client/gui/screen/InventoryScreen.h"
-#include "com/mojang/minecraftpe/client/gui/screen/ScreenChooser.h"
+#include "com/mojang/minecraftpe/client/screen/Screen.h"
+#include "com/mojang/minecraftpe/client/screen/InventoryScreen.h"
+#include "com/mojang/minecraftpe/client/ScreenChooser.h"
 #include "com/mojang/minecraftpe/client/MinecraftClient.h"
 
 std::shared_ptr<Touch::TButton> InventoryTransitions::forwardButton = NULL;
