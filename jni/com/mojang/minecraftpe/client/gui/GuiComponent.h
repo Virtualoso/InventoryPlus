@@ -1,5 +1,3 @@
-//need to update this whole header
-
 #pragma once
 
 #include "../renderer/ScreenRenderer.h"

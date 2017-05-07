@@ -7,9 +7,10 @@
 #include "../../util/Color.h"
 
 class StickDirection;
-class MinecraftClient;
+class MinecraftGame;
 class NinePatchLayer;
 class Vec2;
+class ResourceLocation;
 
 // Size : 48
 class GuiElement : public GuiComponent
@@ -25,26 +26,26 @@ public:
 	NinePatchLayer *backgroundLayer;	// 40
 	bool selected;						// 44
 	bool focused;						// 45
-
-public:
-	GuiElement(bool, bool, int, int, int, int);
+	
 	virtual ~GuiElement();
-	virtual void tick(MinecraftClient *);
-	virtual void render(MinecraftClient *, int, int);
-	virtual void topRender(MinecraftClient *, int, int);
+	virtual void tick();
+	virtual void tick(MinecraftGame*);
+	virtual void render(MinecraftGame*, int, int);
+	virtual void topRender(MinecraftGame*, int, int);
 	virtual void setupPositions();
-	virtual void pointerPressed(MinecraftClient *, int, int);
-	virtual void pointerReleased(MinecraftClient *, int, int);
-	virtual void focusedMouseClicked(MinecraftClient *, int, int);
-	virtual void focusedMouseReleased(MinecraftClient *, int, int);
-	virtual void handleButtonPress(MinecraftClient *, short);
-	virtual void handleButtonRelease(MinecraftClient *, short);
-	virtual void handleTextChar(MinecraftClient *, std::string const &, bool);
-	virtual void backPressed(MinecraftClient *, bool);
-	virtual void setKeyboardHeight(MinecraftClient *, float, Vec2 const &);
+	virtual void pointerPressed(MinecraftGame*, int, int);
+	virtual void pointerReleased(MinecraftGame*, int, int);
+	virtual void focusedMouseClicked(MinecraftGame*, int, int);
+	virtual void focusedMouseReleased(MinecraftGame*, int, int);
+	virtual void handleButtonPress(MinecraftGame*, short);
+	virtual void handleButtonRelease(MinecraftGame*, short);
+	virtual void handleTextChar(MinecraftGame*, std::string const&, bool);
+	virtual void handleCaretLocation(int);
+	virtual void backPressed(MinecraftGame*, bool);
+	virtual void setKeyboardHeight(MinecraftGame*, float, Vec2 const&);
 	virtual void pointInside(int, int);
 	virtual void suppressOtherGUI();
-	virtual void setTextboxText(std::string const &);
+	virtual void setTextboxText(std::string const&);
 	virtual void hasFocus() const;
 	virtual void setFocus(bool);
 	virtual void handleControllerDirectionHeld(int, StickDirection);
@@ -53,12 +54,15 @@ public:
 	virtual void drawSliderSelected();
 	virtual void onSelectedChanged();
 	virtual void hasChildren() const;
+	
+	GuiElement(bool, bool, int, int, int, int);
 	void clearBackground();
-	bool isSelected();
-	void setBackground(const Color &);
-	void setBackground(MinecraftClient *, const std::string &, const IntRectangle &, int, int);
-	void setVisible(bool);
-	void setSelected(bool);
-	void setActiveAndVisibility(bool, bool);
+	void isSelected();
 	void setActiveAndVisibility(bool);
+	void setActiveAndVisibility(bool, bool);
+	void setBackground(Color const&);
+	void setBackground(MinecraftGame*, ResourceLocation const&, IntRectangle const&, int, int);
+	void setBackground(MinecraftGame*, std::string const&, IntRectangle const&, int, int);
+	void setSelected(bool);
+	void setVisible(bool);
 };

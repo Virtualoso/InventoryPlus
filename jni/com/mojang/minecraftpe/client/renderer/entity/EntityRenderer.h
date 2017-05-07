@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "EntityShaderManager.h"
+#include "BaseEntityRenderer.h"
 #include "../TexturePtr.h"
 
 class EntityRenderDispatcher;
@@ -11,7 +11,7 @@ class Font;
 class Options;
 namespace mce { class TextureGroup; };
 
-class EntityRenderer : public EntityShaderManager {
+class EntityRenderer : public BaseEntityRenderer {
 public:
 	static EntityRenderDispatcher* entityRenderDispatcher;
 
@@ -25,18 +25,20 @@ public:
 	mce::MaterialPtr name_tag_depth_tested;		// 116
 	mce::MaterialPtr name_tag_depth_tested2;	// 128
 
-	EntityRenderer(mce::TextureGroup&, bool);
 	virtual ~EntityRenderer();
-	virtual void render(Entity&, const Vec3&, float, float) = 0;
-	virtual void postRender(Entity&, const Vec3&, float, float);
+	virtual int _getOffset();
+	virtual Font* _getFont();
+	virtual bool _isRealityFullVRMode();
+	virtual void render(Entity&, Vec3 const&, float, float) = 0;
 	virtual void renderDebug(Entity&, Options&);
-	virtual void renderWaterHole(Entity&, const Vec3&, const Vec2&, float);
-	void renderText(Entity&, const std::string*, float, float);
-	void renderText(const std::string&, const Vec3&, const Color&, mce::MaterialPtr*, mce::MaterialPtr*);
-	static void _emitFlame(Entity &, float);
-	static void _emitSmoke(Entity &, float);
-	static bool isFancy();
-	static Font* getFont();
-	static void init(EntityRenderDispatcher*);
-	bool hasWaterHole() const;
+	virtual void renderEffects(Entity&, Vec3 const&, float, float);
+	virtual void renderTrading(Entity&, float, Vec3 const&, float);
+	virtual void renderLeash(Entity&, Vec3 const&, float, float);
+	virtual void renderWaterHole(Entity&, Vec3 const&, Vec2 const&, float);
+	
+	EntityRenderer(EntityRenderDispatcher&, mce::TextureGroup&, bool);
+	void renderText(Entity&, std::string const&, float, float);
+	void getAtlasTexture();
+	void hasWaterHole() const;
+	void isFancy();
 };

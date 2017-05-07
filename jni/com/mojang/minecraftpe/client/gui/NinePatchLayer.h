@@ -5,15 +5,19 @@
 #include "GuiElement.h"
 
 class Tessellator;
-class TextureData;
 class IntRectangle;
-namespace mce { class TextureGroup; };
+
+namespace mce { 
+class TextureGroup;
+class ImageBuffer; 
+class TexturePtr;
+};
 
 class NinePatchDescription {
 public:
 	NinePatchDescription(float, float, float, float, float, float, float, float, float, float, float, float);
 	void* transformUVForImageSize(int, int);
-	void* transformUVForImage(TextureData const&);
+	void* transformUVForImage(mce::ImageBuffer const&);
 	void* createSymmetrical(int, int, IntRectangle const&, int, int);
 };
 
@@ -25,9 +29,9 @@ public:
 
 	class CachedQuad;
 
-	NinePatchLayer(const NinePatchDescription&, const std::string&, mce::TextureGroup*, float, float);
 	virtual ~NinePatchLayer();
 
+	NinePatchLayer(NinePatchDescription const&, std::string const&, mce::TexturePtr, float, float);
 	void draw(Tessellator&, float, float);
 	void buildQuad(int);
 	void setExcluded(int);
@@ -44,6 +48,7 @@ public:
 	int width;
 	int height;
 	
-	NinePatchFactory(mce::TextureGroup*, const std::string&);
+	NinePatchFactory(mce::TextureGroup*, ResourceLocation const&);
 	NinePatchLayer* createSymmetrical(IntRectangle const&, int, int, float, float);
+	NinePatchLayer* createUniqueSymmetrical(IntRectangle const&, int, int, float, float);
 };

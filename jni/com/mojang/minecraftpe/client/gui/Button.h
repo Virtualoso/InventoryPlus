@@ -11,26 +11,26 @@ public:
 	bool pressed; // 105
 	bool overrideScreenRendering; // 106
 
-	Button(int, int, int, int, int, const std::string&, bool);
-	Button(int, int, int, const std::string&);
-	Button(int, const std::string&, bool);
 	virtual ~Button();
-	virtual void render(MinecraftClient*, int, int);
-	virtual void pointerReleased(MinecraftClient*, int, int);
+	virtual void render(MinecraftGame*, int, int);
+	virtual void pointerReleased(MinecraftGame*, int, int);
 	virtual void drawPressed(int);
 	virtual void clicked(MinecraftClient*, int, int);
 	virtual void released(int, int);
 	virtual void setPressed();
 	virtual void setPressed(bool);
-	virtual void setMsg(const std::string&);
+	virtual void setMsg(std::string const&);
 	virtual void getYImage(bool);
-	virtual void renderBg(MinecraftClient*, int, int);
-	virtual void renderFace(MinecraftClient*, int, int);
+	virtual void renderBg(MinecraftGame*, int, int);
+	virtual void renderFace(MinecraftGame*, int, int);
 
-	void hovered(MinecraftClient*, int, int);
-	int _getWidth(MinecraftClient*, const std::string&, int);
+	Button(int, int, int, int, int, std::string const&, bool);
+	Button(int, int, int, std::string const&);
+	Button(int, std::string const&, bool);
+	int _getWidth(MinecraftGame*, std::string const&, int);
+	void hovered(MinecraftGame*, int, int);
 	bool isInside(int, int);
-	bool isPressed(int, int);
 	bool isOveridingScreenRendering();
+	bool isPressed(int, int);
 	void setOverrideScreenRendering(bool);
 };

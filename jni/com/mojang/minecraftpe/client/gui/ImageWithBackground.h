@@ -9,11 +9,11 @@ public:
 	NinePatchLayer* layer1; // 184
 	NinePatchLayer* layer2; // 188
 
-	ImageWithBackground(int);
 	virtual ~ImageWithBackground();
-	virtual void render(MinecraftClient*, int, int);
-	virtual void renderBg(MinecraftClient*, int, int);
+	virtual void render(MinecraftGame*, int, int);
+	virtual void renderBg(MinecraftGame*, int, int);
 	
+	ImageWithBackground(int);
 	void setSize(float, float);
-	void init(mce::TextureGroup*, int, int, IntRectangle, IntRectangle, int, int, const std::string&);
+	void init(mce::TextureGroup*, int, int, IntRectangle, IntRectangle, int, int, ResourceLocation const&);
 };

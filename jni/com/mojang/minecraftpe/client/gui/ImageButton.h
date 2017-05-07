@@ -21,14 +21,14 @@ public:
 	bool scaleWhenPressed; // 172
 	int yOffset; // 176
 
-	ImageButton(int, const std::string&);
-	ImageButton(int, const std::string&, ImageDef);
 	virtual ~ImageButton();
-	virtual void render(MinecraftClient*, int, int);
-	virtual void renderBg(MinecraftClient*, int, int);
+	virtual void render(MinecraftGame*, int, int);
+	virtual void renderBg(MinecraftGame*, int, int);
 	virtual void setYOffset(int);
 	virtual void setupDefault();
 	virtual bool isSecondImage(bool);
 
+	ImageButton(int, std::string const&);
+	ImageButton(int, std::string const&, ImageDef);
 	void setImageDef(ImageDef, bool);
 };

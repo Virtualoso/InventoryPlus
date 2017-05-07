@@ -1,5 +1,3 @@
-//need to update this whole header
-
 #pragma once
 
 #include "../AppPlatformListener.h"
@@ -16,32 +14,25 @@ class IInventoryPaneCallback;
 class InventoryPane : public ScrollingPane, public EntityShaderManager, public AppPlatformListener {
 public:
 	char ip_vars[1268 - 768]; // 768
+	
 	// virtual methods
-	InventoryPane(Touch::IInventoryPaneCallback*, MinecraftClient&, IntRectangle const&, int, float, int, int, int, bool, bool, bool);
 	virtual ~InventoryPane();
-	virtual void handleButtonPress(MinecraftClient*, short);
+	virtual void tick();
+	virtual void handleButtonPress(MinecraftGame*, short);
 	virtual void renderBatch(std::vector<ScrollingPane::GridItem>&, float, float, float);
 	virtual void onSelect(int, bool);
 	virtual void refreshItems();
 	virtual void onAppSuspended();
 	virtual void onAppResumed();
 
-	void drawRectangleOnSelectedItem(ScrollingPane::GridItem&);
-	void onSelectItem();
-	void setRenderDecorations(bool);
-	void tick();
-	void renderSelectedItem(std::vector<ScrollingPane::GridItem>&, std::vector<const ItemInstance*>, Tessellator&, ScrollingPane::GridItem*&, float&, float&);
-	void setControllerDirection(StickDirection);
+	InventoryPane(Touch::IInventoryPaneCallback*, MinecraftGame&, IntRectangle const&, int, float, int, int, int, bool, bool, bool);
 	void SetAdditionalMargin(int, int);
-	void buildInventoryItemsChunk(std::vector<const ItemInstance*>&, ItemRenderChunkType);
+	void _usesTerrainAtlas(Block const*);
+	void buildInventoryItemsChunk(std::vector<ItemGroup, std::allocator<ItemGroup> > const&, ItemRenderChunkType);
+	void drawRectangleOnSelectedItem(ScrollingPane::GridItem&, bool);
+	void onSelectItem();
+	void renderSelectedItem(std::vector<ScrollingPane::GridItem, std::allocator<ScrollingPane::GridItem> >&, std::vector<ItemGroup, std::allocator<ItemGroup> >, Tessellator&, ScrollingPane::GridItem*&, float&, float&);
+	void setControllerDirection(StickDirection);
+	void setRenderDecorations(bool);
 };
-
-class IInventoryPaneCallback {
-public:
-	virtual ~IInventoryPaneCallback();
-	virtual bool addItem(Touch::InventoryPane&, int) = 0;
-	virtual bool isAllowed(int) = 0;
-	virtual std::vector<const ItemInstance*> getItems(const Touch::InventoryPane&) = 0;
-};
-
 };

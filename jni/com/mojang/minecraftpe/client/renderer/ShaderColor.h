@@ -7,9 +7,9 @@ struct ShaderColor {
 	bool dirty; // 16
 	
 	Color getColor();
-	bool isDirty();
+	bool isDirty() const;
 	void makeClean();
-	void setColor(const Color&);
+	void setColor(Color const&);
 };
 
 ShaderColor currentShaderColor;

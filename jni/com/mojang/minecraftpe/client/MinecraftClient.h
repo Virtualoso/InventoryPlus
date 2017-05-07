@@ -37,17 +37,17 @@ class ResourcePacksInfoData;
 enum class HoloUIInputMode;
 enum class ResourcePackResponse;
 
-class MinecraftClient {
+class MinecraftGame {
 public:
 
 	char filler1[720 - 4];
 	/* size = 0x2D0 */
 
 	// virtual
-	virtual ~MinecraftClient();
+	virtual ~MinecraftGame();
 
 	// non virtual
-	MinecraftClient(int, char**);
+	MinecraftGame(int, char**);
 	void* getOptions();
 	Minecraft* getServer();
 	void* getHoloInput() const;
@@ -140,7 +140,7 @@ public:
 	void setupLevelRendering(Level*, Dimension*, Entity*);
 	void* transformResolution(int*, int*);
 	void updateFoliageColors();
-	void _initMinecraftClient();
+	void _initMinecraftGame();
 	void captureScreenAsImage(TextureData&);
 	void forEachVisibleScreen(std::function<void (std::shared_ptr<AbstractScreen>&)>, bool);
 	void* getUIMeasureStrategy();
@@ -149,7 +149,7 @@ public:
 	void handleLicenseChanged();
 	void hasNetworkPrivileges(bool);
 	void initializeTrialWorld(Player*);
-	void onClientStartedLevel(std::unique_ptr<Level>, std::unique_ptr<LocalPlayer>);
+	void onClientCreatedLevel(std::unique_ptr<Level>, std::unique_ptr<LocalPlayer>);
 	void registerUpsellScreen();
 	void waitAsyncSuspendWork();
 	void createDynamicTextures();

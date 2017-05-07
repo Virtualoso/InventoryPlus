@@ -7,11 +7,12 @@ class Config;
 
 class GuiData : public AppPlatformListener {
 public:
-	GuiData(MinecraftClient&);
 	virtual ~GuiData();
-	virtual void onConfigChanged(const Config&);
+	virtual void onConfigChanged(Config const&);
 	virtual void onAppSuspended();
-	void showPopupNotice(const std::string&, const std::string&);
+	
+	GuiData(ClientInstance&);
+	void showPopupNotice(std::string const&, std::string const&);
 	void flashSlot(int);
 	int getNumSlots() const;
 };
