@@ -5,7 +5,7 @@
 #include "../renderer/TexturePtr.h"
 
 struct ImageDef {
-	mce::TexturePtr texturePtr; // 0
+	mce::TexturePtr& texturePtr; // 0
 	int x; // 12
 	int y; // 16
 	float width; // 20

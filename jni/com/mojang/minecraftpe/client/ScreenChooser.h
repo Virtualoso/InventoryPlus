@@ -7,24 +7,24 @@
 
 class MinecraftUISoundPlayer;
 class ProgressHandler;
-enum CraftingType;
+enum class CraftingType;
 class PatchNotesModel;
 namespace Realms {
 	class World;
 };
 class AbstractScreen;
-enum PlayScreenDefaultTab;
+enum class PlayScreenDefaultTab;
 class MashupData;
-enum StoreNavigationOrigin;
-enum SettingsTabIndex;
+enum class StoreNavigationOrigin;
+enum class SettingsTabIndex;
 namespace Social {
 	class SignInResult;
 };
 class LevelSummary;
-enum StorageVersion;
+enum class StorageVersion;
 class RealmsCreateParams;
 class ResourceLocation;
-enum RealmsOfferTier;
+enum class RealmsOfferTier;
 class PackDependencyManager;
 class BaseScreen;
 class AbstractScreenSetupCleanupStrategy;
@@ -37,14 +37,14 @@ class ChalkboardBlockEntity;
 class ScreenChooser {
 public:
 
-	/* 0x00 */ MinecraftClient& client;
+	/* 0x00 */ MinecraftGame& client;
 	/* 0x04 */ std::unique_ptr<MinecraftUISoundPlayer> soundplayer;
 	/* 0x08 */ bool canInvite;
 	/* 0x0C */ char filler1[8]; // no idea what this is used for
 	/* size = 0x14 */
 
 	// non virtual
-	ScreenChooser(MinecraftClient&, bool);
+	ScreenChooser(MinecraftGame&, bool);
 	~ScreenChooser();
 	void schedulePopScreen(int);
 	void setDisconnectScreen(std::string const&, std::string const&, std::string const&);

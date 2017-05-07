@@ -8,20 +8,20 @@
 #include "com/mojang/minecraftpe/client/MinecraftClient.h"
 #include "com/mojang/minecraftpe/player/LocalPlayer.h"
 #include "com/mojang/minecraftpe/item/Item.h"
-#include "com/mojang/minecraftpe/Block.h"
+#include "com/mojang/minecraftpe/block/Block.h"
 
 #include "client/screens/InventoryTransitions.h"
 #include "item/NativeToolsItems.h"
 #include "NativeTools.h"
 #include "mods/ModHandler.h"
 
-static void (*_InventoryScreen$init)(InventoryScreen*);
-static void InventoryScreen$init(InventoryScreen* self)
+static void (*_InventoryScreen$init)(InventoryScreen*, ClientInstance&);
+static void InventoryScreen$init(InventoryScreen* self, ClientInstance& client)
 {
-	if(self->mcClient->getLocalPlayer()->IsCreative() && self->craftingType != CraftingType::FULLCRAFTING)
-		InventoryTransitions::init(self);
+	if(self->mcClient->getLocalPlayer()->isCreative() && self->craftingType != CraftingType::FULLCRAFTING)
+		InventoryTransitions::init(self, client);
 
-	_InventoryScreen$init(self);
+	_InventoryScreen$init(self, client);
 }
 
 static void (*_InventoryScreen$setupPositions)(InventoryScreen*);
@@ -29,7 +29,7 @@ static void InventoryScreen$setupPositions(InventoryScreen* self)
 {
 	_InventoryScreen$setupPositions(self);
 	
-	if(self->mcClient->getLocalPlayer()->IsCreative() && self->craftingType != CraftingType::FULLCRAFTING)
+	if(self->mcClient->getLocalPlayer()->isCreative() && self->craftingType != CraftingType::FULLCRAFTING)
 		InventoryTransitions::setupPositions(self);
 }
 
@@ -38,7 +38,7 @@ static void InventoryScreen$render(InventoryScreen* self, int i1, int i2, float 
 {
 	_InventoryScreen$render(self, i1, i2, f1);
 	
-	if(self->mcClient->getLocalPlayer()->IsCreative() && self->craftingType != CraftingType::FULLCRAFTING)
+	if(self->mcClient->getLocalPlayer()->isCreative() && self->craftingType != CraftingType::FULLCRAFTING)
 	{
 		InventoryTransitions::render(self, i1, i2, f1);
 		InventoryTransitions::currentPage = 1;
@@ -50,7 +50,7 @@ static void InventoryScreen$_buttonClicked(InventoryScreen* self, Button& button
 {
 	_InventoryScreen$_buttonClicked(self, button);
 	
-	if(self->mcClient->getLocalPlayer()->IsCreative() && self->craftingType != CraftingType::FULLCRAFTING)
+	if(self->mcClient->getLocalPlayer()->isCreative() && self->craftingType != CraftingType::FULLCRAFTING)
 		InventoryTransitions::_buttonClicked(self, button);
 }
 

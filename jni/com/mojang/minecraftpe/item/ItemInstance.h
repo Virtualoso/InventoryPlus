@@ -80,7 +80,7 @@ public:
     int getBaseRepairCost() const;
     void setRepairCost(int);
     void* getEnchantsFromUserData() const;
-    void* getEffectName() const;
+    std::string const& getEffectName() const;
     void* getColor() const;
     int getEnchantValue() const;
 

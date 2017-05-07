@@ -15,7 +15,7 @@ public:
 	virtual void render(MinecraftGame*, int, int);
 	virtual void pointerReleased(MinecraftGame*, int, int);
 	virtual void drawPressed(int);
-	virtual void clicked(MinecraftClient*, int, int);
+	virtual void clicked(MinecraftGame*, int, int);
 	virtual void released(int, int);
 	virtual void setPressed();
 	virtual void setPressed(bool);

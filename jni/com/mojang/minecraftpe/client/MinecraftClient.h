@@ -2,7 +2,6 @@
 
 #include <string>
 #include <memory>
-#include <function>
 
 class Minecraft;
 class LevelSettings;
@@ -11,7 +10,10 @@ enum class GameType;
 enum class HoloGameMode;
 class HolographicPlatform;
 class LocalPlayer;
-enum class FocusImpact;
+class FocusImpact;
+enum class Side;
+class Vec3;
+class Options;
 namespace Realms {
 	class World;
 };
@@ -22,19 +24,21 @@ namespace Social {
 class Player;
 class VoiceSystem;
 class Timer;
-enum class DirectionId;
+class DirectionId;
 class Entity;
 class TextureData;
 class BuildActionIntention;
 class VoiceCommand;
 class Level;
 class Dimension;
-enum class InputMode;
+class InputMode;
+class GuiData;
+class ScreenChooser;
 namespace ui {
 	class GameEventNotification;
 };
 class ResourcePacksInfoData;
-enum class HoloUIInputMode;
+class HoloUIInputMode;
 enum class ResourcePackResponse;
 
 class MinecraftGame {
@@ -48,7 +52,7 @@ public:
 
 	// non virtual
 	MinecraftGame(int, char**);
-	void* getOptions();
+	Options* getOptions();
 	Minecraft* getServer();
 	void* getHoloInput() const;
 	void* getSkinRepository() const;
@@ -66,8 +70,8 @@ public:
 	void updateScheduledScreen();
 	void leaveGame(bool);
 	void* getEventing() const;
-	void* getScreenChooser() const;
-	void* getGuiData();
+	ScreenChooser* getScreenChooser() const;
+	GuiData* getGuiData();
 	void pushScreen(std::shared_ptr<AbstractScreen>, bool);
 	void resetInput();
 	void startFrame();
@@ -278,8 +282,8 @@ public:
 	void tickInput();
 	void* getUIWidth() const;
 	void* getRuneFont() const;
-	void* getTextures() const;
-	void+ getUIHeight() const;
+	mce::TextureGroup* getTextures() const;
+	void* getUIHeight() const;
 	bool allowPicking() const;
 	void* getUIDefRepo() const;
 	bool isNotVLRMode() const;
@@ -323,7 +327,7 @@ public:
 	void* getOculusPlatformMessagePump() const;
 	bool isHostingLocalDedicatedServer() const;
 	void* getResourcePackDownloadManager(std::string const&) const;
-	void* getFont() const;
+	Font* getFont() const;
 	void* getScreen() const;
 	bool isEduMode() const;
 

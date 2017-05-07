@@ -6,10 +6,14 @@
 class ItemRenderChunkType;
 class ItemInstance;
 class Tessellator;
+class Block;
+class ItemGroup;
 
 namespace Touch {
 	
-class IInventoryPaneCallback;
+struct IInventoryPaneCallback {
+	
+};
 
 class InventoryPane : public ScrollingPane, public EntityShaderManager, public AppPlatformListener {
 public:
@@ -28,10 +32,10 @@ public:
 	InventoryPane(Touch::IInventoryPaneCallback*, MinecraftGame&, IntRectangle const&, int, float, int, int, int, bool, bool, bool);
 	void SetAdditionalMargin(int, int);
 	void _usesTerrainAtlas(Block const*);
-	void buildInventoryItemsChunk(std::vector<ItemGroup, std::allocator<ItemGroup> > const&, ItemRenderChunkType);
+	void buildInventoryItemsChunk(std::vector<ItemGroup> const&, ItemRenderChunkType);
 	void drawRectangleOnSelectedItem(ScrollingPane::GridItem&, bool);
 	void onSelectItem();
-	void renderSelectedItem(std::vector<ScrollingPane::GridItem, std::allocator<ScrollingPane::GridItem> >&, std::vector<ItemGroup, std::allocator<ItemGroup> >, Tessellator&, ScrollingPane::GridItem*&, float&, float&);
+	void renderSelectedItem(std::vector<ScrollingPane::GridItem>&, std::vector<ItemGroup>, Tessellator&, ScrollingPane::GridItem*&, float&, float&);
 	void setControllerDirection(StickDirection);
 	void setRenderDecorations(bool);
 };

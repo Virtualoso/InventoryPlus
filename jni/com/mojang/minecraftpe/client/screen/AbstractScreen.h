@@ -9,6 +9,15 @@ class InputMode;
 class HoloUIInputMode;
 class DirectionId;
 class VoiceCommand;
+class RenderGraphContext;
+class FocusImpact;
+class RawInputType;
+class ButtonState;
+class PointerLocationEventData;
+class AABB;
+class TextCharEventData;
+class Tessellator;
+class RectangleArea;
 namespace ui { class GameEventNotification; };
 
 class AbstractScreen {

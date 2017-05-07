@@ -17,9 +17,10 @@
 #include "com/mojang/minecraftpe/item/ItemInstance.h"
 #include "com/mojang/minecraftpe/player/LocalPlayer.h"
 #include "com/mojang/minecraftpe/inventory/Inventory.h"
+#include "com/mojang/minecraftpe/resource/ResourceLocation.h"
 
-ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftClient& client, std::vector<CreativeTab*> creativeTabs)
-	: Screen(client)
+ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftGame& game, ClientInstance& client, std::vector<CreativeTab*> creativeTabs)
+	: Screen(game, client)
 {
 	closeButton = NULL;
 	backgroundLayer = NULL;
@@ -38,21 +39,24 @@ bool ExtendedInventoryScreen::closeOnPlayerHurt() const
 	return true;
 }
 
-void ExtendedInventoryScreen::init()
+void ExtendedInventoryScreen::init(ClientInstance& client)
 {
 	if(!closeButton)
 	{
-		InventoryTransitions::init(this);
+		InventoryTransitions::init(this, client);
 		
-		NinePatchFactory factory (mcClient->getTextures(), "gui/spritesheet.png");
+		ResourceLocation spritesheet ("gui/spritesheet.png", ResourceFileSystem::InAppPackage);
+		NinePatchFactory factory (mcClient->getTextures(), spritesheet);
 		
 		backgroundLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({34, 43, 14, 14}, 3, 3, 14.0F, 14.0F));
 		leftButtonLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({49, 43, 14, 14}, 3, 3, 14.0F, 14.0F));
 		rightButtonLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({65, 55, 14, 14}, 3, 3, 14.0F, 14.0F));
 		
+		ImageDef imagedef = {mcClient->getTextures()->getTexture(spritesheet, true), 0, 1, 18.0F, 18.0F, {60, 0, 18, 18}, true};
+		
 		closeButton = std::make_shared<ImageWithBackground>(2);
-		closeButton->init(mcClient->getTextures(), 28, 28, {49, 43, 14, 14}, {49, 43, 14, 14}, 2, 2, "gui/spritesheet.png");
-		closeButton->setImageDef({mcClient->getTextures()->getTexture("gui/spritesheet.png", TextureLocation::Default), 0, 1, 18.0F, 18.0F, {60, 0, 18, 18}, true}, true);
+		closeButton->init(mcClient->getTextures(), 28, 28, {49, 43, 14, 14}, {49, 43, 14, 14}, 2, 2, spritesheet);
+		closeButton->setImageDef(imagedef, true);
 		
 		for(int tab = 0; tab < ownedTabs.size(); tab++)
 		{
@@ -96,7 +100,7 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	fill(paneBgX, paneBgY, paneBgWidth + paneBgX, paneBgHeight + paneBgY, {0.2F, 0.2F, 0.2F, 1.0F});
 	
-	inventoryPanes[selectedTabIndex]->render(i1, i2, f1, mcClient);
+	inventoryPanes[selectedTabIndex]->renderPane(i1, i2, f1, mcClient);
 	
 	renderOnSelectItemNameText(width, mcClient->getFont(), height - 41);
 }
@@ -148,7 +152,8 @@ void ExtendedInventoryScreen::setupPositions()
 		renderedTabs[tab]->width = tabScale;
 		renderedTabs[tab]->height = tabScale;	
 		
-		inventoryPanes[tab] = new Touch::InventoryPane(this, *mcClient, {paneX, paneY, paneWidth, paneHeight}, 1, 1.0F, 5, 26, 1, false, true, false);
+		IntRectangle intrect = {paneX, paneY, paneWidth, paneHeight};
+		inventoryPanes[tab] = new Touch::InventoryPane(this, *mcClient, intrect, 1, 1.0F, 5, 26, 1, false, true, false);
 		
 		inventoryPanes[tab]->xPosition = paneX;
 		inventoryPanes[tab]->yPosition = paneY;

@@ -9,7 +9,7 @@
 #include "ScreenSetupStrategyId.h"
 
 class AbstractScreenSetupCleanupStrategy;
-class MinecraftClient;
+class MinecraftGame;
 
 class BaseScreen : public AbstractScreen {
 public:
@@ -31,7 +31,7 @@ public:
 	virtual void handleInputModeChanged(InputMode) = 0;
 	virtual void handleHoloInputModeChanged(HoloUIInputMode) = 0;
 	virtual void handleButtonPress(short, FocusImpact) = 0;
-	virtual void handleButtonrelease(short, FocusImpact) = 0;
+	virtual void handleButtonRelease(short, FocusImpact) = 0;
 	virtual void handleRawInputEvent(int, RawInputType, ButtonState, bool) = 0;
 	virtual void handlePointerLocation(PointerLocationEventData const&, FocusImpact) = 0;
 	virtual void handlePointerPressed(bool) = 0;
@@ -61,4 +61,4 @@ public:
 	void setupForRendering(ScreenContext&);
 };
 
-std::unique_ptr<AbstractScreenSetupCleanupStrategy> createScreenSetupStrategy(MinecraftClient&, ScreenSetupStrategyId);
+std::unique_ptr<AbstractScreenSetupCleanupStrategy> createScreenSetupStrategy(MinecraftGame&, ScreenSetupStrategyId);

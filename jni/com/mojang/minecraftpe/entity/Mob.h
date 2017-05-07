@@ -46,8 +46,8 @@ public:
     virtual void stopRiding(bool, bool);
     virtual void buildDebugInfo(std::string&) const;
     virtual float getYHeadRot() const;
-    virtual void outOfWorld();
-    virtual bool _hurt(EntityDamageSource const&, int, bool, bool);
+    virtual bool outOfWorld();
+    virtual void _hurt(EntityDamageSource const&, int, bool, bool);
     virtual void readAdditionalSaveData(CompoundTag const&);
     virtual void addAdditionalSaveData(CompoundTag&);
     virtual void _playStepSound(BlockPos const&, int);

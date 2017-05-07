@@ -1,5 +1,3 @@
-//need to update this whole header
-
 #pragma once
 
 #include <vector>
@@ -16,12 +14,13 @@ class MCOEvent;
 class MojangConnectionStatus;
 class ControllerButtonRenderer;
 class ItemInstance;
+class ClientInstance;
 
 class Screen : public BaseScreen, public GuiComponent {
 public:
 	int width; // 12
 	int height; // 16
-	MinecraftClient* mcClient; // 20
+	MinecraftGame* mcClient; // 20
 	std::vector<std::shared_ptr<Button>> buttonList; // 24
 	std::vector<std::shared_ptr<TextBox>> textboxList; // 36
 	std::vector<std::shared_ptr<Button>> tabButtonList; // 48

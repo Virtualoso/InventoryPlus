@@ -10,6 +10,6 @@ public:
 	bool isRight;
 
 	InventoryTab(int, const std::string&, NinePatchLayer*, bool);
-	virtual void renderBg(MinecraftClient*, int, int);
+	virtual void renderBg(MinecraftGame*, int, int);
 	virtual bool isSecondImage(bool);
 };

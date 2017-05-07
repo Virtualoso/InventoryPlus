@@ -4,6 +4,7 @@
 
 class ItemInstance;
 class BlockTessellator;
+class IconBlitGlint;
 
 class ItemRenderer : public EntityRenderer {
 public:

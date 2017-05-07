@@ -3,7 +3,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 define walk
-$(wildcard $(1)) $(foreach e, $(wildcard $(1)/ ), $(call walk, $(e)))
+	$(wildcard $(1)) $(foreach e, $(wildcard $(1)/*), $(call walk, $(e)))
 endef
 
 ALLFILES = $(call walk, $(LOCAL_PATH))

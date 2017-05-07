@@ -18,7 +18,7 @@ int InventoryTransitions::currentPage = 1;
 std::vector<std::shared_ptr<Screen>> InventoryTransitions::pages;
 std::vector<CreativeTab*> InventoryTransitions::creativeTabs;
 
-void InventoryTransitions::init(Screen* self)
+void InventoryTransitions::init(Screen* self, ClientInstance& client)
 {
 	if(!forwardButton)
 	{
@@ -28,7 +28,7 @@ void InventoryTransitions::init(Screen* self)
 		backButton = std::make_shared<Touch::TButton>(1, "<", self->mcClient, false, 0x7FFFFFFF);
 		backButton->init(self->mcClient);
 
-		initCreativeTabs(self);
+		initCreativeTabs(self, client);
 	}
 	
 	self->buttonList.emplace_back(forwardButton);
@@ -82,12 +82,14 @@ void InventoryTransitions::pushNextScreen(Screen* self)
 
 void InventoryTransitions::pushPreviousScreen(Screen* self)
 {	
-	self->mcClient->getScreenChooser()->popScreen(*self, 1);
+	//self->mcClient->getScreenChooser()->popScreen(*self, 1);
+	//popScreen doesn't exist, probably need to use schedulePopScreen
 	currentPage--; // reduce the currentPage by 1
 }
 
-void InventoryTransitions::initCreativeTabs(Screen* self)
+void InventoryTransitions::initCreativeTabs(Screen* self, ClientInstance& client)
 {
+	
 	if(!creativeTabs.empty())
 	{
 		std::vector<CreativeTab*> tabSets;
@@ -96,12 +98,12 @@ void InventoryTransitions::initCreativeTabs(Screen* self)
 			tabSets.emplace_back(creativeTabs[tab]);
 			if((tab + 1) % 8 == 0) // if divisble by 8
 			{
-				pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient), tabSets));
+				pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient), client, tabSets));
 				tabSets.clear();
 			}
 			else if(tab == creativeTabs.size() - 1)
 			{
-				pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient), tabSets));
+				pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient), client, tabSets));
 				tabSets.clear();
 				break;
 			}
@@ -111,6 +113,7 @@ void InventoryTransitions::initCreativeTabs(Screen* self)
 
 void InventoryTransitions::closeScreens(Screen* self)
 {
-	self->mcClient->getScreenChooser()->popScreen(*self, currentPage);
+	//self->mcClient->getScreenChooser()->popScreen(*self, currentPage);
+	//popScreen doesn't exist, probably need to use schedulePopScreen
 	currentPage = 1;
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+class PushNotificationMessage;
+
 class AppPlatformListener {
 public:
 	//Field

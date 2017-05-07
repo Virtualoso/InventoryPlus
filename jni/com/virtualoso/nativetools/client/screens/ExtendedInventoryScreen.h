@@ -29,12 +29,12 @@ public:
 	int paneBgHeight;
 	int tabScale;
 	
-	ExtendedInventoryScreen(MinecraftClient&, std::vector<CreativeTab*>);
+	ExtendedInventoryScreen(MinecraftGame&, ClientInstance&, std::vector<CreativeTab*>);
 
 	virtual bool renderGameBehind() const;
 	virtual bool closeOnPlayerHurt() const;
 	virtual void render(int, int, float);
-	virtual void init();
+	virtual void init(ClientInstance&);
 	virtual void setupPositions();
 	virtual void _buttonClicked(Button&);
 	virtual void _pointerReleased(int, int);

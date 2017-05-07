@@ -15,6 +15,7 @@ class BlockEntity;
 class ChalkboardBlockEntity;
 class Agent;
 class PlayerInventoryProxy;
+class Inventory;
 enum class GameType;
 enum class CooldownType;
 enum class CommandPermissionLevel;
@@ -24,6 +25,9 @@ class Player : public Mob {
 public:
 
     enum class PositionMode;
+	
+	char filler2[192];
+	Inventory* inventory;
 
     // virtual
     virtual void reloadHardcoded(Entity::InitializationMethod, VariantParameterList const&);
@@ -60,7 +64,7 @@ public:
     virtual bool isWorldBuilder();
     virtual bool isCreative() const;
     virtual void add(ItemInstance&);
-    virtual bool _hurt(EntityDamageSource const&, int, bool, bool);
+    virtual void _hurt(EntityDamageSource const&, int, bool, bool);
     virtual void lavaHurt();
     virtual void readAdditionalSaveData(CompoundTag const&);
     virtual void addAdditionalSaveData(CompoundTag&);

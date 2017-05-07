@@ -15,7 +15,7 @@ bool InventoryTab::isSecondImage(bool b1) {
 	return false;
 }
 
-void InventoryTab::renderBg(MinecraftClient* client, int x, int y) {
+void InventoryTab::renderBg(MinecraftGame* client, int x, int y) {
 	layer1->setSize((float) width, (float) height);
 	layer1->draw(Tessellator::instance, xPosition, yPosition);
 }
