@@ -82,7 +82,7 @@ void InventoryTransitions::pushNextScreen(Screen* self)
 
 void InventoryTransitions::pushPreviousScreen(Screen* self)
 {	
-	//self->mcClient->getScreenChooser()->popScreen(*self, 1);
+	self->mcClient->getScreenChooser()->schedulePopScreen(1);
 	//popScreen doesn't exist, probably need to use schedulePopScreen
 	currentPage--; // reduce the currentPage by 1
 }
@@ -113,7 +113,7 @@ void InventoryTransitions::initCreativeTabs(Screen* self, ClientInstance& client
 
 void InventoryTransitions::closeScreens(Screen* self)
 {
-	//self->mcClient->getScreenChooser()->popScreen(*self, currentPage);
+	self->mcClient->getScreenChooser()->schedulePopScreen(currentPage);
 	//popScreen doesn't exist, probably need to use schedulePopScreen
 	currentPage = 1;
 }

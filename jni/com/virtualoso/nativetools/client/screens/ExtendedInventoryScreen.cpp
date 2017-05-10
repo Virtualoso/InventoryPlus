@@ -45,7 +45,7 @@ void ExtendedInventoryScreen::init(ClientInstance& client)
 	{
 		InventoryTransitions::init(this, client);
 		
-		ResourceLocation spritesheet ("gui/spritesheet.png", ResourceFileSystem::InAppPackage);
+		ResourceLocation spritesheet ("gui/spritesheet.png", ResourceFileSystem::InDataDir);
 		NinePatchFactory factory (mcClient->getTextures(), spritesheet);
 		
 		backgroundLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({34, 43, 14, 14}, 3, 3, 14.0F, 14.0F));
