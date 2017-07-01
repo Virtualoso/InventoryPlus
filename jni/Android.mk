@@ -9,7 +9,7 @@ endef
 ALLFILES = $(call walk, $(LOCAL_PATH))
 FILE_LIST := $(filter %.cpp, $(ALLFILES))
 
-LOCAL_MODULE    := com.virtualoso.addon.nativetools
+LOCAL_MODULE    := com.virtualoso.addon.invplus
 LOCAL_SRC_FILES := $(FILE_LIST:$(LOCAL_PATH)/%=%)
 LOCAL_LDLIBS := -L$(LOCAL_PATH)/libs/$(TARGET_ARCH_ABI) -llog -ldl -lminecraftpe -lmcpelauncher_tinysubstrate -lmcpelauncher_new
 

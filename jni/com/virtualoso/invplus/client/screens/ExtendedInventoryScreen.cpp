@@ -39,11 +39,11 @@ bool ExtendedInventoryScreen::closeOnPlayerHurt() const
 	return true;
 }
 
-void ExtendedInventoryScreen::init(ClientInstance& client)
+void ExtendedInventoryScreen::init()
 {
 	if(!closeButton)
 	{
-		InventoryTransitions::init(this, client);
+		InventoryTransitions::init(this);
 		
 		ResourceLocation spritesheet ("gui/spritesheet.png", ResourceFileSystem::InDataDir);
 		NinePatchFactory factory (mcClient->getTextures(), spritesheet);

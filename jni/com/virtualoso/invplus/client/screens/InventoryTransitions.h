@@ -20,12 +20,12 @@ public:
 	static std::vector<std::shared_ptr<Screen>> pages;
 	static std::vector<CreativeTab*> creativeTabs;
 
-	static void init(Screen*, ClientInstance&);
+	static void init(Screen*);
 	static void setupPositions(Screen*);
 	static void render(Screen*, int, int, float);
 	static void _buttonClicked(Screen*, Button&);
 	static void pushNextScreen(Screen*);
 	static void pushPreviousScreen(Screen*);
-	static void initCreativeTabs(Screen*, ClientInstance&);
+	static void initCreativeTabs(Screen*);
 	static void closeScreens(Screen*);
 };

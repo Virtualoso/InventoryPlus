@@ -20,18 +20,19 @@ class Screen : public BaseScreen, public GuiComponent {
 public:
 	int width; // 12
 	int height; // 16
-	MinecraftGame* mcClient; // 20
-	std::vector<std::shared_ptr<Button>> buttonList; // 24
-	std::vector<std::shared_ptr<TextBox>> textboxList; // 36
-	std::vector<std::shared_ptr<Button>> tabButtonList; // 48
-	std::vector<std::shared_ptr<GuiElement>> tabElementList; // 60
-	std::vector<std::shared_ptr<GuiElement>> guiElementList; // 72
-	int tabButtonIndex; // 84
-	int tabElementIndex; // 88
-	std::unique_ptr<ControllerButtonRenderer> buttonRenderer; // 92
-	Font* font; // 96
-	Button* buttonClicked; // 100
-	char screen_vars6[32]; // 104
+	MinecraftGame* mcGame; // 20
+	ClientInstance* mcClient; // 24
+	std::vector<std::shared_ptr<Button>> buttonList; // 28
+	std::vector<std::shared_ptr<TextBox>> textboxList; // 40
+	std::vector<std::shared_ptr<Button>> tabButtonList; // 52
+	std::vector<std::shared_ptr<GuiElement>> tabElementList; // 64
+	std::vector<std::shared_ptr<GuiElement>> guiElementList; // 76
+	int tabButtonIndex; // 88
+	int tabElementIndex; // 92
+	std::unique_ptr<ControllerButtonRenderer> buttonRenderer; // 96
+	Font* font; // 100
+	Button* buttonClicked; // 104
+	char screen_vars6[32]; // 108
 
 	virtual ~Screen();
 	virtual void _init(int, int);

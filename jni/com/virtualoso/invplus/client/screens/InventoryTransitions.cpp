@@ -8,7 +8,6 @@
 #include "com/mojang/minecraftpe/client/screen/Screen.h"
 #include "com/mojang/minecraftpe/client/screen/InventoryScreen.h"
 #include "com/mojang/minecraftpe/client/ScreenChooser.h"
-#include "com/mojang/minecraftpe/client/MinecraftClient.h"
 
 std::shared_ptr<Touch::TButton> InventoryTransitions::forwardButton = NULL;
 std::shared_ptr<Touch::TButton> InventoryTransitions::backButton = NULL;
@@ -18,17 +17,17 @@ int InventoryTransitions::currentPage = 1;
 std::vector<std::shared_ptr<Screen>> InventoryTransitions::pages;
 std::vector<CreativeTab*> InventoryTransitions::creativeTabs;
 
-void InventoryTransitions::init(Screen* self, ClientInstance& client)
+void InventoryTransitions::init(Screen* self)
 {
 	if(!forwardButton)
 	{
-		forwardButton = std::make_shared<Touch::TButton>(0, ">", self->mcClient, false, 0x7FFFFFFF);
-		forwardButton->init(self->mcClient);
+		forwardButton = std::make_shared<Touch::TButton>(0, ">", self->mcGame, false, 0x7FFFFFFF);
+		forwardButton->init(self->mcGame);
 
-		backButton = std::make_shared<Touch::TButton>(1, "<", self->mcClient, false, 0x7FFFFFFF);
-		backButton->init(self->mcClient);
+		backButton = std::make_shared<Touch::TButton>(1, "<", self->mcGame, false, 0x7FFFFFFF);
+		backButton->init(self->mcGame);
 
-		initCreativeTabs(self, client);
+		initCreativeTabs(self);
 	}
 	
 	self->buttonList.emplace_back(forwardButton);
@@ -83,13 +82,11 @@ void InventoryTransitions::pushNextScreen(Screen* self)
 void InventoryTransitions::pushPreviousScreen(Screen* self)
 {	
 	self->mcClient->getScreenChooser()->schedulePopScreen(1);
-	//popScreen doesn't exist, probably need to use schedulePopScreen
 	currentPage--; // reduce the currentPage by 1
 }
 
-void InventoryTransitions::initCreativeTabs(Screen* self, ClientInstance& client)
+void InventoryTransitions::initCreativeTabs(Screen* self)
 {
-	
 	if(!creativeTabs.empty())
 	{
 		std::vector<CreativeTab*> tabSets;
@@ -98,12 +95,12 @@ void InventoryTransitions::initCreativeTabs(Screen* self, ClientInstance& client
 			tabSets.emplace_back(creativeTabs[tab]);
 			if((tab + 1) % 8 == 0) // if divisble by 8
 			{
-				pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient), client, tabSets));
+				pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcGame), *(self->mcClient), tabSets));
 				tabSets.clear();
 			}
 			else if(tab == creativeTabs.size() - 1)
 			{
-				pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcClient), client, tabSets));
+				pages.emplace_back(std::make_shared<ExtendedInventoryScreen>(*(self->mcGame), *(self->mcClient), tabSets));
 				tabSets.clear();
 				break;
 			}
@@ -114,6 +111,5 @@ void InventoryTransitions::initCreativeTabs(Screen* self, ClientInstance& client
 void InventoryTransitions::closeScreens(Screen* self)
 {
 	self->mcClient->getScreenChooser()->schedulePopScreen(currentPage);
-	//popScreen doesn't exist, probably need to use schedulePopScreen
 	currentPage = 1;
 }

@@ -45,7 +45,8 @@ public:
 	};
 	
 	// Field
-	char is_vars[56]; // 140
+	// No need to update these for now, they aren't of use to us
+	/*char is_vars[56]; // 140
 	void* somethingOfImportance; // 196 
 	char is_vars0[60]; // 200
 	std::shared_ptr<ImageWithBackground> closeButton; // 260;
@@ -70,18 +71,22 @@ public:
 	std::vector<InventoryScreen::TabButtonWithMeta*> buttonTabs; // 512
 	char is_vars2[100]; // 516
 	InventoryScreen::InventoryPaneType selectedPaneType; // 616
-	char is_vars3[656 - 620]; // 620
-	ItemInstance item; // 656
-	bool hasDumpedArmor; // 676
-	char is_vars4[720 - 680]; // 680
-	std::shared_ptr<Label> recipesName; // 728
-	std::shared_ptr<Label> noRecipesName; // 736
-	CraftingType craftingType; // 744
-	char is_vars5[864 - 748]; // 748
-	std::string cannotCreateString; // 864
-	bool idk_b; // 868
-	char is_vars6[8]; // 872
-	BlockPos blockPos; // 880
+	char is_vars3[656 - 620]; // 620*/
+
+	char is_vars[688 - 140]; // 140
+
+	//now these do matter
+	ItemInstance item; // 688
+	bool hasDumpedArmor; // 732
+	char is_vars4[784 - 736]; // 736
+	std::shared_ptr<Label> recipesName; // 784
+	std::shared_ptr<Label> noRecipesName; // 792
+	CraftingType craftingType; // 800
+	char is_vars5[920 - 804]; // 804
+	std::string cannotCreateString; // 920
+	bool idk_b; // 924
+	char is_vars6[8]; // 928
+	BlockPos blockPos; // 936
 
 	// Virtual
 	virtual ~InventoryScreen();

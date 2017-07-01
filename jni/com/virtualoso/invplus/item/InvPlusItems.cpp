@@ -1,21 +1,19 @@
-#include "NativeToolsItems.h"
+#include "InvPlusItems.h"
 #include "Barrier.h"
 
-#include "../NativeTools.h"
+Item* InvPlusItems::barrier;
 
-Item* NativeToolsItems::barrier;
-
-void NativeToolsItems::initItems()
+void InvPlusItems::initItems()
 {	
 	registerItemIds();
 	
 	barrier = new Barrier("barrier", getNextItemId());
 }
 
-int NativeToolsItems::index;
-std::vector<int> NativeToolsItems::freeIds;
+int InvPlusItems::index;
+std::vector<int> InvPlusItems::freeIds;
 
-void NativeToolsItems::registerItemIds()
+void InvPlusItems::registerItemIds()
 {
 	for(int counter = 256; counter < 4096; counter++)
 	{
@@ -24,7 +22,7 @@ void NativeToolsItems::registerItemIds()
 	}
 }
 
-int NativeToolsItems::getNextItemId()
+int InvPlusItems::getNextItemId()
 {	
 	int id = freeIds[index];
 	index++;

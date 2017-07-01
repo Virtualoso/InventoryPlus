@@ -4,7 +4,7 @@
 
 class Item;
 
-class NativeToolsItems
+class InvPlusItems
 {
 public:
 	static Item* barrier;

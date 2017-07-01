@@ -34,7 +34,7 @@ public:
 	virtual bool renderGameBehind() const;
 	virtual bool closeOnPlayerHurt() const;
 	virtual void render(int, int, float);
-	virtual void init(ClientInstance&);
+	virtual void init();
 	virtual void setupPositions();
 	virtual void _buttonClicked(Button&);
 	virtual void _pointerReleased(int, int);
