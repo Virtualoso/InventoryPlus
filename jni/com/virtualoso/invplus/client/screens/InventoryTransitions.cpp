@@ -5,6 +5,7 @@
 #include "ExtendedInventoryScreen.h"
 #include "../../creative/CreativeTab.h"
 
+#include "com/mojang/minecraftpe/client/ClientInstance.h"
 #include "com/mojang/minecraftpe/client/screen/Screen.h"
 #include "com/mojang/minecraftpe/client/screen/InventoryScreen.h"
 #include "com/mojang/minecraftpe/client/ScreenChooser.h"

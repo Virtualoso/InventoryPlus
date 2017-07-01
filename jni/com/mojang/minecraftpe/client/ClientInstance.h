@@ -4,7 +4,6 @@
 #include <memory>
 #include <functional>
 
-#include "Realms.h"
 #include "../gamemode/GameType.h"
 
 class MinecraftGame;
@@ -33,6 +32,7 @@ class AbstractScreen;
 class GuiData;
 class Screen;
 class Level;
+class Textures;
 
 namespace minecraft
 {
@@ -137,7 +137,7 @@ public:
 	bool wantToQuit() const;
 	MinecraftEventing* getEventing() const;
 	void getRuneFont() const;
-	void getTextures() const;
+	Textures* getTextures() const;
 	int getUIHeight() const;
 	bool allowPicking() const;
 	bool isARVRClient() const;

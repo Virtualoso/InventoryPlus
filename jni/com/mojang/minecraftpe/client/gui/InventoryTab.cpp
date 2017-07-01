@@ -1,6 +1,5 @@
 #include "InventoryTab.h"
 
-#include "../MinecraftClient.h"
 #include "NinePatchLayer.h"
 #include "../renderer/Tessellator.h"
 

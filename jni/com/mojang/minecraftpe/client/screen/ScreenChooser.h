@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 #include <deque>
-#include "../MinecraftClient.h"
+#include "../MinecraftGame.h"
 
 class MinecraftUISoundPlayer;
 class ProgressHandler;

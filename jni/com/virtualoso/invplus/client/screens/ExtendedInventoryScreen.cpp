@@ -3,7 +3,8 @@
 #include "InventoryTransitions.h"
 #include "../../creative/CreativeTab.h"
 
-#include "com/mojang/minecraftpe/client/MinecraftClient.h"
+#include "com/mojang/minecraftpe/client/ClientInstance.h"
+#include "com/mojang/minecraftpe/client/MinecraftGame.h"
 #include "com/mojang/minecraftpe/client/gui/NinePatchLayer.h"
 #include "com/mojang/minecraftpe/client/gui/IntRectangle.h"
 #include "com/mojang/minecraftpe/client/gui/ImageWithBackground.h"
@@ -46,16 +47,16 @@ void ExtendedInventoryScreen::init()
 		InventoryTransitions::init(this);
 		
 		ResourceLocation spritesheet ("gui/spritesheet.png", ResourceFileSystem::InDataDir);
-		NinePatchFactory factory (mcClient->getTextures(), spritesheet);
+		NinePatchFactory factory (mcGame->getTextures(), spritesheet);
 		
 		backgroundLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({34, 43, 14, 14}, 3, 3, 14.0F, 14.0F));
 		leftButtonLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({49, 43, 14, 14}, 3, 3, 14.0F, 14.0F));
 		rightButtonLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({65, 55, 14, 14}, 3, 3, 14.0F, 14.0F));
 		
-		ImageDef imagedef = {mcClient->getTextures()->getTexture(spritesheet, true), 0, 1, 18.0F, 18.0F, {60, 0, 18, 18}, true};
+		ImageDef imagedef = {mcGame->getTextures()->getTexture(spritesheet, true), 0, 1, 18.0F, 18.0F, {60, 0, 18, 18}, true};
 		
 		closeButton = std::make_shared<ImageWithBackground>(2);
-		closeButton->init(mcClient->getTextures(), 28, 28, {49, 43, 14, 14}, {49, 43, 14, 14}, 2, 2, spritesheet);
+		closeButton->init(mcGame->getTextures(), 28, 28, {49, 43, 14, 14}, {49, 43, 14, 14}, 2, 2, spritesheet);
 		closeButton->setImageDef(imagedef, true);
 		
 		for(int tab = 0; tab < ownedTabs.size(); tab++)
@@ -82,14 +83,14 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	{
 		if(tab != selectedTabIndex)
 		{
-			renderedTabs[tab]->renderBg(mcClient, i1, i2);
+			renderedTabs[tab]->renderBg(mcGame, i1, i2);
 			drawTabIcon(ownedTabs[tab], renderedTabs[tab], renderedTabs[tab]->pressed, false);
 		}
 	}
 	
 	backgroundLayer->draw(Tessellator::instance, backgroundLayer->xPosition, backgroundLayer->yPosition);
 	
-	renderedTabs[selectedTabIndex]->renderBg(mcClient, i1, i2);
+	renderedTabs[selectedTabIndex]->renderBg(mcGame, i1, i2);
 	drawTabIcon(ownedTabs[selectedTabIndex], renderedTabs[selectedTabIndex], renderedTabs[selectedTabIndex]->pressed, true);	
 	
 	InventoryTransitions::render(this, i1, i2, f1);
@@ -100,7 +101,7 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	fill(paneBgX, paneBgY, paneBgWidth + paneBgX, paneBgHeight + paneBgY, {0.2F, 0.2F, 0.2F, 1.0F});
 	
-	inventoryPanes[selectedTabIndex]->renderPane(i1, i2, f1, mcClient);
+	inventoryPanes[selectedTabIndex]->renderPane(i1, i2, f1, mcGame);
 	
 	renderOnSelectItemNameText(width, mcClient->getFont(), height - 41);
 }
@@ -153,7 +154,7 @@ void ExtendedInventoryScreen::setupPositions()
 		renderedTabs[tab]->height = tabScale;	
 		
 		IntRectangle intrect = {paneX, paneY, paneWidth, paneHeight};
-		inventoryPanes[tab] = new Touch::InventoryPane(this, *mcClient, intrect, 1, 1.0F, 5, 26, 1, false, true, false);
+		inventoryPanes[tab] = new Touch::InventoryPane(this, *mcGame, intrect, 1, 1.0F, 5, 26, 1, false, true, false);
 		
 		inventoryPanes[tab]->xPosition = paneX;
 		inventoryPanes[tab]->yPosition = paneY;

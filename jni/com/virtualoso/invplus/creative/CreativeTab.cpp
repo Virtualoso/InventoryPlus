@@ -4,7 +4,7 @@
 #include "com/mojang/minecraftpe/block/Block.h"
 #include "com/mojang/minecraftpe/item/ItemInstance.h"
 #include "../client/screens/InventoryTransitions.h"
-#include "../item/NativeToolsItems.h"
+#include "../item/InvPlusItems.h"
 
 CreativeTab::CreativeTab(ItemInstance* item)
 {
@@ -17,7 +17,7 @@ CreativeTab::CreativeTab(Block* block, int data) : CreativeTab(new ItemInstance(
 
 CreativeTab::CreativeTab(int itemId, int data) : CreativeTab(Item::mItems[itemId], data) { }
 
-CreativeTab::CreativeTab() : CreativeTab(NativeToolsItems::barrier, 0) { }
+CreativeTab::CreativeTab() : CreativeTab(InvPlusItems::barrier, 0) { }
 
 void CreativeTab::setTabIcon(ItemInstance* item)
 {
