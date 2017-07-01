@@ -1,6 +1,6 @@
-/bin
-/gen
-/libs
-/obj
-/apk
+bin/
+gen/
+libs/
+obj/
+apk/
 
