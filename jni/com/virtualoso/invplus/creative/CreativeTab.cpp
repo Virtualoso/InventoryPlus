@@ -11,9 +11,9 @@ CreativeTab::CreativeTab(ItemInstance* item)
 	tabIcon = item;
 }
 
-CreativeTab::CreativeTab(Item* item, int data) : CreativeTab(new ItemInstance(item, 1, data)) { }
+CreativeTab::CreativeTab(Item* item, int data) : CreativeTab(new ItemInstance(*item, 1, data)) { }
 
-CreativeTab::CreativeTab(Block* block, int data) : CreativeTab(new ItemInstance(block, 1, data)) { }
+CreativeTab::CreativeTab(Block* block, int data) : CreativeTab(new ItemInstance(*block, 1, data)) { }
 
 CreativeTab::CreativeTab(int itemId, int data) : CreativeTab(Item::mItems[itemId], data) { }
 
@@ -26,12 +26,12 @@ void CreativeTab::setTabIcon(ItemInstance* item)
 
 void CreativeTab::setTabIcon(Item* item, int data)
 {
-	setTabIcon(new ItemInstance(item, 1, data));
+	setTabIcon(new ItemInstance(*item, 1, data));
 }
 
 void CreativeTab::setTabIcon(Block* block, int data)
 {
-	setTabIcon(new ItemInstance(block, 1, data));
+	setTabIcon(new ItemInstance(*block, 1, data));
 }
 
 void CreativeTab::setTabIcon(int itemId, int data)
@@ -51,7 +51,7 @@ void CreativeTab::addItem(ItemInstance* item)
 
 void CreativeTab::addItem(Item* item, int data)
 {
-	addItem(new ItemInstance(item, 1, data));
+	addItem(new ItemInstance(*item, 1, data));
 }
 
 void CreativeTab::addItem(int itemId, int data)
@@ -61,7 +61,7 @@ void CreativeTab::addItem(int itemId, int data)
 
 void CreativeTab::addItem(Block* block, int data)
 {
-	addItem(new ItemInstance(block, 1, data));
+	addItem(new ItemInstance(*block, 1, data));
 }
 
 void CreativeTab::addToTabsList()

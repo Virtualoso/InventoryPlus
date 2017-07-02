@@ -17,7 +17,7 @@
 #include "com/mojang/minecraftpe/client/renderer/ShaderColor.h"
 #include "com/mojang/minecraftpe/item/ItemInstance.h"
 #include "com/mojang/minecraftpe/player/LocalPlayer.h"
-#include "com/mojang/minecraftpe/inventory/Inventory.h"
+#include "com/mojang/minecraftpe/player/PlayerInventoryProxy.h"
 #include "com/mojang/minecraftpe/resource/ResourceLocation.h"
 
 ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftGame& game, ClientInstance& client, std::vector<CreativeTab*> creativeTabs)
@@ -231,20 +231,20 @@ std::shared_ptr<InventoryTab> ExtendedInventoryScreen::createInventoryTab(int id
 
 void ExtendedInventoryScreen::drawTabIcon(CreativeTab* ownedTab, std::shared_ptr<InventoryTab> imageButton, bool isPressed, bool isSelected)
 {
-	ItemRenderer::getInstance()->renderGuiItemNew(ownedTab->getTabIcon(), 0, ((float)imageButton->xPosition + (float)((imageButton->width / 2) - 8) + (isPressed ? 1.0F : 0.7F)), ((float)imageButton->yPosition + (float)((imageButton->height / 2) - 8)), 1.0F, (isSelected ? 1.0F : 0.7F), (((float)imageButton->width) - (isPressed ? 2.0F : 0.0F)) * 0.04F, false);
+	ItemRenderer::getInstance()->renderGuiItemNew(*(ownedTab->getTabIcon()), 0, ((float)imageButton->xPosition + (float)((imageButton->width / 2) - 8) + (isPressed ? 1.0F : 0.7F)), ((float)imageButton->yPosition + (float)((imageButton->height / 2) - 8)), 1.0F, (isSelected ? 1.0F : 0.7F), (((float)imageButton->width) - (isPressed ? 2.0F : 0.0F)) * 0.04F, false);
 }
 
 int ExtendedInventoryScreen::putItemInInventory(ItemInstance& item, bool fullStack)
 {
-	Inventory* inv = mcClient->getLocalPlayer()->inventory;
+	/*PlayerInventoryProxy* inv = mcClient->getLocalPlayer()->getSupplies();
 	int slot = inv->getLinkedSlotForExactItem(item);
-	int selectedSlot = inv->getSelectedSlot();
+	SelectedSlot selectedSlot = inv->getSelectedSlot();
 	int linkedSlot;
 	if(slot < mcClient->getGuiData()->getNumSlots() && slot != -1)
 	{
 		linkedSlot = inv->getLinkedSlot(selectedSlot);
 		ItemInstance* selectedItem = inv->getItem(linkedSlot);
-		if(selectedItem && selectedItem->sameItemAndAux(&item))
+		if(selectedItem && selectedItem->sameItemAndAux(item))
 		{
 			if(selectedItem->count < selectedItem->getMaxStackSize())
 				selectedItem->count = fullStack ? selectedItem->getMaxStackSize() : selectedItem->count + 1;
@@ -276,7 +276,7 @@ int ExtendedInventoryScreen::putItemInInventory(ItemInstance& item, bool fullSta
 	if(currentItem)
 		mcClient->getGuiData()->showPopupNotice(currentItem->getName(), currentItem->getEffectName());
 	mcClient->getGuiData()->flashSlot(inv->getSelectedSlot());
-	return linkedSlot;
+	return linkedSlot;*/
 }
 
 bool ExtendedInventoryScreen::addItem(Touch::InventoryPane& pane, int slot)

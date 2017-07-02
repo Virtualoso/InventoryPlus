@@ -86,7 +86,7 @@ public:
 	virtual void onMojangConnectorStatus(MojangConnectionStatus);
 	virtual void handleButtonPress(short);
 	virtual void handleButtonRelease(short);
-	virtual void handleTextChar(std::string const&);
+	virtual void handleTextChar(std::string const&, bool);
 	virtual void handleCaretLocation(int);
 	virtual void handlePointerLocation(short, short);
 	virtual void handleDirection(DirectionId, float, float);
