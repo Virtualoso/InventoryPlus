@@ -6,8 +6,8 @@ class NinePatchLayer;
 
 class ImageWithBackground : public LargeImageButton {
 public:
-	NinePatchLayer* layer1; // 184
-	NinePatchLayer* layer2; // 188
+	NinePatchLayer* layer1; // 192
+	NinePatchLayer* layer2; // 196
 
 	virtual ~ImageWithBackground();
 	virtual void render(MinecraftGame*, int, int);

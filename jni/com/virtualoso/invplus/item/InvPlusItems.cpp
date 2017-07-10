@@ -1,13 +1,17 @@
 #include "InvPlusItems.h"
 #include "Barrier.h"
+#include "../creative/CreativeTab.h"
 
 Item* InvPlusItems::barrier;
 
 void InvPlusItems::initItems()
 {	
-	registerItemIds();
+	//registerItemIds();
 	
-	barrier = new Barrier("barrier", getNextItemId());
+	//barrier = new Barrier("barrier", getNextItemId());
+	CreativeTab* newTab = new CreativeTab(262, 0);
+	//newTab->addItem(50, 0);
+	newTab->addToTabsList();
 }
 
 int InvPlusItems::index;

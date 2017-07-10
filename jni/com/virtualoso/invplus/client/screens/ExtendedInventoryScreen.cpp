@@ -1,5 +1,7 @@
 #include "ExtendedInventoryScreen.h"
 
+#include <utility>
+
 #include "InventoryTransitions.h"
 #include "../../creative/CreativeTab.h"
 
@@ -45,19 +47,18 @@ void ExtendedInventoryScreen::init()
 	if(!closeButton)
 	{
 		InventoryTransitions::init(this);
+
+		ResourceLocation spritesheet ("textures/gui/spritesheet", ResourceFileSystem::InUserPackage);
 		
-		ResourceLocation spritesheet ("gui/spritesheet.png", ResourceFileSystem::InDataDir);
 		NinePatchFactory factory (mcGame->getTextures(), spritesheet);
 		
-		backgroundLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({34, 43, 14, 14}, 3, 3, 14.0F, 14.0F));
-		leftButtonLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({49, 43, 14, 14}, 3, 3, 14.0F, 14.0F));
-		rightButtonLayer = std::shared_ptr<NinePatchLayer>(factory.createSymmetrical({65, 55, 14, 14}, 3, 3, 14.0F, 14.0F));
-		
-		ImageDef imagedef = {mcGame->getTextures()->getTexture(spritesheet, true), 0, 1, 18.0F, 18.0F, {60, 0, 18, 18}, true};
+		backgroundLayer = factory.createSymmetrical({34, 43, 14, 14}, 3, 3, 14.0F, 14.0F);
+		leftButtonLayer = factory.createSymmetrical({49, 43, 14, 14}, 3, 3, 14.0F, 14.0F);
+		rightButtonLayer = factory.createSymmetrical({65, 55, 14, 14}, 3, 3, 14.0F, 14.0F);
 		
 		closeButton = std::make_shared<ImageWithBackground>(2);
 		closeButton->init(mcGame->getTextures(), 28, 28, {49, 43, 14, 14}, {49, 43, 14, 14}, 2, 2, spritesheet);
-		closeButton->setImageDef(imagedef, true);
+		closeButton->setImageDef({mcGame->getTextures()->getTexture(spritesheet, false), 0, 1, 18.0F, 18.0F, {60, 0, 18, 18}, true}, false);
 		
 		for(int tab = 0; tab < ownedTabs.size(); tab++)
 		{
@@ -101,14 +102,14 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	fill(paneBgX, paneBgY, paneBgWidth + paneBgX, paneBgHeight + paneBgY, {0.2F, 0.2F, 0.2F, 1.0F});
 	
-	inventoryPanes[selectedTabIndex]->renderPane(i1, i2, f1, mcGame);
+	//inventoryPanes[selectedTabIndex]->renderPane(i1, i2, f1, mcGame);
 	
 	renderOnSelectItemNameText(width, mcClient->getFont(), height - 41);
 }
 
 void ExtendedInventoryScreen::setupPositions()
 {
-	int inventoryHeight = height - 23 - 2; // total height - bottom span - top span = height of inv
+	int inventoryHeight = height - 25 - 2; // total height - bottom span - top span = height of inv
 	
 	if(inventoryHeight < (29 + 2) * 5) // if height of inv < 5 category buttons (including the space of 2 between each)
 		tabScale = (inventoryHeight / 5) - 2; // scale of tabs is 1/5 the height of inv - 2 (the space between)
@@ -143,23 +144,23 @@ void ExtendedInventoryScreen::setupPositions()
 		if(!renderedTabs[tab]->isRight)
 		{
 			renderedTabs[tab]->xPosition = 5;
-			renderedTabs[tab]->yPosition = height - 25 - tabScale - (tab * (tabScale + 2));
+			renderedTabs[tab]->yPosition = height - 27 - tabScale - (tab * (tabScale + 2));
 		}
 		else
 		{
 			renderedTabs[tab]->xPosition = width - 6 - tabScale;
-			renderedTabs[tab]->yPosition = height - 25 - tabScale - ((tab - 4) * (tabScale + 2));
+			renderedTabs[tab]->yPosition = height - 27 - tabScale - ((tab - 4) * (tabScale + 2));
 		}
 		renderedTabs[tab]->width = tabScale;
 		renderedTabs[tab]->height = tabScale;	
 		
-		IntRectangle intrect = {paneX, paneY, paneWidth, paneHeight};
+		/*IntRectangle intrect = {paneX, paneY, paneWidth, paneHeight};
 		inventoryPanes[tab] = new Touch::InventoryPane(this, *mcGame, intrect, 1, 1.0F, 5, 26, 1, false, true, false);
 		
 		inventoryPanes[tab]->xPosition = paneX;
 		inventoryPanes[tab]->yPosition = paneY;
 		inventoryPanes[tab]->width = paneWidth;
-		inventoryPanes[tab]->height = paneHeight;
+		inventoryPanes[tab]->height = paneHeight;*/
 	}
 	
 	InventoryTransitions::setupPositions(this);
@@ -213,7 +214,7 @@ bool ExtendedInventoryScreen::isModal() const
 
 void ExtendedInventoryScreen::tick()
 {
-	inventoryPanes[selectedTabIndex]->tick();
+	//inventoryPanes[selectedTabIndex]->tick();
 }
 
 std::string ExtendedInventoryScreen::getScreenName()
@@ -231,7 +232,7 @@ std::shared_ptr<InventoryTab> ExtendedInventoryScreen::createInventoryTab(int id
 
 void ExtendedInventoryScreen::drawTabIcon(CreativeTab* ownedTab, std::shared_ptr<InventoryTab> imageButton, bool isPressed, bool isSelected)
 {
-	ItemRenderer::getInstance()->renderGuiItemNew(*(ownedTab->getTabIcon()), 0, ((float)imageButton->xPosition + (float)((imageButton->width / 2) - 8) + (isPressed ? 1.0F : 0.7F)), ((float)imageButton->yPosition + (float)((imageButton->height / 2) - 8)), 1.0F, (isSelected ? 1.0F : 0.7F), (((float)imageButton->width) - (isPressed ? 2.0F : 0.0F)) * 0.04F, false);
+	ItemRenderer::getInstance()->renderGuiItemNew(*(ownedTab->getTabIcon()), 0, ((float)(imageButton->xPosition) + (float)((imageButton->width / 2) - 8) + (isPressed ? 1.0F : 0.7F)), ((float)imageButton->yPosition + (float)((imageButton->height / 2) - 8)), 1.0F, (isSelected ? 1.0F : 0.7F), (((float)imageButton->width) - (isPressed ? 2.0F : 0.0F)) * 0.04F, false);
 }
 
 int ExtendedInventoryScreen::putItemInInventory(ItemInstance& item, bool fullStack)
@@ -281,7 +282,7 @@ int ExtendedInventoryScreen::putItemInInventory(ItemInstance& item, bool fullSta
 
 bool ExtendedInventoryScreen::addItem(Touch::InventoryPane& pane, int slot)
 {
-	pane.resetHoldTime();
+	/*pane.resetHoldTime();
 	for(int tab = 0; tab < renderedTabs.size(); tab++)
 	{
 		if(&pane == inventoryPanes[tab])
@@ -291,7 +292,7 @@ bool ExtendedInventoryScreen::addItem(Touch::InventoryPane& pane, int slot)
 			return putItemInInventory(item, true);
 		}
 	}
-	return false;
+	return false;*/
 }
 
 bool ExtendedInventoryScreen::isAllowed(int slot)
@@ -301,11 +302,11 @@ bool ExtendedInventoryScreen::isAllowed(int slot)
 
 std::vector<const ItemInstance*> ExtendedInventoryScreen::getItems(const Touch::InventoryPane& pane)
 {
-	for(int tab = 0; tab < renderedTabs.size(); tab++)
+	/*for(int tab = 0; tab < renderedTabs.size(); tab++)
 	{
 		if(&pane == inventoryPanes[tab] && !(ownedTabs[tab]->itemsInTab.empty()))
 			return ownedTabs[tab]->itemsInTab;
 	}
 	std::vector<const ItemInstance*> itemVecNull;
-	return itemVecNull;
+	return itemVecNull;*/
 }

@@ -36,7 +36,7 @@ public:
 	void getLocationFor(DynamicTexture);
 	void getManualTextureData(mce::TexturePtr const&) const;
 	void getTexture(DynamicTexture);
-	mce::TexturePtr& getTexture(ResourceLocation const&, bool);
+	mce::TexturePtr getTexture(ResourceLocation const&, bool);
 	void getTexturePair(ResourceLocation const&);
 	void getTexturePair(mce::TextureBase const&);
 	void getTexturePair(mce::TexturePtr const&);

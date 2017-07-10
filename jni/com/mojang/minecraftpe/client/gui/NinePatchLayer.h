@@ -3,6 +3,7 @@
 #include <string>
 #include <memory>
 #include "GuiElement.h"
+#include "../../resource/ResourceLocation.h"
 
 class Tessellator;
 class IntRectangle;
@@ -25,7 +26,7 @@ class NinePatchLayer : public GuiElement {
 public:
 	float width1; // 48
 	float height1; // 52
-	char filler[124 - 56]; // 56
+	char filler[132 - 56]; // 56
 
 	class CachedQuad;
 
@@ -43,12 +44,12 @@ public:
 
 class NinePatchFactory {
 public:
-	mce::TextureGroup* textures;
-	std::string imageName;
-	int width;
-	int height;
+	mce::TextureGroup* textures; // 0
+	char filler[sizeof(ResourceLocation)]; // 4
+	int width; // 16
+	int height; // 20
 	
 	NinePatchFactory(mce::TextureGroup*, ResourceLocation const&);
-	NinePatchLayer* createSymmetrical(IntRectangle const&, int, int, float, float);
-	NinePatchLayer* createUniqueSymmetrical(IntRectangle const&, int, int, float, float);
+	std::unique_ptr<NinePatchLayer> createSymmetrical(IntRectangle const&, int, int, float, float);
+	std::unique_ptr<NinePatchLayer> createUniqueSymmetrical(IntRectangle const&, int, int, float, float);
 };

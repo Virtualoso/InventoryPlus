@@ -58,11 +58,11 @@ static void Item$initCreativeItems()
 {
 	_Item$initCreativeItems();
 	
-	/*if(!initItems)
+	if(!initItems)
 	{
 		InvPlusItems::initItems();
 		initItems = true;
-	}*/
+	}
 }
 
 JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved) {

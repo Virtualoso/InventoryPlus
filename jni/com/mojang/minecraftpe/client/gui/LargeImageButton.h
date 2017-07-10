@@ -4,7 +4,7 @@
 
 class LargeImageButton : public ImageButton {
 public:
-	float idk; // 180
+	float idk; // 188
 
 	virtual ~LargeImageButton();
 	virtual void render(MinecraftGame*, int, int);

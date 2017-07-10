@@ -28,6 +28,7 @@ enum class CooldownType;
 class FoodItemComponent;
 class SeedItemComponent;
 class CameraItemComponent;
+class Random;
 namespace Json { class Value; }
 
 class Item {
@@ -158,10 +159,10 @@ public:
 
     // static fields
     static std::string ICON_DESCRIPTION_PREFIX;
-    static void* mRandom;
+    static Random* mRandom;
     static void* mItemTextureAtlas;
     static std::unordered_map<std::string, std::unique_ptr<Item>> mItemLookupMap;
-    static Item* mItems[];
+    static Item* mItems[512];
     static std::vector<ItemInstance> mCreativeList;
     static Item* mGoldIngot;
     static Item* mIronIngot;
@@ -348,6 +349,4 @@ public:
     static Item* mChalkboard;
     static Item* mCamera;
     static Item* mShulkerShell;
-
 };
-

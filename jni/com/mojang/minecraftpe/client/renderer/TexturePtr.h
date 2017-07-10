@@ -14,11 +14,11 @@ public:
 
     TextureGroup* group;
     Texture* texture;
-    ResourceLocation location;
+    char filler[sizeof(ResourceLocation)];
 
     TexturePtr();
     TexturePtr(mce::TexturePtr&&);
-    TexturePtr(mce::TextureGroup&, ResourceLocation const&);
+    TexturePtr(mce::TextureGroup&, ResourceLocation const&, bool);
 
     ~TexturePtr();
 
