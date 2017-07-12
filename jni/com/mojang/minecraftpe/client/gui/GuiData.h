@@ -13,6 +13,8 @@ public:
 	
 	GuiData(ClientInstance&);
 	void showPopupNotice(std::string const&, std::string const&);
+	void showTipMessage(std::string const&);
+	void displayClientMessage(std::string const&);
 	void flashSlot(int);
 	int getNumSlots() const;
 };

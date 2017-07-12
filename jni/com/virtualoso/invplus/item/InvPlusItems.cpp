@@ -17,6 +17,41 @@ void InvPlusItems::initItems()
 	newTab->addItem(55, 0);
 	newTab->addItem(101, 0);
 	newTab->addToTabsList();
+	CreativeTab* newTab2 = new CreativeTab(267, 0);
+	newTab2->addItem(269, 0);
+	newTab2->addItem(49, 0);
+	newTab2->addItem(12, 0);
+	newTab2->addItem(79, 0);
+	newTab2->addItem(52, 0);
+	newTab2->addItem(199, 0);
+	newTab2->addItem(79, 0);
+	newTab2->addItem(52, 0);
+	newTab2->addItem(199, 0);
+	newTab2->addItem(52, 0);
+	newTab2->addItem(199, 0);
+	newTab2->addItem(79, 0);
+	newTab2->addItem(52, 0);
+	newTab2->addItem(199, 0);
+	newTab2->addItem(79, 0);
+	newTab2->addItem(52, 0);
+	newTab2->addItem(199, 0);
+	newTab2->addItem(79, 0);
+	newTab2->addItem(52, 0);
+	newTab2->addItem(199, 0);
+	newTab2->addItem(79, 0);
+	newTab2->addItem(52, 0);
+	newTab2->addItem(199, 0);
+	newTab2->addItem(79, 0);
+	newTab2->addItem(52, 0);
+	newTab2->addItem(199, 0);
+	newTab2->addItem(52, 0);
+	newTab2->addItem(199, 0);
+	newTab2->addItem(79, 0);
+	newTab2->addItem(52, 0);
+	newTab2->addItem(199, 0);
+	newTab2->addItem(79, 0);
+	newTab2->addToTabsList();
+
 }
 
 int InvPlusItems::index;

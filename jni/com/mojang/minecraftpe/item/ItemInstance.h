@@ -3,6 +3,8 @@
 #include <string>
 #include <memory>
 #include <vector>
+
+#include "../util/String.h"
 #include "../block/BlockID.h"
 
 class Item;
@@ -58,15 +60,15 @@ public:
     bool hasUserData() const;
     bool hasSameUserData(ItemInstance const&) const;
 
-    std::string toString() const;
-    std::string getRawNameId() const;
-    std::string getName() const;
-    std::string getHoverName() const;
+    mcpe::string toString() const;
+    mcpe::string getRawNameId() const;
+    mcpe::string getName() const;
+    mcpe::string getHoverName() const;
     void* getFormattedHovertext(Level&, bool) const;
-    std::string _getHoverFormattingPrefix() const;
+    mcpe::string _getHoverFormattingPrefix() const;
     void resetHoverName();
     bool hasCustomHoverName() const;
-    std::string getCustomName() const;
+    mcpe::string getCustomName() const;
     void setCustomName(std::string const&);
     void setJustBrewed(bool);
     bool wasJustBrewed() const;
@@ -77,7 +79,7 @@ public:
     int getBaseRepairCost() const;
     void setRepairCost(int);
     void* getEnchantsFromUserData() const;
-    std::string getEffectName() const;
+    mcpe::string getEffectName() const;
     void* getColor() const;
     int getEnchantValue() const;
 

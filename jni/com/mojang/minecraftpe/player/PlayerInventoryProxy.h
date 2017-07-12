@@ -70,8 +70,8 @@ public:
     void dropSlot(int, bool, bool, ContainerID, bool);
     void dropAll(bool);
     void tick();
-    void setItem(int, ItemInstance const*, ContainerID);
-    ItemInstance* getItem(int, ContainerID) const;
+    void setItem(int, ItemInstance const&, ContainerID);
+    ItemInstance getItem(int, ContainerID) const;
     void* _getHudContainerManagerModel();
     void* _getInventoryContainer();
     void* _getCurrentSlotCount();

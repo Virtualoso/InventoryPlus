@@ -21,6 +21,7 @@
 #include "com/mojang/minecraftpe/player/LocalPlayer.h"
 #include "com/mojang/minecraftpe/player/PlayerInventoryProxy.h"
 #include "com/mojang/minecraftpe/resource/ResourceLocation.h"
+#include "com/mojang/minecraftpe/util/String.h"
 
 ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftGame& game, ClientInstance& client, std::vector<CreativeTab*> creativeTabs)
 	: Screen(game, client)
@@ -236,47 +237,58 @@ void ExtendedInventoryScreen::drawTabIcon(CreativeTab* ownedTab, std::shared_ptr
 
 int ExtendedInventoryScreen::putItemInInventory(ItemInstance& item, bool fullStack)
 {
-	/*PlayerInventoryProxy* inv = mcClient->getLocalPlayer()->getSupplies();
+	PlayerInventoryProxy* inv = mcClient->getLocalPlayer()->getSupplies();
 	int slot = inv->getLinkedSlotForExactItem(item);
-	SelectedSlot selectedSlot = inv->getSelectedSlot();
+	PlayerInventoryProxy::SelectedSlot selectedSlot = inv->getSelectedSlot();
 	int linkedSlot;
+	GuiData* guiData = mcClient->getGuiData();
 	if(slot < mcClient->getGuiData()->getNumSlots() && slot != -1)
 	{
-		linkedSlot = inv->getLinkedSlot(selectedSlot);
-		ItemInstance* selectedItem = inv->getItem(linkedSlot);
-		if(selectedItem && selectedItem->sameItemAndAux(item))
+		linkedSlot = inv->getLinkedSlot(selectedSlot.slot);
+		ItemInstance* selectedItem = inv->getSelectedItem();
+		if(!selectedItem->valid || selectedItem->item == NULL || selectedItem->isNull() || !selectedItem->sameItemAndAux(item))
+		{
+			inv->linkSlot(selectedSlot.slot, inv->getLinkedSlot(slot));
+			inv->linkSlot(slot, linkedSlot);
+		}
+		else
 		{
 			if(selectedItem->count < selectedItem->getMaxStackSize())
 				selectedItem->count = fullStack ? selectedItem->getMaxStackSize() : selectedItem->count + 1;
-		}
-		else
-		{
-			inv->linkSlot(selectedSlot, inv->getLinkedSlot(slot));
-			inv->linkSlot(slot, linkedSlot);
+			if(selectedItem->count > selectedItem->getMaxStackSize())
+				selectedItem->count = selectedItem->getMaxStackSize();
+			inv->setItem(linkedSlot, *selectedItem, (ContainerID) 0);
 		}
 	}
 	else
-	{ 
-		inv->add(item, false);
-		linkedSlot = inv->getSlotWithItem(item, true, true);
-		if(inv->getLinkedSlot(selectedSlot) <= 44 || linkedSlot >= 0)
-		{
-			item.count = fullStack ? item.getMaxStackSize() : 1;
-			inv->setItem(linkedSlot, &item);
-			inv->linkSlot(selectedSlot, linkedSlot);
-			inv->setItem(selectedSlot, &item);
-		}
-		else
+	{
+		linkedSlot = inv->getLinkedSlot(selectedSlot.slot);
+		if(linkedSlot >= 45 && (inv->add(item, false), linkedSlot = inv->getSlotWithItem(item, true, true), linkedSlot < 0))
 		{
 			linkedSlot = -1;
 		}
+		else
+		{
+			ItemInstance* selectedItem = inv->getSelectedItem();
+			if(!selectedItem->valid || selectedItem->item == NULL || selectedItem->isNull())
+			{
+				inv->add(item, false);
+				linkedSlot = inv->getSlotWithItem(item, true, true);
+				if(linkedSlot < 0)
+					return -1;
+			}
+			item.count = fullStack ? item.getMaxStackSize() : 1;
+			inv->setItem(linkedSlot, item, (ContainerID) 0);
+			inv->linkSlot(selectedSlot.slot, linkedSlot);
+			inv->setItem(selectedSlot.slot, item, (ContainerID) 0);
+		}
 	}
-	
-	ItemInstance* currentItem = mcClient->getLocalPlayer()->getSelectedItem();
-	if(currentItem)
-		mcClient->getGuiData()->showPopupNotice(currentItem->getName(), currentItem->getEffectName());
-	mcClient->getGuiData()->flashSlot(inv->getSelectedSlot());
-	return linkedSlot;*/
+
+	ItemInstance* currentItem = inv->getSelectedItem();
+	if(currentItem->valid && currentItem->item != NULL && !currentItem->isNull())
+		mcClient->getGuiData()->showPopupNotice(currentItem->getName().std(), currentItem->getEffectName().std());
+	mcClient->getGuiData()->flashSlot(inv->getSelectedSlot().slot);
+	return linkedSlot;
 }
 
 bool ExtendedInventoryScreen::addItem(Touch::InventoryPane& pane, int slot)
