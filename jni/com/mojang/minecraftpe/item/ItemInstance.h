@@ -170,9 +170,10 @@ public:
 class ItemGroup {
 public:
 	ItemInstance item;
-	ItemInstance& stored;
+	int count;
 
-	ItemGroup(ItemInstance _item, ItemInstance& _stored) : item(_item), stored(_stored) { }
+	ItemGroup(ItemInstance _item, int _count) : item(_item), count(_count) { }
+	ItemGroup(ItemInstance _item) : item(_item), count(_item.count) { }
 
 	ItemInstance getItemType() const;
 };

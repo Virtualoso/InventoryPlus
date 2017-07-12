@@ -301,14 +301,11 @@ bool ExtendedInventoryScreen::isAllowed(int slot)
 
 std::vector<ItemGroup> ExtendedInventoryScreen::getItems(const Touch::InventoryPane& pane)
 {
-	/*for(int tab = 0; tab < renderedTabs.size(); tab++)
+	for(int tab = 0; tab < renderedTabs.size(); tab++)
 	{
 		if(&pane == inventoryPanes[tab].get() && !(ownedTabs[tab]->itemsInTab.empty()))
 			return ownedTabs[tab]->itemsInTab;
 	}
 	std::vector<ItemGroup> itemVecNull;
-	return itemVecNull;*/
-	ItemInstance item (258, 1, 0);
-	std::vector<ItemGroup> vec = {ItemGroup(item, item)};
-	return vec;
+	return itemVecNull;
 }

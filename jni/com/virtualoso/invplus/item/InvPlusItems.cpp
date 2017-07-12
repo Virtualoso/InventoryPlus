@@ -11,6 +11,11 @@ void InvPlusItems::initItems()
 	//barrier = new Barrier("barrier", getNextItemId());
 	CreativeTab* newTab = new CreativeTab(262, 0);
 	newTab->addItem(262, 0);
+	newTab->addItem(43, 0);
+	newTab->addItem(17, 0);
+	newTab->addItem(77, 0);
+	newTab->addItem(55, 0);
+	newTab->addItem(101, 0);
 	newTab->addToTabsList();
 }
 
