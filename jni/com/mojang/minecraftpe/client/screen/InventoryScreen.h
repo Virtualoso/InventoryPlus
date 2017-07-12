@@ -73,7 +73,7 @@ public:
 	InventoryScreen::InventoryPaneType selectedPaneType; // 616
 	char is_vars3[656 - 620]; // 620*/
 
-	char is_vars[712 - 140]; // 140
+	char is_vars[684 - 140]; // 140
 
 	//now these do matter
 	ItemInstance item; // 688

@@ -46,7 +46,7 @@ ItemInstance* CreativeTab::getTabIcon()
 
 void CreativeTab::addItem(ItemInstance* item)
 {
-	itemsInTab.emplace_back(item);
+	itemsInTab.emplace_back(ItemGroup(ItemInstance(*item), *item));
 }
 
 void CreativeTab::addItem(Item* item, int data)

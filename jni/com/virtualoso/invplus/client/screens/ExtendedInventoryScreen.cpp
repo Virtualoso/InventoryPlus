@@ -102,7 +102,7 @@ void ExtendedInventoryScreen::render(int i1, int i2, float f1)
 	
 	fill(paneBgX, paneBgY, paneBgWidth + paneBgX, paneBgHeight + paneBgY, {0.2F, 0.2F, 0.2F, 1.0F});
 	
-	//inventoryPanes[selectedTabIndex]->renderPane(i1, i2, f1, mcGame);
+	inventoryPanes[selectedTabIndex]->renderPane(i1, i2, f1, mcGame);
 	
 	renderOnSelectItemNameText(width, mcClient->getFont(), height - 41);
 }
@@ -154,13 +154,12 @@ void ExtendedInventoryScreen::setupPositions()
 		renderedTabs[tab]->width = tabScale;
 		renderedTabs[tab]->height = tabScale;	
 		
-		/*IntRectangle intrect = {paneX, paneY, paneWidth, paneHeight};
-		inventoryPanes[tab] = new Touch::InventoryPane(this, *mcGame, intrect, 1, 1.0F, 5, 26, 1, false, true, false);
+		inventoryPanes[tab] = std::shared_ptr<Touch::InventoryPane>(new Touch::InventoryPane(this, *mcGame, {paneX, paneY, paneWidth, paneHeight}, 1, 1.0F, 5, 26, 1, false, true, false));
 		
 		inventoryPanes[tab]->xPosition = paneX;
 		inventoryPanes[tab]->yPosition = paneY;
 		inventoryPanes[tab]->width = paneWidth;
-		inventoryPanes[tab]->height = paneHeight;*/
+		inventoryPanes[tab]->height = paneHeight;
 	}
 	
 	InventoryTransitions::setupPositions(this);
@@ -214,7 +213,7 @@ bool ExtendedInventoryScreen::isModal() const
 
 void ExtendedInventoryScreen::tick()
 {
-	//inventoryPanes[selectedTabIndex]->tick();
+	inventoryPanes[selectedTabIndex]->tick();
 }
 
 std::string ExtendedInventoryScreen::getScreenName()
@@ -282,17 +281,17 @@ int ExtendedInventoryScreen::putItemInInventory(ItemInstance& item, bool fullSta
 
 bool ExtendedInventoryScreen::addItem(Touch::InventoryPane& pane, int slot)
 {
-	/*pane.resetHoldTime();
+	pane.resetHoldTime();
 	for(int tab = 0; tab < renderedTabs.size(); tab++)
 	{
-		if(&pane == inventoryPanes[tab])
+		if(&pane == inventoryPanes[tab].get())
 		{
 			ItemInstance item;
-			item = *(ownedTabs[tab]->itemsInTab[slot]);
+			item = ownedTabs[tab]->itemsInTab[slot].item;
 			return putItemInInventory(item, true);
 		}
 	}
-	return false;*/
+	return false;
 }
 
 bool ExtendedInventoryScreen::isAllowed(int slot)
@@ -300,13 +299,16 @@ bool ExtendedInventoryScreen::isAllowed(int slot)
 	return true;
 }
 
-std::vector<const ItemInstance*> ExtendedInventoryScreen::getItems(const Touch::InventoryPane& pane)
+std::vector<ItemGroup> ExtendedInventoryScreen::getItems(const Touch::InventoryPane& pane)
 {
 	/*for(int tab = 0; tab < renderedTabs.size(); tab++)
 	{
-		if(&pane == inventoryPanes[tab] && !(ownedTabs[tab]->itemsInTab.empty()))
+		if(&pane == inventoryPanes[tab].get() && !(ownedTabs[tab]->itemsInTab.empty()))
 			return ownedTabs[tab]->itemsInTab;
 	}
-	std::vector<const ItemInstance*> itemVecNull;
+	std::vector<ItemGroup> itemVecNull;
 	return itemVecNull;*/
+	ItemInstance item (258, 1, 0);
+	std::vector<ItemGroup> vec = {ItemGroup(item, item)};
+	return vec;
 }

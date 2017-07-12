@@ -5,6 +5,7 @@
 class Block;
 class Item;
 class ItemInstance;
+class ItemGroup;
 
 class CreativeTab
 {
@@ -25,6 +26,6 @@ public:
 	void addItem(Block*, int);
 	void addToTabsList();
 	
-	std::vector<const ItemInstance*> itemsInTab;
+	std::vector<ItemGroup> itemsInTab;
 	ItemInstance* tabIcon;
 };

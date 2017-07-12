@@ -18,7 +18,7 @@ public:
 	std::vector<std::shared_ptr<InventoryTab>> renderedTabs;
 	std::vector<CreativeTab*> ownedTabs;
 	int selectedTabIndex;
-	Touch::InventoryPane* inventoryPanes[8];
+	std::shared_ptr<Touch::InventoryPane> inventoryPanes[8];
 	int paneX;
 	int paneY;
 	int paneWidth;
@@ -28,6 +28,7 @@ public:
 	int paneBgWidth;
 	int paneBgHeight;
 	int tabScale;
+	
 	
 	ExtendedInventoryScreen(MinecraftGame&, ClientInstance&, std::vector<CreativeTab*>);
 
@@ -45,7 +46,7 @@ public:
 	virtual std::string getScreenName();
 	virtual bool addItem(Touch::InventoryPane&, int);
 	virtual bool isAllowed(int);
-	virtual std::vector<const ItemInstance*> getItems(const Touch::InventoryPane&);
+	virtual std::vector<ItemGroup> getItems(const Touch::InventoryPane&);
 	
 	std::shared_ptr<InventoryTab> createInventoryTab(int, bool);
 	void drawTabIcon(CreativeTab*, std::shared_ptr<InventoryTab>, bool, bool);

@@ -2,6 +2,7 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 #include "../block/BlockID.h"
 
 class Item;
@@ -27,7 +28,8 @@ public:
     CompoundTag* nbt;
     Item* item;
     Block* tile;
-    /* size = 0x10 */
+    std::vector<const Block*> blockVec1;
+	std::vector<const Block*> blockVec2;
 
     ItemInstance();
     ItemInstance(int, int, int);
@@ -165,3 +167,12 @@ public:
     static std::string TAG_ENCHANTS;
 };
 
+class ItemGroup {
+public:
+	ItemInstance item;
+	ItemInstance& stored;
+
+	ItemGroup(ItemInstance _item, ItemInstance& _stored) : item(_item), stored(_stored) { }
+
+	ItemInstance getItemType() const;
+};

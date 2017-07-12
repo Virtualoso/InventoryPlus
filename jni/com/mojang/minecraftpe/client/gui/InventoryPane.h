@@ -11,13 +11,11 @@ class ItemGroup;
 
 namespace Touch {
 	
-struct IInventoryPaneCallback {
-	
-};
+class IInventoryPaneCallback;
 
 class InventoryPane : public ScrollingPane, public EntityShaderManager, public AppPlatformListener {
 public:
-	char ip_vars[1268 - 768]; // 768
+	char ip_vars[1356 - 768]; // 768
 	
 	// virtual methods
 	virtual ~InventoryPane();
@@ -39,4 +37,13 @@ public:
 	void setControllerDirection(StickDirection);
 	void setRenderDecorations(bool);
 };
+
+class IInventoryPaneCallback {
+public:
+	virtual ~IInventoryPaneCallback() { };
+	virtual bool addItem(Touch::InventoryPane&, int) = 0;
+	virtual bool isAllowed(int) = 0;
+	virtual std::vector<ItemGroup> getItems(const Touch::InventoryPane&) = 0;
+};
+
 };

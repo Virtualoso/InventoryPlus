@@ -32,7 +32,7 @@ public:
 	std::unique_ptr<ControllerButtonRenderer> buttonRenderer; // 96
 	Font* font; // 100
 	Button* buttonClicked; // 104
-	char screen_vars6[32]; // 108
+	char screen_vars6[36]; // 108
 
 	virtual ~Screen();
 	virtual void _init(int, int);
