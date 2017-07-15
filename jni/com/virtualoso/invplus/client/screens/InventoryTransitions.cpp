@@ -4,11 +4,14 @@
 
 #include "ExtendedInventoryScreen.h"
 #include "../../creative/CreativeTab.h"
+#include "../../loader/JsonLoader.h"
 
 #include "com/mojang/minecraftpe/client/ClientInstance.h"
 #include "com/mojang/minecraftpe/client/screen/Screen.h"
 #include "com/mojang/minecraftpe/client/screen/InventoryScreen.h"
 #include "com/mojang/minecraftpe/client/ScreenChooser.h"
+#include "com/mojang/minecraftpe/util/String.h"
+#include "com/mojang/minecraftpe/client/gui/GuiData.h"
 
 std::shared_ptr<Touch::TButton> InventoryTransitions::forwardButton = NULL;
 std::shared_ptr<Touch::TButton> InventoryTransitions::backButton = NULL;
@@ -87,6 +90,13 @@ void InventoryTransitions::pushPreviousScreen(Screen* self)
 }
 
 void InventoryTransitions::initCreativeTabs(Screen* self)
+{
+	JsonLoader::setup(self->mcGame->getResourcePackManager());
+	JsonLoader::registerCreativeTabs();
+	setupCreativeTabs(self);
+}
+
+void InventoryTransitions::setupCreativeTabs(Screen* self)
 {
 	if(!creativeTabs.empty())
 	{

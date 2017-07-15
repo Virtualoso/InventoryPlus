@@ -27,5 +27,6 @@ public:
 	static void pushNextScreen(Screen*);
 	static void pushPreviousScreen(Screen*);
 	static void initCreativeTabs(Screen*);
+	static void setupCreativeTabs(Screen*);
 	static void closeScreens(Screen*);
 };

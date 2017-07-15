@@ -2,8 +2,10 @@
 
 #include <string>
 #include <vector>
-#include <map>
+#include <set>
+#include <functional>
 #include "InputHandler.h"
+#include "../util/String.h"
 
 class TextureData;
 class Vec2;
@@ -15,6 +17,8 @@ class PushNotificationMessage;
 class UriListener;
 class ActivationUri;
 class ResourceLocation;
+class PermissionRequestReason;
+class FileStorageDirectory;
 enum class ControllerType;
 enum class FullscreenMode;
 
@@ -67,17 +71,31 @@ public:
     virtual bool getGraphicsTearingSupport() = 0;
     virtual void pickImage(ImagePickingCallback&) = 0;
     virtual void pickFile(FilePickerSettings&);
+	virtual bool hasHardwareBackButton();
+	virtual bool supportsMSAA() const;
     virtual bool supportsFilePicking() const;
     virtual bool supportsClipboard() const;
     virtual void setClipboard(std::string const&) const;
+	virtual bool supportsBeiHai() const;
     virtual void* pushNotificationReceived(PushNotificationMessage const&);
+	virtual void* openStoragePermissionRequest(PermissionRequestReason, std::function<void (void)>);
+	virtual void setStorageDirectory(FileStorageDirectory, bool);
+	virtual void setInitialStorageDirectory(FileStorageDirectory);
+	virtual void* getStorageDirectory() const;
+	virtual void setStorageDirectoryChangeDenied(std::function<void (FileStorageDirectory)>);
+	virtual void setStorageDirectoryChanged(std::function<void (std::string)>);
+	virtual void runStoragePermissionResultCallback();
+	virtual bool hasExternalStoragePermission();
     virtual void* createHolographicPlatform(bool) const;
     virtual void* createAndroidLaunchIntent();
+	virtual void* getModalErrorMessageProc();
     virtual void updateLocalization(std::string const&);
     virtual void setSleepEnabled(bool);
+	virtual std::string const& getCurrentStoragePath() = 0;
     virtual std::string const& getExternalStoragePath() = 0;
     virtual std::string const& getInternalStoragePath() = 0;
     virtual std::string const& getUserdataPath() = 0;
+	virtual std::string const& getSettingsPath();
     virtual std::string const& getUserdataPathForLevels();
     virtual void* getApiEnvironmentPath();
     virtual void showDialog(int);
@@ -85,12 +103,14 @@ public:
     virtual void* getUserInputStatus();
     virtual void* getUserInput();
     virtual void* getFileInterface(ResourceLocation const&);
+	virtual void copyImportFileToTempFolder(std::string const&);
     virtual int getScreenWidth();
     virtual int getScreenHeight();
     virtual void setScreenSize(int, int);
     virtual void setWindowSize(int, int);
     virtual void setWindowText(std::string const&);
     virtual float getPixelsPerMillimeter();
+	virtual void queueForMainThread(std::function<void (void)>) = 0;
     virtual void updateTextBoxText(std::string const&);
     virtual bool isKeyboardVisible();
     virtual bool supportsVibration();
@@ -98,8 +118,9 @@ public:
     virtual std::string getAssetFileFullPath(std::string const&);
     virtual std::string readAssetFile(std::string const&);
     virtual std::string readAssetFileZipped(std::string const&, std::string const&);
-    virtual std::map<std::string, std::string> listAssetFilesIn(std::string const&, std::string const&) const;
-    virtual std::string getDateString(int);
+    virtual std::set<std::string> listAssetFilesIn(std::string const&, std::string const&) const;
+    virtual std::string getFomattedDateString(const long&) const;
+	virtual void* getFileTimestamp(const long&) const;
     virtual int checkLicense();
     virtual bool hasBuyButtonWhenInvalidLicense();
     virtual void uploadPlatformDependentData(int, void*);
@@ -108,10 +129,9 @@ public:
     virtual void finish();
     virtual void launchUri(std::string const&);
     virtual bool useXboxControlHelpers() const;
-    virtual bool useCenteredGUI() const;
     virtual bool showPointMenuCursor() const;
     virtual void* getPlatformType() const;
-    virtual void* getBuildPlatform() const;
+    virtual void* getBuildPlatform() const; //done until here
     virtual void setControllerType(ControllerType);
     virtual ControllerType getControllerType() const;
     virtual bool hasIDEProfiler();

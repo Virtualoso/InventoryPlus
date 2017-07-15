@@ -320,7 +320,7 @@ public:
 	void* getSkinGeometryGroup() const;
 	void* getCameraTargetEntity() const;
 	void* getCurrentLevelSummary() const;
-	void* getResourcePackManager() const;
+	ResourcePackManager* getResourcePackManager() const;
 	bool isLaunchedFromOculusApp() const;
 	void* getResourcePackRepository() const;
 	void* newDictationDataAvailable() const;
