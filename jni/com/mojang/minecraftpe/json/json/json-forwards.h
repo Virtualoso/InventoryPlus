@@ -1,3 +1,88 @@
+/// Json-cpp amalgated forward header (http://jsoncpp.sourceforge.net/).
+/// It is intended to be used with #include "json/json-forwards.h"
+/// This header provides forward declaration for all JsonCpp types.
+
+// //////////////////////////////////////////////////////////////////////
+// Beginning of content of file: LICENSE
+// //////////////////////////////////////////////////////////////////////
+
+/*
+The JsonCpp library's source code, including accompanying documentation, 
+tests and demonstration applications, are licensed under the following
+conditions...
+
+The JsonCpp Authors explicitly disclaim copyright in all 
+jurisdictions which recognize such a disclaimer. In such jurisdictions, 
+this software is released into the Public Domain.
+
+In jurisdictions which do not recognize Public Domain property (e.g. Germany as of
+2010), this software is Copyright (c) 2007-2010 by The JsonCpp Authors, and is
+released under the terms of the MIT License (see below).
+
+In jurisdictions which recognize Public Domain property, the user of this 
+software may choose to accept it either as 1) Public Domain, 2) under the 
+conditions of the MIT License (see below), or 3) under the terms of dual 
+Public Domain/MIT License conditions described here, as they choose.
+
+The MIT License is about as close to Public Domain as a license can get, and is
+described in clear, concise terms at:
+
+   http://en.wikipedia.org/wiki/MIT_License
+   
+The full text of the MIT License follows:
+
+========================================================================
+Copyright (c) 2007-2010 The JsonCpp Authors
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+========================================================================
+(END LICENSE TEXT)
+
+The MIT license is compatible with both the GPL and commercial
+software, affording one all of the rights of Public Domain with the
+minor nuisance of being required to keep the above copyright notice
+and license text in the source code. Note also that by accepting the
+Public Domain "license" you can re-license your copy using whatever
+license you like.
+
+*/
+
+// //////////////////////////////////////////////////////////////////////
+// End of content of file: LICENSE
+// //////////////////////////////////////////////////////////////////////
+
+
+
+
+
+#ifndef JSON_FORWARD_AMALGATED_H_INCLUDED
+# define JSON_FORWARD_AMALGATED_H_INCLUDED
+/// If defined, indicates that the source file is amalgated
+/// to prevent private header inclusion.
+#define JSON_IS_AMALGAMATION
+
+// //////////////////////////////////////////////////////////////////////
+// Beginning of content of file: include/json/config.h
+// //////////////////////////////////////////////////////////////////////
+
 // Copyright 2007-2010 Baptiste Lepilleur
 // Distributed under MIT license, or public domain if desired and
 // recognized in your jurisdiction.
@@ -6,7 +91,8 @@
 #ifndef JSON_CONFIG_H_INCLUDED
 #define JSON_CONFIG_H_INCLUDED
 #include <stddef.h>
-#include <string> //typdef String
+#include <string> //typedef String
+#include <stdint.h> //typedef int64_t, uint64_t
 
 /// If defined, indicates that json library is embedded in CppTL library.
 //# define JSON_IN_CPPTL 1
@@ -82,10 +168,16 @@
 // managable and fixes a set of common hard-to-find bugs.
 #if __cplusplus >= 201103L
 # define JSONCPP_OVERRIDE override
-#elif defined(_MSC_VER) && _MSC_VER > 1600
+# define JSONCPP_NOEXCEPT noexcept
+#elif defined(_MSC_VER) && _MSC_VER > 1600 && _MSC_VER < 1900
 # define JSONCPP_OVERRIDE override
+# define JSONCPP_NOEXCEPT throw()
+#elif defined(_MSC_VER) && _MSC_VER >= 1900
+# define JSONCPP_OVERRIDE override
+# define JSONCPP_NOEXCEPT noexcept
 #else
 # define JSONCPP_OVERRIDE
+# define JSONCPP_NOEXCEPT throw()
 #endif
 
 #ifndef JSON_HAS_RVALUE_REFERENCES
@@ -152,8 +244,8 @@ typedef unsigned int LargestUInt;
 typedef __int64 Int64;
 typedef unsigned __int64 UInt64;
 #else                 // if defined(_MSC_VER) // Other platforms, use long long
-typedef long long int Int64;
-typedef unsigned long long int UInt64;
+typedef int64_t Int64;
+typedef uint64_t UInt64;
 #endif // if defined(_MSC_VER)
 typedef Int64 LargestInt;
 typedef UInt64 LargestUInt;
@@ -175,3 +267,64 @@ typedef UInt64 LargestUInt;
 } // end namespace Json
 
 #endif // JSON_CONFIG_H_INCLUDED
+
+// //////////////////////////////////////////////////////////////////////
+// End of content of file: include/json/config.h
+// //////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+// //////////////////////////////////////////////////////////////////////
+// Beginning of content of file: include/json/forwards.h
+// //////////////////////////////////////////////////////////////////////
+
+// Copyright 2007-2010 Baptiste Lepilleur
+// Distributed under MIT license, or public domain if desired and
+// recognized in your jurisdiction.
+// See file LICENSE for detail or copy at http://jsoncpp.sourceforge.net/LICENSE
+
+#ifndef JSON_FORWARDS_H_INCLUDED
+#define JSON_FORWARDS_H_INCLUDED
+
+#if !defined(JSON_IS_AMALGAMATION)
+#include "config.h"
+#endif // if !defined(JSON_IS_AMALGAMATION)
+
+namespace Json {
+
+// writer.h
+class FastWriter;
+class StyledWriter;
+
+// reader.h
+class Reader;
+
+// features.h
+class Features;
+
+// value.h
+typedef unsigned int ArrayIndex;
+class StaticString;
+class Path;
+class PathArgument;
+class Value;
+class ValueIteratorBase;
+class ValueIterator;
+class ValueConstIterator;
+
+} // namespace Json
+
+#endif // JSON_FORWARDS_H_INCLUDED
+
+// //////////////////////////////////////////////////////////////////////
+// End of content of file: include/json/forwards.h
+// //////////////////////////////////////////////////////////////////////
+
+
+
+
+
+#endif //ifndef JSON_FORWARD_AMALGATED_H_INCLUDED

@@ -92,7 +92,7 @@ void InventoryTransitions::pushPreviousScreen(Screen* self)
 void InventoryTransitions::initCreativeTabs(Screen* self)
 {
 	JsonLoader::setup(self->mcGame->getResourcePackManager());
-	JsonLoader::registerCreativeTabs();
+	JsonLoader::registerCreativeTabs(self->mcGame->getGuiData());
 	setupCreativeTabs(self);
 }
 

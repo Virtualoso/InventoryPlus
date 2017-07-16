@@ -17,7 +17,7 @@ CreativeTab::CreativeTab(Block* block, int data) : CreativeTab(new ItemInstance(
 
 CreativeTab::CreativeTab(int itemId, int data) : CreativeTab(Item::mItems[itemId], data) { }
 
-CreativeTab::CreativeTab() : CreativeTab(InvPlusItems::barrier, 0) { }
+CreativeTab::CreativeTab() : CreativeTab(255, 0) { }
 
 void CreativeTab::setTabIcon(ItemInstance* item)
 {

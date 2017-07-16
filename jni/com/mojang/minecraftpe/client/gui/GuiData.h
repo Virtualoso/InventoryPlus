@@ -4,6 +4,7 @@
 
 class MinecraftClient;
 class Config;
+class ClientInstance;
 
 class GuiData : public AppPlatformListener {
 public:
