@@ -40,7 +40,7 @@ std::vector<mcpe::string> JsonLoader::getLoadedFiles(GuiData* data)
 		std::string fileName = *it;
 		Util::stringReplace(fileName, "//", "/", 1);
     	manager->load(ResourceLocation(fileName, ResourceFileSystem::InUserPackage), loadedFile.std());
-		loadedFiles.emplace_back(mcpe::string(loadedFile));*/
+		loadedFiles.emplace_back(mcpe::string(loadedFile));
 	}
 	return loadedFiles;
 }
