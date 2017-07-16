@@ -18,7 +18,7 @@ void JsonLoader::setup(ResourcePackManager* rpm)
 void JsonLoader::registerCreativeTabs(GuiData* data)
 {
 	std::vector<mcpe::string> loadedFiles = getLoadedFiles(data);
-	/*for(mcpe::string file : loadedFiles)
+	for(mcpe::string file : loadedFiles)
 	{
 		Json::Value root;
 		Json::Reader parser;
@@ -26,7 +26,7 @@ void JsonLoader::registerCreativeTabs(GuiData* data)
 		{
 			registerTab(root);
 		}
-	}*/
+	}
 }
 
 std::vector<mcpe::string> JsonLoader::getLoadedFiles(GuiData* data)
