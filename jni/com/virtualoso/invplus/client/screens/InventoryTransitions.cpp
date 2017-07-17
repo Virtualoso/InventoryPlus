@@ -10,8 +10,6 @@
 #include "com/mojang/minecraftpe/client/screen/Screen.h"
 #include "com/mojang/minecraftpe/client/screen/InventoryScreen.h"
 #include "com/mojang/minecraftpe/client/ScreenChooser.h"
-#include "com/mojang/minecraftpe/util/String.h"
-#include "com/mojang/minecraftpe/client/gui/GuiData.h"
 
 std::shared_ptr<Touch::TButton> InventoryTransitions::forwardButton = NULL;
 std::shared_ptr<Touch::TButton> InventoryTransitions::backButton = NULL;
@@ -31,7 +29,7 @@ void InventoryTransitions::init(Screen* self)
 		backButton = std::make_shared<Touch::TButton>(1, "<", self->mcGame, false, 0x7FFFFFFF);
 		backButton->init(self->mcGame);
 
-		initCreativeTabs(self);
+		setupCreativeTabs(self);
 	}
 	
 	self->buttonList.emplace_back(forwardButton);
@@ -87,13 +85,6 @@ void InventoryTransitions::pushPreviousScreen(Screen* self)
 {	
 	self->mcClient->getScreenChooser()->schedulePopScreen(1);
 	currentPage--; // reduce the currentPage by 1
-}
-
-void InventoryTransitions::initCreativeTabs(Screen* self)
-{
-	JsonLoader::setup(self->mcGame->getResourcePackManager());
-	JsonLoader::registerCreativeTabs(self->mcGame->getGuiData());
-	setupCreativeTabs(self);
 }
 
 void InventoryTransitions::setupCreativeTabs(Screen* self)

@@ -28,6 +28,7 @@ public:
 	int paneBgWidth;
 	int paneBgHeight;
 	int tabScale;
+	bool isInit;
 	
 	
 	ExtendedInventoryScreen(MinecraftGame&, ClientInstance&, std::vector<CreativeTab*>);

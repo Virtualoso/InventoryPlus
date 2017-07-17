@@ -6,10 +6,13 @@
 
 #include "com/mojang/minecraftpe/client/screen/InventoryScreen.h"
 #include "com/mojang/minecraftpe/client/ClientInstance.h"
+#include "com/mojang/minecraftpe/client/MinecraftGame.h"
+#include "com/mojang/minecraftpe/client/ScreenChooser.h"
 #include "com/mojang/minecraftpe/player/LocalPlayer.h"
 #include "com/mojang/minecraftpe/item/Item.h"
 
 #include "client/screens/InventoryTransitions.h"
+#include "loader/JsonLoader.h"
 #include "item/InvPlusItems.h"
 
 static void (*_InventoryScreen$init)(InventoryScreen*);
@@ -51,6 +54,22 @@ static void InventoryScreen$_buttonClicked(InventoryScreen* self, Button& button
 		InventoryTransitions::_buttonClicked(self, button);
 }
 
+static bool initScreens = false;
+
+static void (*_ScreenChooser$pushInventoryScreen)(ScreenChooser*, CraftingType);
+static void ScreenChooser$pushInventoryScreen(ScreenChooser* self, CraftingType type)
+{
+	if(!initScreens)
+	{
+		JsonLoader::setup(self->mcGame->getResourcePackManager());
+		JsonLoader::registerCreativeTabs();
+		initScreens = true;
+	}
+
+	_ScreenChooser$pushInventoryScreen(self, type);
+}
+
+
 static bool initItems = false;
 
 static void (*_Item$initCreativeItems)();
@@ -72,6 +91,7 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved) {
 	MSHookFunction((void*) &InventoryScreen::render, (void*) &InventoryScreen$render, (void**) &_InventoryScreen$render);
 	MSHookFunction((void*) &InventoryScreen::_buttonClicked, (void*) &InventoryScreen$_buttonClicked, (void**) &_InventoryScreen$_buttonClicked);
 	MSHookFunction((void*) &Item::initCreativeItems, (void*) &Item$initCreativeItems, (void**) &_Item$initCreativeItems);
+	MSHookFunction((void*) &ScreenChooser::pushInventoryScreen, (void*) &ScreenChooser$pushInventoryScreen, (void**) &_ScreenChooser$pushInventoryScreen);
 	
 	return JNI_VERSION_1_2;
 }

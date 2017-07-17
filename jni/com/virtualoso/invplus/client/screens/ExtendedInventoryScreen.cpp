@@ -31,6 +31,7 @@ ExtendedInventoryScreen::ExtendedInventoryScreen(MinecraftGame& game, ClientInst
 	leftButtonLayer = NULL;
 	rightButtonLayer = NULL;
 	ownedTabs = creativeTabs;
+	isInit = false;
 }
 
 bool ExtendedInventoryScreen::renderGameBehind() const
@@ -45,7 +46,7 @@ bool ExtendedInventoryScreen::closeOnPlayerHurt() const
 
 void ExtendedInventoryScreen::init()
 {
-	if(!closeButton)
+	if(!isInit)
 	{
 		InventoryTransitions::init(this);
 
@@ -69,6 +70,8 @@ void ExtendedInventoryScreen::init()
 		selectedTabIndex = 0;
 		
 		buttonList.emplace_back(closeButton);
+
+		isInit = true;
 	}
 }
 

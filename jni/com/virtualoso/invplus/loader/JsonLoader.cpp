@@ -5,7 +5,6 @@
 #include "com/mojang/minecraftpe/resource/ResourcePackManager.h"
 #include "com/mojang/minecraftpe/resource/ResourceLocation.h"
 #include "com/mojang/minecraftpe/client/AppPlatform.h"
-#include "com/mojang/minecraftpe/client/gui/GuiData.h"
 #include "com/mojang/minecraftpe/util/Util.h"
 
 ResourcePackManager* JsonLoader::manager;
@@ -15,9 +14,9 @@ void JsonLoader::setup(ResourcePackManager* rpm)
 	manager = rpm;
 }
 
-void JsonLoader::registerCreativeTabs(GuiData* data)
+void JsonLoader::registerCreativeTabs()
 {
-	std::vector<mcpe::string> loadedFiles = getLoadedFiles(data);
+	std::vector<mcpe::string> loadedFiles = getLoadedFiles();
 	for(mcpe::string file : loadedFiles)
 	{
 		Json::Value root;
@@ -29,10 +28,9 @@ void JsonLoader::registerCreativeTabs(GuiData* data)
 	}
 }
 
-std::vector<mcpe::string> JsonLoader::getLoadedFiles(GuiData* data)
+std::vector<mcpe::string> JsonLoader::getLoadedFiles()
 {
 	std::set<std::string> files = AppPlatform::singleton()->listAssetFilesIn("inventory_plus", "json");
-	data->displayClientMessage(Util::toNiceString(files.size()));
 	std::vector<mcpe::string> loadedFiles;
 	for (auto it = files.begin(); it != files.end(); ++it)
 	{

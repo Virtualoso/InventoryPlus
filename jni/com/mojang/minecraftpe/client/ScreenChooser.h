@@ -33,18 +33,20 @@ class BlockPos;
 struct EntityUniqueID;
 class SignBlockEntity;
 class ChalkboardBlockEntity;
+class ClientInstance;
 
 class ScreenChooser {
 public:
 
-	/* 0x00 */ MinecraftGame& client;
-	/* 0x04 */ std::unique_ptr<MinecraftUISoundPlayer> soundplayer;
-	/* 0x08 */ bool canInvite;
-	/* 0x0C */ char filler1[8]; // no idea what this is used for
-	/* size = 0x14 */
+	MinecraftGame* mcGame;
+	ClientInstance* mcClient;
+	std::unique_ptr<MinecraftUISoundPlayer> soundplayer;
+	bool canInvite;
+	char filler1[8]; // no idea what this is used for
+	/* size = 0x18 */
 
 	// non virtual
-	ScreenChooser(MinecraftGame&, bool);
+	ScreenChooser(MinecraftGame&, ClientInstance&, bool);
 	~ScreenChooser();
 	void schedulePopScreen(int);
 	void setDisconnectScreen(std::string const&, std::string const&, std::string const&);

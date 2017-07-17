@@ -5,7 +5,6 @@
 #include <set>
 #include <functional>
 #include "InputHandler.h"
-#include "../util/String.h"
 
 class TextureData;
 class Vec2;
