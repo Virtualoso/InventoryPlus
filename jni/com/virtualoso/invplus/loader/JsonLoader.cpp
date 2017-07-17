@@ -23,7 +23,7 @@ void JsonLoader::registerCreativeTabs()
 		Json::Reader parser;
 		if(parser.parse(file.std(), root))
 		{
-			registerTab(root);
+			handleFile(root);
 		}
 	}
 }
@@ -41,6 +41,21 @@ std::vector<mcpe::string> JsonLoader::getLoadedFiles()
 		loadedFiles.emplace_back(mcpe::string(loadedFile));
 	}
 	return loadedFiles;
+}
+
+void JsonLoader::handleFile(Json::Value& root)
+{
+	Json::Value tabs = root["tabs"];
+	if(!tabs.isNull())
+	{
+		Json::ValueIterator start = tabs.begin();
+		Json::ValueIterator end = tabs.end();
+		while(start != end)
+		{
+			registerTab(*start);
+			start++;
+		}
+	}
 }
 
 void JsonLoader::registerTab(Json::Value& root)

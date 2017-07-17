@@ -16,5 +16,6 @@ public:
 	static void setup(ResourcePackManager*);
 	static void registerCreativeTabs();
 	static std::vector<mcpe::string> getLoadedFiles();
+	static void handleFile(Json::Value&);
 	static void registerTab(Json::Value&);
 };
