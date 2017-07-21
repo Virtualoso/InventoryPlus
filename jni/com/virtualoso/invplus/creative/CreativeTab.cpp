@@ -1,4 +1,5 @@
 #include "CreativeTab.h"
+#include "CreativeHandler.h"
 
 #include "com/mojang/minecraftpe/item/Item.h"
 #include "com/mojang/minecraftpe/block/Block.h"
@@ -67,4 +68,24 @@ void CreativeTab::addItem(Block* block, int data)
 void CreativeTab::addToTabsList()
 {
 	InventoryTransitions::creativeTabs.emplace_back(this);	
+}
+
+void CreativeTab::removeCreativeItem(ItemInstance* item)
+{
+	CreativeHandler::remove(ItemGroup(ItemInstance(*item)));
+}
+
+void CreativeTab::removeCreativeItem(Item* item, int data)
+{
+	removeCreativeItem(new ItemInstance(*item, 1, data));
+}
+
+void CreativeTab::removeCreativeItem(int itemId, int data)
+{
+	removeCreativeItem(Item::mItems[itemId], data);
+}
+
+void CreativeTab::removeCreativeItem(Block* block, int data)
+{
+	removeCreativeItem(new ItemInstance(*block, 1, data));
 }

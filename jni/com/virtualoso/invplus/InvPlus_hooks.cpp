@@ -14,6 +14,7 @@
 #include "client/screens/InventoryTransitions.h"
 #include "loader/JsonLoader.h"
 #include "item/InvPlusItems.h"
+#include "creative/CreativeHandler.h"
 
 static void (*_InventoryScreen$init)(InventoryScreen*);
 static void InventoryScreen$init(InventoryScreen* self)
@@ -54,6 +55,12 @@ static void InventoryScreen$_buttonClicked(InventoryScreen* self, Button& button
 		InventoryTransitions::_buttonClicked(self, button);
 }
 
+static void (*_InventoryScreen$_populateItems)();
+static void InventoryScreen$_populateItems()
+{
+	CreativeHandler::addItemsToInv();
+}
+
 static bool initScreens = false;
 
 static void (*_ScreenChooser$pushInventoryScreen)(ScreenChooser*, CraftingType);
@@ -90,6 +97,7 @@ JNIEXPORT jint JNI_OnLoad(JavaVM* vm, void* reserved) {
 	MSHookFunction((void*) &InventoryScreen::setupPositions, (void*) &InventoryScreen$setupPositions, (void**) &_InventoryScreen$setupPositions);
 	MSHookFunction((void*) &InventoryScreen::render, (void*) &InventoryScreen$render, (void**) &_InventoryScreen$render);
 	MSHookFunction((void*) &InventoryScreen::_buttonClicked, (void*) &InventoryScreen$_buttonClicked, (void**) &_InventoryScreen$_buttonClicked);
+	MSHookFunction((void*) &InventoryScreen::_populateItems, (void*) &InventoryScreen$_populateItems, (void**) &_InventoryScreen$_populateItems);
 	MSHookFunction((void*) &Item::initCreativeItems, (void*) &Item$initCreativeItems, (void**) &_Item$initCreativeItems);
 	MSHookFunction((void*) &ScreenChooser::pushInventoryScreen, (void*) &ScreenChooser$pushInventoryScreen, (void**) &_ScreenChooser$pushInventoryScreen);
 	

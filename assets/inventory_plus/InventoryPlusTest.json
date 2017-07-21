@@ -8,27 +8,33 @@
       "items": [
         {
           "id": 20,
-          "data": 0
+          "data": 0,
+		  "override_creative": true
         },
         {
           "id": 300,
-          "data": 0
+          "data": 0,
+		  "override_creative": true
         },
         {
           "id": 283,
-          "data": 0
+          "data": 0,
+		  "override_creative": true
         },
         {
           "id": 30,
-          "data": 0
+          "data": 0,
+		  "override_creative": true
         },
         {
           "id": 299,
-          "data": 0
+          "data": 0,
+		  "override_creative": true
         },
         {
           "id": 340,
-          "data": 0
+          "data": 0,
+		  "override_creative": true
         }
       ]
     },

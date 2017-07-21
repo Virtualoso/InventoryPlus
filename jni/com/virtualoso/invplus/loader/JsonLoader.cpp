@@ -77,8 +77,11 @@ void JsonLoader::registerTab(Json::Value& root)
 		{
 			Json::Value item = *start;
 			int id = item["id"].asInt();
-			int data = tabIcon["data"].asInt();
+			int data = item["data"].asInt();
 			tab->addItem(id, data);
+			Json::Value overrideCreative = item["override_creative"];
+			if(!overrideCreative.isNull() && overrideCreative.asBool())
+				CreativeTab::removeCreativeItem(id, data);
 			start++;
 		}
 	}

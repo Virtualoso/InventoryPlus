@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include "BlockID.h"
 #include "Material.h"
+#include "../item/CreativeItemCategory.h"
 #include "../math/AABB.h"
 #include "../util/Color.h"
 
@@ -23,7 +24,6 @@ enum class BlockProperty;
 enum class BlockSupportType;
 enum class BlockRenderLayer;
 enum class BlockEntityType;
-enum class CreativeItemCategory;
 enum class EntityType;
 
 class Block {

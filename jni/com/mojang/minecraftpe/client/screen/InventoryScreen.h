@@ -133,9 +133,6 @@ public:
 	void _handleArmorJoyStickNavigation(StickDirection);
 	void _handleArmorSlotNavigation(StickDirection);
 	void _onBulkSelectCreativePane();
-	void _populateFilteredItems();
-	void _populateItem(ItemInstance const&);
-	void _populateItems();
 	void _putItemInToolbar(ItemInstance const&);
 	void _refreshCraftingGrid(Recipe*);
 	void _refreshCraftingItemList(std::vector<Recipe*> const&);
@@ -159,6 +156,9 @@ public:
 	// Static
 	static void* mFilteredItems;
 	static void* NUM_ARMORBUTTONS;
-	static void* mItems;
+	static std::vector<ItemGroup> mItems[5];
+	static void _populateFilteredItems();
+	static void _populateItem(ItemInstance const&);
+	static void _populateItems();
 
 };

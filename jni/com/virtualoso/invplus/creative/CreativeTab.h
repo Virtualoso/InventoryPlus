@@ -25,6 +25,11 @@ public:
 	void addItem(int, int);
 	void addItem(Block*, int);
 	void addToTabsList();
+
+	static void removeCreativeItem(ItemInstance*);
+	static void removeCreativeItem(Item*, int);
+	static void removeCreativeItem(int, int);
+	static void removeCreativeItem(Block*, int);
 	
 	std::vector<ItemGroup> itemsInTab;
 	ItemInstance* tabIcon;

@@ -6,6 +6,7 @@
 
 #include "../util/String.h"
 #include "../block/BlockID.h"
+#include "../json/json/json.h"
 
 class Item;
 class Block;
@@ -135,7 +136,7 @@ public:
     void* componentsMatch(ItemInstance const&) const;
     void* getAttackDamage() const;
     bool canDestroySpecial(Block const&) const;
-    void* sameItemAndAux(ItemInstance const&) const;
+    bool sameItemAndAux(ItemInstance const&) const;
     bool hasComponent(std::string const&) const;
     void* clone() const;
     void* matchesItem(ItemInstance const&) const;
