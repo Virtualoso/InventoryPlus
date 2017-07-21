@@ -2,7 +2,7 @@
 	// See https://go.microsoft.com/fwlink/?LinkId=733558
 	// for the documentation about the tasks.json format
 	"version": "0.1.0",
-	"command": "C:\\Users\\Andrew Miller\\Downloads\\BlockLauncher Addon Compiler\\BlockLauncher Addon Compiler\\preblac.bat",
+	"command": "D:\\Downloads\\BlockLauncher Addon Compiler\\BlockLauncher Addon Compiler\\preblac.bat",
 	"isShellCommand": false,
 	"showOutput": "never"
 }
