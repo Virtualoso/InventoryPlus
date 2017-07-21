@@ -21,7 +21,7 @@ static void InventoryScreen$init(InventoryScreen* self)
 {
 	if(self->mcClient->getLocalPlayer()->isInCreativeMode() && self->craftingType != CraftingType::FULLCRAFTING)
 		InventoryTransitions::init(self);
-
+	
 	_InventoryScreen$init(self);
 }
 

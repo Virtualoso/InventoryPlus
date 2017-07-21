@@ -10,6 +10,8 @@
 #include "com/mojang/minecraftpe/client/screen/Screen.h"
 #include "com/mojang/minecraftpe/client/screen/InventoryScreen.h"
 #include "com/mojang/minecraftpe/client/ScreenChooser.h"
+#include "com/mojang/minecraftpe/client/MinecraftGame.h"
+#include "com/mojang/minecraftpe/client/gui/GuiData.h"
 
 std::shared_ptr<Touch::TButton> InventoryTransitions::forwardButton = NULL;
 std::shared_ptr<Touch::TButton> InventoryTransitions::backButton = NULL;

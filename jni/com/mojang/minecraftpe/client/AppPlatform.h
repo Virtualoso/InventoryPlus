@@ -21,6 +21,8 @@ class FileStorageDirectory;
 enum class ControllerType;
 enum class FullscreenMode;
 
+namespace mce { class ImageBuffer; }
+
 enum class UIScalingRules {
 	Desktop, PocketApple, PocketAndroid, PocketWindows
 };
@@ -43,9 +45,9 @@ public:
 	virtual std::string getUserDataUrl() const = 0;
 	virtual std::string getAlternateDataUrl() const;
 	virtual std::string getPackagePath() = 0;
-	virtual void* loadPNG(TextureData&, std::string const&);
-	virtual void* loadTGA(TextureData&, std::string const&);
-	virtual void* loadJPEG(TextureData&, std::string const&);
+	virtual void* loadPNG(mce::ImageBuffer&, std::string const&);
+	virtual void* loadTGA(mce::ImageBuffer&, std::string const&);
+	virtual void* loadJPEG(mce::ImageBuffer&, std::string const&);
 	virtual int getKeyFromKeyCode(int, int, int);
 	virtual void showKeyboard(std::string const&, int, bool, bool, bool, Vec2 const&);
 	virtual void hideKeyboard();

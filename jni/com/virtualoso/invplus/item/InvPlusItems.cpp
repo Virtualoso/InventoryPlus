@@ -9,7 +9,6 @@ void InvPlusItems::initItems()
 	//registerItemIds();
 	
 	//barrier = new Barrier("barrier", getNextItemId());
-
 }
 
 int InvPlusItems::index;
