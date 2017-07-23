@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <sstream>
 
 class EntityTargetFilter;
 namespace Json { class Value; }
@@ -68,6 +69,23 @@ public:
     static void* cp437ToUTF8(std::string const&);
     static void* getPoint(float, float, float);
     static void* getBezier(float, float, float, float);
+	static std::string toFloatString(double value)
+	{
+		std::stringstream stm;
+		stm<<value;
+		std::string str;
+		stm>>str;
+		return str;
+	}
+	static int stringToInt(const std::string& number)
+	{
+		std::stringstream stm;
+		stm<<number;
+		int ret;
+		stm>>ret;
+		return ret;
+	}
+	
 
     // static fields
     static void* REPLACEMENT_CHARACTER_CODE;

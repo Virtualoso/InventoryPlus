@@ -31,7 +31,7 @@ enum class EntityType;
 enum class DimensionId;
 
 class BlockSource {
-
+public:
     // virtual
     virtual ~BlockSource();
 

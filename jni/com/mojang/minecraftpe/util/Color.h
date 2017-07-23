@@ -1,10 +1,11 @@
 #pragma once
 
 class Color {
-
 public:
+    float red, green, blue, alpha;
 
-    float r, g, b, a;
+	Color(){}
+	Color(float r, float g, float b, float a) : red(r), green(g), blue(b), alpha(a) {};
 
     unsigned int toARGB() const;
     unsigned int toABGR() const;

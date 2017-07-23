@@ -16,6 +16,7 @@ enum class BlockRenderLayer;
 enum class BlockShape;
 class TextureAtlas;
 class TextureAtlasItem;
+class ResourcePackManager;
 namespace Json { class Value; }
 
 enum class BlockSoundType {
@@ -98,7 +99,7 @@ public:
     BlockShape getBlockShape() const;
     BlockRenderLayer getRenderLayer() const;
     
-    static void initBlocks();
+    static void initBlocks(ResourcePackManager&);
     static void teardownBlocks();
     static void setTextureAtlas(std::shared_ptr<TextureAtlas>);
     static void reloadBlockUVs(TextureAtlas&);

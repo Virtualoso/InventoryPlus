@@ -138,7 +138,7 @@ public:
     bool canDestroySpecial(Block const&) const;
     bool sameItemAndAux(ItemInstance const&) const;
     bool hasComponent(std::string const&) const;
-    void* clone() const;
+    ItemInstance clone() const;
     void* matchesItem(ItemInstance const&) const;
     void* matches(ItemInstance const&) const;
     void* save() const;
