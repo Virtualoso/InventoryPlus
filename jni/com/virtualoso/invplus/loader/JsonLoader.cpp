@@ -6,6 +6,7 @@
 #include "com/mojang/minecraftpe/resource/ResourceLocation.h"
 #include "com/mojang/minecraftpe/client/AppPlatform.h"
 #include "com/mojang/minecraftpe/util/Util.h"
+#include "com/mojang/minecraftpe/item/Item.h"
 
 ResourcePackManager* JsonLoader::manager;
 
@@ -61,11 +62,12 @@ void JsonLoader::handleFile(Json::Value& root)
 void JsonLoader::registerTab(Json::Value& root)
 {
 	CreativeTab* tab = new CreativeTab();
+	bool overrideCreative = root.get("override_creative", false).asBool();
 	Json::Value tabIcon = root["tab_icon"];
 	if(!tabIcon.isNull())
 	{
-		int id = tabIcon["id"].asInt();
-		int data = tabIcon["data"].asInt();
+		int id = tabIcon.get("id", 255).asInt();
+		int data = tabIcon.get("data", 0).asInt();
 		tab->setTabIcon(id, data);
 	}
 	Json::Value items = root["items"];
@@ -76,12 +78,14 @@ void JsonLoader::registerTab(Json::Value& root)
 		while(start != end)
 		{
 			Json::Value item = *start;
-			int id = item["id"].asInt();
-			int data = item["data"].asInt();
-			tab->addItem(id, data);
-			Json::Value overrideCreative = item["override_creative"];
-			if(!overrideCreative.isNull() && overrideCreative.asBool())
-				CreativeTab::removeCreativeItem(id, data);
+			int id = item.get("id", 255).asInt();
+			int data = item.get("data", 0).asInt();
+			if(Item::mItems[id] != NULL)
+			{
+				tab->addItem(id, data);
+				if(item.get("override_creative", false).asBool() || overrideCreative)
+					CreativeTab::removeCreativeItem(id, data);
+			}
 			start++;
 		}
 	}
