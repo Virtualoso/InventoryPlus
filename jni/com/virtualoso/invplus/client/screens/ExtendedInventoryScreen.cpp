@@ -184,7 +184,10 @@ void ExtendedInventoryScreen::_pointerReleased(int x, int y)
 	for(int tab = 0; tab < renderedTabs.size(); tab++)
 	{
 		if(tab != selectedTabIndex && renderedTabs[tab]->isInside(x, y) && renderedTabs[tab]->pressed)
+		{
 			selectedTabIndex = tab;
+			mcClient->playUI("random.click", 1.0F, 1.0F);
+		}
 		
 		renderedTabs[tab]->pressed = false;
 	}

@@ -17,7 +17,6 @@ public:
     ItemInstance getResult(ItemInstance const*) const;
     void addFurnaceRecipe(int, ItemInstance const&);
     void addFurnaceRecipeAuxData(short, short, ItemInstance const&);
-    void clearFurnaceRecipes();
     void _init();
 
     // static
