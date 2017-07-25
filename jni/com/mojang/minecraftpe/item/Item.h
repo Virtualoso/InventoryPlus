@@ -152,7 +152,7 @@ public:
 
 	// non virtual
 	Item(std::string const&, short);
-static Item* lookupByName(std::string const&, bool);
+	static Item* lookupByName(std::string const&, bool);
 	static TextureUVCoordinateSet getTextureUVCoordinateSet(std::string const&, int);
 	static TextureUVCoordinateSet getTextureItem(std::string const&);
 	static void addBlockItems();
@@ -175,7 +175,7 @@ public:
 public:
 	static Item* mItems[4096];
 	static std::vector<ItemInstance> mCreativeList;
-	static std::unordered_map<std::string,std::pair<std::string const,std::unique_ptr<Item>>> mItemLookupMap;
+	static std::unordered_map<std::string, std::unique_ptr<Item>> mItemLookupMap;
 public:
 	static Item* mDye_powder;	//_ZN4Item11mDye_powderE
 	static Item* mBucket;	//_ZN4Item7mBucketE
@@ -374,6 +374,6 @@ ItemType& registerItem(std::string const&name,int id,const Args&...rest)
 	
 	ItemType* new_instance = new ItemType(name,id,rest...);
 	Item::mItems[id + 0x100] = new_instance;
-	Item::mItemLookupMap.emplace(item_name,std::pair<std::string const,std::unique_ptr<Item> >(item_name,std::unique_ptr<Item>((Item*)new_instance)));
+	Item::mItemLookupMap.emplace(item_name,std::unique_ptr<Item>((Item*)new_instance));
 	return *new_instance;
 }

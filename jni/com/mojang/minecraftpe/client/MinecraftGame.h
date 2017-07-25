@@ -37,6 +37,9 @@ class ScreenChooser;
 namespace ui {
 	class GameEventNotification;
 };
+namespace mce {
+	class TextureGroup;
+};
 class ResourcePacksInfoData;
 class HoloUIInputMode;
 enum class ResourcePackResponse;

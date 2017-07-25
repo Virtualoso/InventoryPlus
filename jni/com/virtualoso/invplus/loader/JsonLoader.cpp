@@ -66,7 +66,20 @@ void JsonLoader::registerTab(Json::Value& root)
 	Json::Value tabIcon = root["tab_icon"];
 	if(!tabIcon.isNull())
 	{
-		int id = tabIcon.get("id", 255).asInt();
+		int id;
+		Json::Value itemName = tabIcon["name"];
+		if(!itemName.isNull())
+		{
+			Item* instance = Item::lookupByName(itemName.asString(), true);
+			if(instance != NULL && instance->itemId != -1)
+				id = instance->itemId;
+			else
+				id = tabIcon.get("id", 255).asInt();
+		}
+		else
+		{
+			id = tabIcon.get("id", 255).asInt();
+		}
 		int data = tabIcon.get("data", 0).asInt();
 		tab->setTabIcon(id, data);
 	}
@@ -78,7 +91,20 @@ void JsonLoader::registerTab(Json::Value& root)
 		while(start != end)
 		{
 			Json::Value item = *start;
-			int id = item.get("id", 255).asInt();
+			int id;
+			Json::Value itemName = item["name"];
+			if(!itemName.isNull())
+			{
+				Item* instance = Item::lookupByName(itemName.asString(), true);
+				if(instance != NULL && instance->itemId != -1)
+					id = instance->itemId;
+				else
+					id = item.get("id", 255).asInt();
+			}
+			else
+			{
+				id = item.get("id", 255).asInt();
+			}
 			int data = item.get("data", 0).asInt();
 			if(Item::mItems[id] != NULL)
 			{

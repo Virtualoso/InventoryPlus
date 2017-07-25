@@ -6,10 +6,12 @@
 #include <map>
 #include <unordered_map>
 #include "BlockID.h"
+#include "BlockState.h"
 #include "Material.h"
 #include "../item/CreativeItemCategory.h"
 #include "../math/AABB.h"
 #include "../util/Color.h"
+#include "../util/Util.h"
 
 class BlockSource;
 class BlockPos;
@@ -20,12 +22,13 @@ class Random;
 class ItemInstance;
 class Container;
 class Brightness;
-class BlockState { public: class BlockStates; };
 enum class BlockProperty;
 enum class BlockSupportType;
 enum class BlockRenderLayer;
 enum class BlockEntityType;
 enum class EntityType;
+
+// updated for 1.1.4.51
 
 class Block {
 
@@ -49,11 +52,16 @@ public:
 	/* 0x38 */ Color mapColor;
 	/* 0x48 */ float friction;
 	/* 0x4c */ bool heavy;
-	/* 0x50 */ float destroyTime;
-	/* 0x54 */ float blastResistance;
-	/* 0x58 */ CreativeItemCategory category;
-	/* 0x5c */ AABB aabb;
-	/* size = 0x78 */
+	/* 0x50 */ float particleQuantity;
+	/* 0x54 */ float destroyTime;
+	/* 0x58 */ float blastResistance;
+	/* 0x5c */ CreativeItemCategory category;
+	/* 0x60 */ bool allowsRunes;
+	/* 0x61 */ bool idk_b;
+	/* 0x64 */ AABB aabb;
+	/* 0x80 */ int bitsUsed;
+	/* 0x84 */ BlockState blockStates[42];
+	/* size = 0x27c */
 
 	// virtual
    virtual ~Block();
@@ -219,6 +227,7 @@ public:
 	void addAABB(AABB const&, AABB const*, std::vector<AABB, std::allocator<AABB> >&) const;
 	bool canSlide() const;
 
+	static std::unordered_map<std::string,Block const*> mBlockLookupMap;
 	static std::vector<std::unique_ptr<Block>> mOwnedBlocks;
 	static Block* mBlocks[256];
 	static bool mSolid[256];
@@ -418,3 +427,17 @@ public:
 	static Block* mObserver; // 251
 	static Block* mInfoReserved6; // 255
 };
+
+template <typename BlockType,typename...Args>
+BlockType& registerBlock(std::string const&name,int id,const Args&...rest)
+{
+	std::string const block_name = Util::toLower(name);
+	if(Block::mBlockLookupMap.count(block_name)!=0)
+		return *(BlockType*)Block::mBlocks[id];
+	
+	BlockType* new_instance = new BlockType(name,id,rest...);
+	Block::mBlocks[id] = new_instance;
+	Block::mOwnedBlocks.emplace_back(std::unique_ptr<BlockType>(new_instance));
+	Block::mBlockLookupMap.emplace(block_name,(Block const*)new_instance);
+	return *new_instance;
+}
